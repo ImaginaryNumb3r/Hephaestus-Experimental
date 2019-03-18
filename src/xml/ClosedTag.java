@@ -18,7 +18,7 @@ public class ClosedTag extends SequenceNode {
     private static List<AbstractToken> getSequence() {
         return Arrays.asList(
             new CharToken('<'),
-            new EitherNode(new TextToken(), new WhitespaceToken()),
+            new OptionalNode(new WhitespaceToken(), new TextToken()),
             new MultiNode(AttributeToken::new),
             new StringToken("/>")
         );

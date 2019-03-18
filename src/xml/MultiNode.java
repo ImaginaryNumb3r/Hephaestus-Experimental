@@ -19,6 +19,7 @@ public class MultiNode extends AbstractToken {
     public MultiNode(Supplier<TokenBuilder> tokenConstructor) {
         _parsedTokens = new ArrayList<>();
         _tokenConstructor = tokenConstructor;
+        _currentToken = null;
     }
 
     @Override
@@ -51,6 +52,12 @@ public class MultiNode extends AbstractToken {
         }
 
         return null;
+    }
+
+    @Override
+    protected void partialReset() {
+        _parsedTokens.clear();
+        _currentToken = null;
     }
 
     @Override

@@ -12,6 +12,11 @@ public class OpenedTag extends AbstractToken {
     }
 
     @Override
+    protected void partialReset() {
+
+    }
+
+    @Override
     public String toString() {
         return null;
     }

@@ -24,6 +24,11 @@ public abstract class ConsumerNode extends AbstractToken implements CharPredicat
     }
 
     @Override
+    protected void partialReset() {
+        _buffer.setLength(0);
+    }
+
+    @Override
     public String toString() {
         return _buffer.toString();
     }

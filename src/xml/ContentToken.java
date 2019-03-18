@@ -85,6 +85,12 @@ public class ContentToken extends AbstractToken {
     }
 
     @Override
+    protected void partialReset() {
+        _buffer.setLength(0);
+        _parsingPrefix = true;
+    }
+
+    @Override
     public String toString() {
         return _buffer.toString();
     }

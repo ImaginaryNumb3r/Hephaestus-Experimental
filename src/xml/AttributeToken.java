@@ -11,7 +11,6 @@ import java.util.List;
  */
 public class AttributeToken extends SequenceNode {
 
-
     public AttributeToken() {
         super(getAttributeTokens());
     }

@@ -67,6 +67,13 @@ public class EitherNode extends AbstractToken {
     }
 
     @Override
+    protected void partialReset() {
+        _tokenBuilders.forEach(TokenBuilder::reset);
+        _validTokens.forEach(TokenBuilder::reset);
+        _result = null;
+    }
+
+    @Override
     public String toString() {
         return _result != null ? _result.toString() : null;
     }

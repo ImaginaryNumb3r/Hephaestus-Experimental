@@ -46,6 +46,13 @@ public class SequenceNode extends AbstractToken {
     }
 
     @Override
+    protected void partialReset() {
+        _sequence.forEach(TokenBuilder::reset);
+        _tokenIndex = 0;
+        _result = null;
+    }
+
+    @Override
     public String toString() {
         return _result;
     }

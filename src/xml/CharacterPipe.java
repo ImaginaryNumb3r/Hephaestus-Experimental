@@ -27,8 +27,6 @@ public class CharacterPipe {
         return _input.charAt(_pos);
     }
 
-
-
     public Iterator<Character> toIterator() {
         return new Iterator<>() {
             @Override

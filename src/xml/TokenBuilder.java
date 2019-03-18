@@ -30,10 +30,16 @@ public interface TokenBuilder {
      */
     TokenBuilder.Status getStatus();
 
+    boolean canAccept();
+
+    boolean isValid();
+
     /**
      * @return String representation of the token if parsing is finished. Otherwise null.
      */
     String toString();
+
+    void reset();
 
     enum Status {
         PARSING, INVALID, DONE, CONTINUATION;
@@ -58,4 +64,24 @@ public interface TokenBuilder {
             }
         }
     }
+
+    static TokenBuilder empty() {
+        return new AbstractToken() {
+            @Override
+            public Status accept(char character) {
+                throw new IllegalStateException("Empty token cannot accept characters");
+            }
+
+            @Override
+            protected void partialReset() {
+                // You sure you should be calling this?
+            }
+
+            @Override
+            public String toString() {
+                return "";
+            }
+        };
+    }
+
 }

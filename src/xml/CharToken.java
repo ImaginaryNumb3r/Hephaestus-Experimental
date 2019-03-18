@@ -20,6 +20,9 @@ public class CharToken extends AbstractToken {
     }
 
     @Override
+    protected void partialReset() { /* No partial status to reset. */}
+
+    @Override
     public String toString() {
         return _parseStatus == DONE ? String.valueOf(_character) : null;
     }

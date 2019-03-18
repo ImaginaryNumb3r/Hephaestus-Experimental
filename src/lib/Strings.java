@@ -1,6 +1,7 @@
 package lib;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * @author Patrick Plieschnegger
@@ -12,9 +13,14 @@ public class Strings {
         return object != null ? object.toString() : fallback;
     }
 
+    public static String concat(Object... objects) {
+        return concat(Arrays.asList(objects));
+    }
+
     public static String concat(Iterable<?> objects) {
         return joinToString(objects, "");
     }
+
     public static String joinToString(Iterable<?> objects, String separator) {
         var strings = new ArrayList<String>();
         objects.forEach(obj -> strings.add(obj.toString()));

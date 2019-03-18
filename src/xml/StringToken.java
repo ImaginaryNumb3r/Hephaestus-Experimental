@@ -29,6 +29,11 @@ public class StringToken extends AbstractToken {
     }
 
     @Override
+    protected void partialReset() {
+        _parseIndex = 0;
+    }
+
+    @Override
     public String toString() {
         return _parseStatus == Status.DONE ? _string : null;
     }
