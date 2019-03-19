@@ -22,3 +22,4 @@ public class XMLDocument {
         throw new NoImplementationException();
     }
 }
+
