@@ -1,4 +1,6 @@
-package xml.simple;
+package xml;
+
+import java.util.Objects;
 
 /**
  * Creator: Patrick
@@ -39,5 +41,19 @@ public class OptionalConsumer extends AbstractParseNode {
         copy._buffer.append(_buffer);
 
         return copy;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof OptionalConsumer)) return false;
+        OptionalConsumer that = (OptionalConsumer) o;
+        return Objects.equals(_buffer.toString(), that._buffer.toString()) &&
+                Objects.equals(_acceptCondition, that._acceptCondition);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(_buffer, _acceptCondition);
     }
 }

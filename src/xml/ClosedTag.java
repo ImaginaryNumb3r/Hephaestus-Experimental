@@ -1,8 +1,9 @@
-package xml.simple;
+package xml;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Creator: Patrick
@@ -55,5 +56,20 @@ public class ClosedTag extends SequenceNode implements CopyNode<ClosedTag> {
         attributes.addAll(_attributes.getElements());
 
         return copy;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ClosedTag)) return false;
+        ClosedTag that = (ClosedTag) o;
+        return Objects.equals(_name, that._name) &&
+                Objects.equals(_attributes, that._attributes) &&
+                Objects.equals(_trailingWhitespace, that._trailingWhitespace);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(_name, _attributes, _trailingWhitespace);
     }
 }

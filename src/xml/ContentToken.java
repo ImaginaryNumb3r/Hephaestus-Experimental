@@ -1,4 +1,6 @@
-package xml.simple;
+package xml;
+
+import java.util.Objects;
 
 /**
  * Creator: Patrick
@@ -6,7 +8,7 @@ package xml.simple;
  * Purpose:
  */
 public class ContentToken extends AbstractParseNode {
-    private final StringBuilder _buffer;
+    protected final StringBuilder _buffer;
     private final String _prefix;
     private final String _postfix;
 
@@ -75,5 +77,20 @@ public class ContentToken extends AbstractParseNode {
     public void setContent(CharSequence content) {
         _buffer.setLength(0);
         _buffer.append(content);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ContentToken)) return false;
+        ContentToken that = (ContentToken) o;
+        return Objects.equals(_buffer.toString(), that._buffer.toString()) &&
+                Objects.equals(_prefix, that._prefix) &&
+                Objects.equals(_postfix, that._postfix);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(_buffer.toString(), _prefix, _postfix);
     }
 }

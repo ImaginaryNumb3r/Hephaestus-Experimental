@@ -1,4 +1,4 @@
-package xml.simple;
+package xml;
 
 /**
  * @author Patrick Plieschnegger

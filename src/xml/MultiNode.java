@@ -1,13 +1,13 @@
-package xml.simple;
+package xml;
 
 import lib.ListIterable;
 import lib.Strings;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -67,5 +67,18 @@ public class MultiNode<T extends CopyNode<T>> extends AbstractParseNode implemen
     @Override
     public ListIterator<T> listIterator(int index) {
         return _elements.listIterator(index);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof MultiNode)) return false;
+        MultiNode<?> multiNode = (MultiNode<?>) o;
+        return Objects.equals(_elements, multiNode._elements);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(_elements);
     }
 }

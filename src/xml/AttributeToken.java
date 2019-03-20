@@ -1,7 +1,8 @@
-package xml.simple;
+package xml;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -53,5 +54,19 @@ public class AttributeToken extends SequenceNode implements CopyNode<AttributeTo
         copy._sequence.addAll(sequence);
 
         return copy;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AttributeToken)) return false;
+        AttributeToken that = (AttributeToken) o;
+        return  Objects.equals(_name, that._name)
+                && Objects.equals(_value, that._value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(_name, _value);
     }
 }

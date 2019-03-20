@@ -1,4 +1,6 @@
-package xml.simple;
+package xml;
+
+import java.util.Objects;
 
 /**
  * Creator: Patrick
@@ -27,5 +29,18 @@ public class CharTerminal extends AbstractParseNode implements CopyNode<CharTerm
     @Override
     public CharTerminal deepCopy() {
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CharTerminal)) return false;
+        CharTerminal that = (CharTerminal) o;
+        return _character == that._character;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(_character);
     }
 }

@@ -1,4 +1,6 @@
-package xml.simple;
+package xml;
+
+import java.util.Objects;
 
 /**
  * @author Patrick Plieschnegger
@@ -28,5 +30,18 @@ public class StringTerminal extends AbstractParseNode implements CopyNode<String
     @Override
     public StringTerminal deepCopy() {
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof StringTerminal)) return false;
+        StringTerminal that = (StringTerminal) o;
+        return Objects.equals(_terminal, that._terminal);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(_terminal);
     }
 }

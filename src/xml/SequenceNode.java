@@ -1,13 +1,10 @@
-package xml.simple;
+package xml;
 
 import lib.ListIterable;
 import lib.Strings;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -53,5 +50,18 @@ public class SequenceNode extends AbstractParseNode implements ListIterable<Pars
     @Override
     public @NotNull ListIterator<ParseNode> listIterator(int index) {
         return _sequence.listIterator(index);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SequenceNode)) return false;
+        SequenceNode that = (SequenceNode) o;
+        return Objects.equals(_sequence, that._sequence);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(_sequence);
     }
 }
