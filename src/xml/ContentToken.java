@@ -61,7 +61,7 @@ public class ContentToken extends AbstractParseNode {
         return index + offset;
     }
 
-    public String getValue() {
+    public String getContent() {
         return _buffer.toString();
     }
 

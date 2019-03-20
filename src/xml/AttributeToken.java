@@ -33,7 +33,7 @@ public class AttributeToken extends SequenceNode implements CopyNode<AttributeTo
     }
 
     public String getValue() {
-        return _value.getValue();
+        return _value.getContent();
     }
 
     public void setName(String name) {

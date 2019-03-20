@@ -2,9 +2,6 @@ package xml;
 
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static org.junit.Assert.*;
 import static xml.ParseNode.INVALID;
 
@@ -24,7 +21,7 @@ public class ContentTokenTest {
         int parse = token.parse(data, 0);
         assertNotEquals(INVALID, parse);
 
-        assertEquals(expected, token.getValue());
+        assertEquals(expected, token.getContent());
         assertEquals(data, token.toString());
 
         ParseNode copy = token.deepCopy();
