@@ -44,8 +44,6 @@ public class ClosedTagTest extends AbstractParseNodeTest {
         Assert.assertNotEquals(parse, ParseNode.INVALID);
 
         ClosedTag copy = closedTag.deepCopy();
-        String s = closedTag.toString();
-        String s1 = copy.toString();
 
         assertEquals(closedTag, copy);
     }

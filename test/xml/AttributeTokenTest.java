@@ -1,7 +1,5 @@
 package xml;
 
-import static org.junit.Assert.*;
-
 /**
  * Creator: Patrick
  * Created: 20.03.2019
