@@ -20,6 +20,17 @@ public class ContentTokenTest {
         String expected = " data ! ";
         ContentToken token = new ContentToken("===", "!!");
 
+        checkParse(expected, data, token);
+
+        data = "=== data ! #%&";
+        expected = " data ! ";
+        token = new ContentToken("===", "#%&\"");
+
+        checkParse(expected, data, token);
+    }
+
+    public void checkParse(String expected, String data, ContentToken token) {
+
         int parse = token.parse(data, 0);
         assertNotEquals(INVALID, parse);
 

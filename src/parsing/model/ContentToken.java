@@ -53,6 +53,8 @@ public class ContentToken extends AbstractParseNode {
         int offset;
         for (offset = 0; offset != string.length(); ++offset) {
             char expected = string.charAt(offset);
+
+            // if (index + offset >= string.length()) return INVALID;
             char actual = chars.charAt(index + offset);
 
             if (expected != actual) return INVALID;

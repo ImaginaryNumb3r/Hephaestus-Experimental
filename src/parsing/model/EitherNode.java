@@ -1,9 +1,73 @@
 package parsing.model;
 
+import java.util.Objects;
+
 /**
  * Creator: Patrick
  * Created: 20.03.2019
  * Purpose:
  */
-public class EitherNode {
+public class EitherNode<O extends CopyNode<O>, M extends CopyNode<M>> extends AbstractParseNode {
+    private final O _optional;
+    private final M _mandatory;
+    private Status _status;
+
+    public EitherNode(O optional, M mandatory) {
+        _optional = optional;
+        _mandatory = mandatory;
+        _status = Status.NONE;
+    }
+
+    @Override
+    protected int parseImpl(String chars, int index) {
+        int nextIndex = _optional.parse(chars, index);
+
+        if (nextIndex != INVALID) {
+            index = nextIndex;
+            _status = Status.OPTIONAL;
+        } else {
+            nextIndex = _mandatory.parse(chars, index);
+
+            if (nextIndex != INVALID) {
+                index = nextIndex;
+                _status = Status.MANDATORY;
+            }
+        }
+
+        return index;
+    }
+
+    @Override
+    public String toString() {
+        return _status == Status.OPTIONAL  ? _optional.toString()
+             : _status == Status.MANDATORY ? _mandatory.toString()
+             : "";
+    }
+
+    @Override
+    public ParseNode deepCopy() {
+        O optionalCopy = _optional.deepCopy();
+        M mandatoryCopy = _mandatory.deepCopy();
+
+        return new EitherNode<>(optionalCopy, mandatoryCopy);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof EitherNode)) return false;
+        EitherNode<?, ?> that = (EitherNode<?, ?>) o;
+        return Objects.equals(_optional, that._optional) &&
+                Objects.equals(_mandatory, that._mandatory) &&
+                _status == that._status;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(_optional, _mandatory, _status);
+    }
+
+    private enum Status {
+        OPTIONAL, MANDATORY, NONE
+    }
 }

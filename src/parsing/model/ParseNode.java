@@ -10,7 +10,6 @@ package parsing.model;
  *  - Node
  *  - Tag
  *  - Terminal -> Elemental string for direct parsing
- *
  */
 public interface ParseNode {
     int INVALID = -1;
