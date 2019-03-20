@@ -11,31 +11,29 @@ import java.util.Objects;
  * '<' Text Blank Attributes Blank '/>'
  */
 public class ClosedTag extends SequenceNode implements CopyNode<ClosedTag> {
-    private final TextToken _name;
-    private final AttributesNode _attributes;
+    private final TagHeader _head;
     private final WhitespaceToken _trailingWhitespace;
 
     public ClosedTag() {
         super(new ArrayList<>());
-        _name = new TextToken();
-        _attributes = new AttributesNode();
+        _head = new TagHeader();
 
         _trailingWhitespace = new WhitespaceToken();
         _sequence.addAll(Arrays.asList(
-            new CharTerminal('<'), _name, _attributes, _trailingWhitespace, new StringTerminal("/>")
+            _head, _trailingWhitespace, new StringTerminal("/>")
         ));
     }
 
     public String getName() {
-        return _name.toString();
+        return _head.getName();
     }
 
     public void setName(String name) {
-        _name.setText(name);
+        _head.setName(name);
     }
 
     public List<AttributeToken> getAttributes() {
-        return _attributes.getElements();
+        return _head.getAttributes();
     }
 
     public String getTrailingWhitespace() {
@@ -49,11 +47,13 @@ public class ClosedTag extends SequenceNode implements CopyNode<ClosedTag> {
     @Override
     public ClosedTag deepCopy() {
         ClosedTag copy = new ClosedTag();
+        TagHeader headCopy = _head.deepCopy();
+
+        var attributesCopy = headCopy.getAttributes();
+
         copy.setName(getName());
         copy.setTrailingWhitespace(getTrailingWhitespace());
-
-        List<AttributeToken> attributes = copy._attributes.getElements();
-        attributes.addAll(_attributes.getElements());
+        copy.getAttributes().addAll(attributesCopy);
 
         return copy;
     }
@@ -62,14 +62,14 @@ public class ClosedTag extends SequenceNode implements CopyNode<ClosedTag> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ClosedTag)) return false;
+        if (!super.equals(o)) return false;
         ClosedTag that = (ClosedTag) o;
-        return Objects.equals(_name, that._name) &&
-                Objects.equals(_attributes, that._attributes) &&
+        return Objects.equals(_head, that._head) &&
                 Objects.equals(_trailingWhitespace, that._trailingWhitespace);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(_name, _attributes, _trailingWhitespace);
+        return Objects.hash(super.hashCode(), _head, _trailingWhitespace);
     }
 }

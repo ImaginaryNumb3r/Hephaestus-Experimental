@@ -54,6 +54,6 @@ public class OptionalConsumer extends AbstractParseNode {
 
     @Override
     public int hashCode() {
-        return Objects.hash(_buffer, _acceptCondition);
+        return Objects.hash(_buffer.toString(), _acceptCondition);
     }
 }

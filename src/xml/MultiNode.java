@@ -4,10 +4,7 @@ import lib.ListIterable;
 import lib.Strings;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -74,7 +71,24 @@ public class MultiNode<T extends CopyNode<T>> extends AbstractParseNode implemen
         if (this == o) return true;
         if (!(o instanceof MultiNode)) return false;
         MultiNode<?> multiNode = (MultiNode<?>) o;
-        return Objects.equals(_elements, multiNode._elements);
+
+        Iterator<? extends ParseNode> iter = iterator();
+        Iterator<? extends ParseNode> otherIter = multiNode.iterator();
+
+        while (iter.hasNext()) {
+            ParseNode node = iter.next();
+
+            // Return false if other iterator has less elements.
+            if (!otherIter.hasNext()) return false;
+            ParseNode otherNode = otherIter.next();
+
+            boolean equals = node.equals(otherNode);
+            if (!equals) return false;
+        }
+
+        // Return false if other iterator has excessive elements.
+        if (otherIter.hasNext()) return false;
+        return true;
     }
 
     @Override

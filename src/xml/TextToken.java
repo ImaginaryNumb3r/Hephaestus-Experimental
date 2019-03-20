@@ -19,4 +19,17 @@ public class TextToken extends ConsumerNode {
         _buffer.setLength(0);
         _buffer.append(text);
     }
+
+    @Override
+    public TextToken deepCopy() {
+        TextToken copy = new TextToken();
+        copy.setText(_buffer.toString());
+
+        return copy;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

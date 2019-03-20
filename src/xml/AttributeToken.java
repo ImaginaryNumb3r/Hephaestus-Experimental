@@ -28,12 +28,12 @@ public class AttributeToken extends SequenceNode implements CopyNode<AttributeTo
         );
     }
 
-    public TextToken getName() {
-        return _name;
+    public String getName() {
+        return _name.toString();
     }
 
-    public ContentToken getValue() {
-        return _value;
+    public String getValue() {
+        return _value.getValue();
     }
 
     public void setName(String name) {
@@ -51,7 +51,10 @@ public class AttributeToken extends SequenceNode implements CopyNode<AttributeTo
             .collect(Collectors.toList());
 
         AttributeToken copy = new AttributeToken();
+        copy._sequence.clear();
         copy._sequence.addAll(sequence);
+        copy.setName(getName());
+        copy.setValue(getValue());
 
         return copy;
     }
