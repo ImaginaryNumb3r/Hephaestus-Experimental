@@ -22,6 +22,5 @@ public class PrologTokenTest {
         assertEquals(PROLOG, token.toString());
 
         ParseNode parseNode = token.deepCopy();
-
     }
 }
