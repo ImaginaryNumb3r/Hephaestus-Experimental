@@ -1,9 +1,6 @@
 package parsing.xml;
 
-import parsing.model.CharTerminal;
-import parsing.model.CopyNode;
-import parsing.model.SequenceNode;
-import parsing.model.TextToken;
+import parsing.model.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,14 +16,17 @@ import java.util.stream.Collectors;
 public class TagHeader extends SequenceNode implements CopyNode<TagHeader> {
     private final TextToken _name;
     private final AttributesNode _attributes;
+    private final WhitespaceToken _whitespace;
 
     public TagHeader() {
         super(new ArrayList<>());
         _name = new TextToken();
         _attributes = new AttributesNode();
 
+        _whitespace= new WhitespaceToken();
         _sequence.addAll(Arrays.asList(
-                new CharTerminal('<'), _name, _attributes
+                new CharTerminal('<'), _name, _attributes, _whitespace
+
         ));
     }
 
@@ -42,10 +42,19 @@ public class TagHeader extends SequenceNode implements CopyNode<TagHeader> {
         return _attributes.getElements();
     }
 
+    public String getWhitespace() {
+        return _whitespace.toString();
+    }
+
+    public void setWhitespace(CharSequence whitespace) {
+        _whitespace.setWhitespace(whitespace);
+    }
+
     @Override
     public TagHeader deepCopy() {
         TagHeader copy = new TagHeader();
         copy.setName(getName());
+        copy._whitespace.setWhitespace(_whitespace.toString());
 
         var attributes = copy.getAttributes();
         var attributeCopies = _attributes.getElements().stream()

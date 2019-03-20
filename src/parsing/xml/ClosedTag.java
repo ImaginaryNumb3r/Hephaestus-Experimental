@@ -17,15 +17,13 @@ import java.util.Objects;
  */
 public class ClosedTag extends SequenceNode implements CopyNode<ClosedTag> {
     private final TagHeader _head;
-    private final WhitespaceToken _trailingWhitespace;
 
     public ClosedTag() {
         super(new ArrayList<>());
         _head = new TagHeader();
 
-        _trailingWhitespace = new WhitespaceToken();
         _sequence.addAll(Arrays.asList(
-            _head, _trailingWhitespace, new StringTerminal("/>")
+            _head, new StringTerminal("/>")
         ));
     }
 
@@ -42,11 +40,11 @@ public class ClosedTag extends SequenceNode implements CopyNode<ClosedTag> {
     }
 
     public String getTrailingWhitespace() {
-        return _trailingWhitespace.toString();
+        return _head.getWhitespace();
     }
 
     public void setTrailingWhitespace(CharSequence whitespace) {
-        _trailingWhitespace.setWhitespace(whitespace);
+        _head.setWhitespace(whitespace);
     }
 
     @Override
@@ -69,12 +67,11 @@ public class ClosedTag extends SequenceNode implements CopyNode<ClosedTag> {
         if (!(o instanceof ClosedTag)) return false;
         if (!super.equals(o)) return false;
         ClosedTag that = (ClosedTag) o;
-        return Objects.equals(_head, that._head) &&
-                Objects.equals(_trailingWhitespace, that._trailingWhitespace);
+        return Objects.equals(_head, that._head);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), _head, _trailingWhitespace);
+        return Objects.hash(super.hashCode(), _head);
     }
 }

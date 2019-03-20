@@ -16,11 +16,7 @@ public class OpenedTag extends SequenceNode implements CopyNode<OpenedTag> {
 
     public OpenedTag() {
         super(Arrays.asList(
-                new CharTerminal('<'),
-                new TextToken(), // Node name
-                new SpaceToken(),
-                new AttributesNode(), // Attributes
-                new WhitespaceToken(),
+                new TagHeader(),
                 new CharTerminal('>'),
                 new StringToken(), // Node Value -> Needs to be either a sub-node or an (empty) string.
                 new CharTerminal('<'),

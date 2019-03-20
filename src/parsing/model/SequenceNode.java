@@ -56,26 +56,8 @@ public class SequenceNode extends AbstractParseNode implements ListIterable<Pars
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof SequenceNode)) return false;
-        SequenceNode other = (SequenceNode) o;
-
-        Iterator<ParseNode> iter = _sequence.iterator();
-        Iterator<ParseNode> otherIter = other._sequence.iterator();
-
-        while (iter.hasNext()) {
-            ParseNode node = iter.next();
-
-            // Return false if other iterator has less elements.
-            if (!otherIter.hasNext()) return false;
-            ParseNode otherNode = otherIter.next();
-
-            boolean equals = node.equals(otherNode);
-            if (!equals) return false;
-        }
-
-        // Return false if other iterator has excessive elements.
-        if (otherIter.hasNext()) return false;
-        return true;
-        // return Objects.equals(_sequence, other._sequence);
+        SequenceNode that = (SequenceNode) o;
+        return Objects.equals(_sequence, that._sequence);
     }
 
     @Override
