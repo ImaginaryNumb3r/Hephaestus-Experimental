@@ -10,15 +10,15 @@ import essentials.annotations.Package;
 @Package abstract class AbstractParseNode implements ParseNode {
 
     @Override
-    public int parse(char[] chars, int index) {
-        if (index >= chars.length) {
+    public int parse(String chars, int index) {
+        if (index >= chars.length()) {
             return INVALID;
         }
 
         return parseImpl(chars, index);
     }
 
-    protected abstract int parseImpl(char[] chars, int index);
+    protected abstract int parseImpl(String chars, int index);
 
     /**
      * @return String representation of the token if parsing is finished. Otherwise null.

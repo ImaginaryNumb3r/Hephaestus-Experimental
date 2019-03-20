@@ -14,7 +14,7 @@ public interface ParseNode {
      * @param index
      * @return the new index after a successful parse. Or -1 if parsing failed.
      */
-    int parse(char[] chars, int index);
+    int parse(String chars, int index);
 
     /**
      * @return String representation of the token if parsing is finished. Otherwise null.

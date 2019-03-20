@@ -15,13 +15,13 @@ public class OptionalConsumer extends AbstractParseNode {
     }
 
     @Override
-    protected int parseImpl(char[] chars, int index) {
+    protected int parseImpl(String chars, int index) {
 
-        char ch = chars[index];
+        char ch = chars.charAt(index);
         while (_acceptCondition.test(ch)) {
 
             _buffer.append(ch);
-            ch = chars[++index];
+            ch = chars.charAt(++index);
 
 /*            if (index + 1 != chars.length) {
                 return FINISHED;

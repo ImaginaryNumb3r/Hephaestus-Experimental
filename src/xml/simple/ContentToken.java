@@ -21,7 +21,7 @@ public class ContentToken extends AbstractParseNode {
     }
 
     @Override
-    protected int parseImpl(char[] chars, int index) {
+    protected int parseImpl(String chars, int index) {
         // Ensure that prefix is correct.
         index = parseString(_prefix, chars, index);
         if (index == INVALID) return INVALID;
@@ -29,14 +29,13 @@ public class ContentToken extends AbstractParseNode {
         // Parse text until postfix is encountered.
         int leadingIndex;
         while ((leadingIndex = parseString(_postfix, chars, index)) == INVALID ) {
-
-            while (index != leadingIndex) {
-                _buffer.append(chars[index]);
-                ++index;
-            }
+            ++index;
         }
 
-        return index;
+        _buffer.append(chars.charAt(index));
+
+
+        return leadingIndex;
     }
 
     /**
@@ -45,12 +44,12 @@ public class ContentToken extends AbstractParseNode {
      * @param index within character array
      * @return offset to the given index
      */
-    private int parseString(String string, char[] chars, final int index) {
+    private int parseString(String string, String chars, final int index) {
 
         int offset;
         for (offset = 0; offset != string.length(); ++offset) {
             char expected = string.charAt(offset);
-            char actual = chars[index + offset];
+            char actual = chars.charAt(index + offset);
 
             if (expected != actual) return INVALID;
         }

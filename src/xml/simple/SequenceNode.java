@@ -19,7 +19,7 @@ public class SequenceNode extends AbstractParseNode {
     }
 
     @Override
-    protected int parseImpl(char[] chars, int index) {
+    protected int parseImpl(String chars, int index) {
 
         for (ParseNode element : _sequence) {
             index = element.parse(chars, index);

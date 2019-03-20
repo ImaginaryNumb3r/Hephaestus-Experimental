@@ -13,10 +13,10 @@ public class ConsumerNode extends OptionalConsumer {
     }
 
     @Override
-    public int parse(char[] chars, int index) {
-        if (index >= chars.length) {
+    public int parse(String chars, int index) {
+        if (index >= chars.length()) {
             return INVALID;
-        } else if (!_acceptCondition.test(chars[index])) {
+        } else if (!_acceptCondition.test(chars.charAt(index))) {
             return INVALID;
         }
 

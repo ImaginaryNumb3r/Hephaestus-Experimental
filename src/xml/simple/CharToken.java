@@ -13,8 +13,8 @@ public class CharToken extends AbstractParseNode {
     }
 
     @Override
-    protected int parseImpl(char[] chars, int index) {
-        char character = chars[index];
+    protected int parseImpl(String chars, int index) {
+        char character = chars.charAt(index);
 
         return character == _character ? index + 1 : INVALID;
     }

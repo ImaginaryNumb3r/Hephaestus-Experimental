@@ -27,7 +27,7 @@ public class ClosedTag extends AbstractParseNode {
     }
 
     @Override
-    protected int parseImpl(char[] chars, int index) {
+    protected int parseImpl(String chars, int index) {
 
         for (ParseNode element : _elements) {
             index = element.parse(chars, index);

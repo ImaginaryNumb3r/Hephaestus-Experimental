@@ -21,7 +21,7 @@ public class MultiNode extends AbstractParseNode {
     }
 
     @Override
-    protected int parseImpl(char[] chars, int index) {
+    protected int parseImpl(String chars, int index) {
         ParseNode token = _tokenConstructor.get();
 
         int nextIndex;

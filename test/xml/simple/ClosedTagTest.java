@@ -19,7 +19,7 @@ public class ClosedTagTest {
     @Test
     public void testParse() {
         ClosedTag closedTag = new ClosedTag();
-        int parse = closedTag.parse(XML.toCharArray(), 0);
+        int parse = closedTag.parse(XML, 0);
         Assert.assertNotEquals(parse, INVALID);
 
 

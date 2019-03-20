@@ -1,3 +1,5 @@
+package xml;
+
 import static org.junit.Assert.*;
 
 /**
