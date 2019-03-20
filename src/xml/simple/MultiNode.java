@@ -1,9 +1,13 @@
 package xml.simple;
 
+import lib.ListIterable;
 import lib.Strings;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.function.Supplier;
 
 /**
@@ -11,18 +15,18 @@ import java.util.function.Supplier;
  * Created: 20.03.2019
  * This node never returns invalid.
  */
-public class MultiNode extends AbstractParseNode {
-    private final List<ParseNode> _elements;
-    private final Supplier<ParseNode> _tokenConstructor;
+public class MultiNode<T extends ParseNode> extends AbstractParseNode implements ListIterable<T> {
+    private final List<T> _elements;
+    private final Supplier<T> _tokenConstructor;
 
-    public MultiNode(Supplier<ParseNode> tokenConstructor) {
+    protected MultiNode(Supplier<T> tokenConstructor) {
         _elements = new ArrayList<>();
         _tokenConstructor = tokenConstructor;
     }
 
     @Override
     protected int parseImpl(String chars, int index) {
-        ParseNode token = _tokenConstructor.get();
+        T token = _tokenConstructor.get();
 
         int nextIndex;
 
@@ -30,6 +34,8 @@ public class MultiNode extends AbstractParseNode {
         while ((nextIndex = token.parse(chars, index)) != INVALID) {
             _elements.add(token);
             index = nextIndex;
+
+            token = _tokenConstructor.get();
         }
 
         return index;
@@ -38,5 +44,11 @@ public class MultiNode extends AbstractParseNode {
     @Override
     public String toString() {
         return Strings.concat(_elements);
+    }
+
+    @NotNull
+    @Override
+    public ListIterator<T> listIterator() {
+        return _elements.listIterator();
     }
 }

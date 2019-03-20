@@ -8,6 +8,6 @@ package xml.simple;
 public class TextToken extends ConsumerNode {
 
     public TextToken() {
-        super(Character::isAlphabetic);
+        super(codePoint -> Character.isAlphabetic(codePoint));
     }
 }

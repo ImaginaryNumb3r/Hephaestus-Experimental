@@ -27,15 +27,17 @@ public class ContentToken extends AbstractParseNode {
         if (index == INVALID) return INVALID;
 
         // Parse text until postfix is encountered.
-        int leadingIndex;
-        while ((leadingIndex = parseString(_postfix, chars, index)) == INVALID ) {
+        int start = index;
+        int end = INVALID;
+
+        while (end == INVALID) {
+            end = parseString(_postfix, chars, index);
             ++index;
         }
 
-        _buffer.append(chars.charAt(index));
+        _buffer.append(chars, start, index - _prefix.length());
 
-
-        return leadingIndex;
+        return index;
     }
 
     /**
@@ -59,6 +61,6 @@ public class ContentToken extends AbstractParseNode {
 
     @Override
     public String toString() {
-        return _buffer.toString();
+        return _prefix + _buffer.toString() + _postfix;
     }
 }

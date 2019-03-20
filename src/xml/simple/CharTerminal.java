@@ -5,10 +5,10 @@ package xml.simple;
  * Created: 20.03.2019
  * Purpose:
  */
-public class CharToken extends AbstractParseNode {
+public class CharTerminal extends AbstractParseNode {
     private final char _character;
 
-    public CharToken(char character) {
+    public CharTerminal(char character) {
         _character = character;
     }
 

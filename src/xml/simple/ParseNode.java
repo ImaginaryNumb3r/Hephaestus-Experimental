@@ -4,6 +4,13 @@ package xml.simple;
  * Creator: Patrick
  * Created: 20.03.2019
  * TODO: Deal with the problem that some tokens have state.
+ *
+ * Wording:
+ *  - Token
+ *  - Node
+ *  - Tag
+ *  - Terminal -> Elemental string for direct parsing
+ *
  */
 public interface ParseNode {
     int INVALID = -1;

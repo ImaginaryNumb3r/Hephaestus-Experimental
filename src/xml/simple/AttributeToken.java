@@ -1,7 +1,6 @@
 package xml.simple;
 
 import java.util.Arrays;
-import java.util.Collection;
 
 /**
  * Creator: Patrick
@@ -15,7 +14,7 @@ public class AttributeToken extends SequenceNode {
                 new SpaceToken(),
                 new TextToken(),
                 new WhitespaceToken(),
-                new CharToken('='),
+                new CharTerminal('='),
                 new WhitespaceToken(),
                 new ContentToken("\"")
         ));
