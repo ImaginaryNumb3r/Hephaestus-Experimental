@@ -1,4 +1,4 @@
-package xml;
+package parsing.xml.model;
 
 /**
  * @author Patrick Plieschnegger

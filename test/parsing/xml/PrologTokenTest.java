@@ -1,9 +1,10 @@
-package xml;
+package parsing.xml;
 
+import org.junit.Assert;
 import org.junit.Test;
+import parsing.xml.model.ParseNode;
 
 import static org.junit.Assert.*;
-import static xml.ParseNode.INVALID;
 
 /**
  * Creator: Patrick
@@ -18,7 +19,7 @@ public class PrologTokenTest {
         ParseNode token = new PrologToken();
         int parse = token.parse(PROLOG, 0);
 
-        assertNotEquals(INVALID, parse);
+        Assert.assertNotEquals(ParseNode.INVALID, parse);
         assertEquals(PROLOG, token.toString());
 
         ParseNode copy = token.deepCopy();

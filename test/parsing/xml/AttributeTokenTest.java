@@ -1,4 +1,4 @@
-package xml;
+package parsing.xml;
 
 /**
  * Creator: Patrick

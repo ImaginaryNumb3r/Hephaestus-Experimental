@@ -1,4 +1,4 @@
-package xml;
+package parsing.xml.model;
 
 import lib.ListIterable;
 import lib.Strings;

@@ -1,6 +1,7 @@
-package xml;
+package parsing.xml;
 
 import essentials.contract.NoImplementationException;
+import parsing.xml.model.*;
 
 import java.util.Arrays;
 import java.util.Collection;

@@ -1,4 +1,7 @@
-package xml;
+package parsing.xml;
+
+import parsing.xml.model.ContentToken;
+import parsing.xml.model.CopyNode;
 
 /**
  * Creator: Patrick

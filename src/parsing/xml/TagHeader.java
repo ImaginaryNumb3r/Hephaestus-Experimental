@@ -1,4 +1,9 @@
-package xml;
+package parsing.xml;
+
+import parsing.xml.model.CharTerminal;
+import parsing.xml.model.CopyNode;
+import parsing.xml.model.SequenceNode;
+import parsing.xml.model.TextToken;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,7 +48,7 @@ public class TagHeader extends SequenceNode implements CopyNode<TagHeader> {
         copy.setName(getName());
 
         var attributes = copy.getAttributes();
-        var attributeCopies = _attributes._elements.stream()
+        var attributeCopies = _attributes.getElements().stream()
                 .map(AttributeToken::deepCopy)
                 .collect(Collectors.toList());
 

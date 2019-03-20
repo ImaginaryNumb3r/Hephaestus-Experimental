@@ -1,4 +1,6 @@
-package xml;
+package parsing.xml;
+
+import parsing.xml.model.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;

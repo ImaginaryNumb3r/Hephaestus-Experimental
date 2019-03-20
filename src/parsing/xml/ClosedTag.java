@@ -1,4 +1,9 @@
-package xml;
+package parsing.xml;
+
+import parsing.xml.model.CopyNode;
+import parsing.xml.model.SequenceNode;
+import parsing.xml.model.StringTerminal;
+import parsing.xml.model.WhitespaceToken;
 
 import java.util.ArrayList;
 import java.util.Arrays;

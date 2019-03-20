@@ -1,4 +1,7 @@
-package xml;
+package parsing.xml;
+
+import parsing.xml.model.CopyNode;
+import parsing.xml.model.MultiNode;
 
 import java.util.stream.Collectors;
 

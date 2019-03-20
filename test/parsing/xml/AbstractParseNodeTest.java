@@ -1,4 +1,4 @@
-package xml;
+package parsing.xml;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -13,7 +13,7 @@ import java.util.List;
  * Purpose:
  */
 public class AbstractParseNodeTest {
-    protected static final Path TEST_FILE_DIR = Path.of("test", "xml", "files");
+    protected static final Path TEST_FILE_DIR = Path.of("test", "parsing", "xml", "files");
 
     protected static List<String> readTestData(String string) {
         return readTestData(Path.of(string));

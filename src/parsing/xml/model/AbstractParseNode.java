@@ -1,13 +1,11 @@
-package xml;
-
-import essentials.annotations.Package;
+package parsing.xml.model;
 
 /**
  * Creator: Patrick
  * Created: 20.03.2019
  * Purpose:
  */
-@Package abstract class AbstractParseNode implements ParseNode {
+public abstract class AbstractParseNode implements ParseNode {
 
     @Override
     public int parse(String chars, int index) {
