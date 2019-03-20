@@ -14,7 +14,8 @@ public class ClosedTagTest {
     private static final String XML = "<attributes\n" +
             "        first = \"true\"\n" +
             "        second=\"1.5s\"\n" +
-            "        third=\"lorem ipsum\" />";
+            "        empty =\"\"\n" +
+            "        third= \"lorem ipsum\" />";
 
     @Test
     public void testParse() {
