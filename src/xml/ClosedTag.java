@@ -12,13 +12,13 @@ import java.util.Objects;
  */
 public class ClosedTag extends SequenceNode implements CopyNode<ClosedTag> {
     private final TextToken _name;
-    private final MultiNode<AttributeToken> _attributes;
+    private final AttributesNode _attributes;
     private final WhitespaceToken _trailingWhitespace;
 
     public ClosedTag() {
         super(new ArrayList<>());
         _name = new TextToken();
-        _attributes = new MultiNode<>(AttributeToken::new);
+        _attributes = new AttributesNode();
 
         _trailingWhitespace = new WhitespaceToken();
         _sequence.addAll(Arrays.asList(

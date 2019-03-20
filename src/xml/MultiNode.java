@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * This node never returns invalid.
  */
 public class MultiNode<T extends CopyNode<T>> extends AbstractParseNode implements ListIterable<T> {
-    private final List<T> _elements;
+    protected final List<T> _elements;
     private final Supplier<T> _tokenConstructor;
 
     protected MultiNode(Supplier<T> tokenConstructor) {
