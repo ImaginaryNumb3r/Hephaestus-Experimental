@@ -9,12 +9,6 @@ package xml;
 public interface TokenBuilder {
 
     /**
-     * @return String representation of the token if parsing is finished.
-     * @throws IllegalStateException if parsing is not finished.
-     */
-    String asString();
-
-    /**
      * @param character next character that is added to the token.
      * @return INVALID if input parameter was not added to the token. This may or may not change the status of the token itself.
      *         DONE if the parsing is finished.
@@ -33,6 +27,12 @@ public interface TokenBuilder {
     boolean canAccept();
 
     boolean isValid();
+
+    /**
+     * @return String representation of the token if parsing is finished.
+     * @throws IllegalStateException if parsing is not finished.
+     */
+    String asString();
 
     /**
      * @return String representation of the token if parsing is finished. Otherwise null.

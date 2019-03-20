@@ -21,7 +21,7 @@ public class AttributeToken extends SequenceNode {
             new WhitespaceToken(),
             new CharToken('='),
             new WhitespaceToken(),
-            new ContentToken("\"")
+            new ContentToken("\">")
         );
     }
 }

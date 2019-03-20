@@ -21,7 +21,7 @@ public class OptionalNodeMachine extends AbstractToken {
 
     private static MachineExecutor<Character, TokenBuilder> getExecutor() {
         var builder = new AbstractMachineBuilder<State, Character, TokenBuilder>(State.BOTH);
-        builder.addTransition(State.BOTH, );
+        // builder.addTransition(State.BOTH, );
 
         return builder.construct();
     }
@@ -35,7 +35,7 @@ public class OptionalNodeMachine extends AbstractToken {
     public Status accept(char character) {
         assertParsing();
 
-        _executor.process()
+        // _executor.process()
 
         return null;
     }
