@@ -20,6 +20,7 @@ public class OptionalConsumer extends AbstractParseNode {
         char ch = chars.charAt(index);
         while (_acceptCondition.test(ch)) {
 
+            // TODO: Add range of characters after loop.
             _buffer.append(ch);
             ch = chars.charAt(++index);
 

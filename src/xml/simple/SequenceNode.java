@@ -12,7 +12,7 @@ import java.util.List;
  * Purpose:
  */
 public class SequenceNode extends AbstractParseNode {
-    private final List<ParseNode> _sequence;
+    protected final List<ParseNode> _sequence;
 
     public SequenceNode(Collection<ParseNode> sequence) {
         _sequence = new ArrayList<>(sequence);

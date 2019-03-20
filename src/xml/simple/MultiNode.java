@@ -41,6 +41,10 @@ public class MultiNode<T extends ParseNode> extends AbstractParseNode implements
         return index;
     }
 
+    public List<T> getElements() {
+        return _elements;
+    }
+
     @Override
     public String toString() {
         return Strings.concat(_elements);

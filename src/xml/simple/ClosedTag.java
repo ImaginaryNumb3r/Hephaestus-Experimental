@@ -1,6 +1,8 @@
 package xml.simple;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Creator: Patrick
@@ -8,18 +10,24 @@ import java.util.Arrays;
  * '<' Text Blank Attributes Blank '/>'
  */
 public class ClosedTag extends SequenceNode {
+    private final TextToken _name;
+    private final MultiNode<AttributeToken> _attributes;
 
     public ClosedTag() {
-        super(Arrays.asList(
-            // Tag + name
-            new CharTerminal('<'),
-            new TextToken(),
-            // Attributes
+        super(new ArrayList<>());
+        _name = new TextToken();
+        _attributes = new MultiNode<>(AttributeToken::new);
 
-            new MultiNode<>(AttributeToken::new),
-            // Tag Close
-            new WhitespaceToken(),
-            new StringTerminal("/>")
+        _sequence.addAll(Arrays.asList(
+            new CharTerminal('<'), _name, _attributes, new WhitespaceToken(), new StringTerminal("/>")
         ));
+    }
+
+    public TextToken getName() {
+        return _name;
+    }
+
+    public List<AttributeToken> getAttributes() {
+        return _attributes.getElements();
     }
 }
