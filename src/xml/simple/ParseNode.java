@@ -28,4 +28,6 @@ public interface ParseNode {
      */
     String toString();
 
+    ParseNode deepCopy();
+
 }

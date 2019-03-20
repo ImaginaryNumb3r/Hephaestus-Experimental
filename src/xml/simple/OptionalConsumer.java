@@ -6,7 +6,7 @@ package xml.simple;
  * Accepts all input as long as the condition evaluates to true.
  */
 public class OptionalConsumer extends AbstractParseNode {
-    private final StringBuilder _buffer;
+    protected final StringBuilder _buffer;
     protected final CharPredicate _acceptCondition;
 
     public OptionalConsumer(CharPredicate acceptCondition) {
@@ -23,10 +23,6 @@ public class OptionalConsumer extends AbstractParseNode {
             // TODO: Add range of characters after loop.
             _buffer.append(ch);
             ch = chars.charAt(++index);
-
-/*            if (index + 1 != chars.length) {
-                return FINISHED;
-            }*/
         }
 
         return index;
@@ -35,5 +31,13 @@ public class OptionalConsumer extends AbstractParseNode {
     @Override
     public String toString() {
         return _buffer.toString();
+    }
+
+    @Override
+    public OptionalConsumer deepCopy() {
+        var copy = new OptionalConsumer(_acceptCondition);
+        copy._buffer.append(_buffer);
+
+        return copy;
     }
 }

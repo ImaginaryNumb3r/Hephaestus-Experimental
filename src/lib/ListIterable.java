@@ -18,5 +18,10 @@ public interface ListIterable<T> extends Iterable<T> {
     }
 
     @NotNull
-    ListIterator<T> listIterator();
+    default ListIterator<T> listIterator() {
+        return listIterator(0);
+    }
+
+    @NotNull
+    ListIterator<T> listIterator(int index);
 }

@@ -1,20 +1,24 @@
 package xml.simple;
 
+import lib.ListIterable;
 import lib.Strings;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.stream.Collectors;
 
 /**
  * Creator: Patrick
  * Created: 20.03.2019
  * Purpose:
  */
-public class SequenceNode extends AbstractParseNode {
+public class SequenceNode extends AbstractParseNode implements ListIterable<ParseNode> {
     protected final List<ParseNode> _sequence;
 
-    public SequenceNode(Collection<ParseNode> sequence) {
+    public SequenceNode(Collection<? extends ParseNode> sequence) {
         _sequence = new ArrayList<>(sequence);
     }
 
@@ -35,5 +39,19 @@ public class SequenceNode extends AbstractParseNode {
     @Override
     public String toString() {
         return Strings.concat(_sequence);
+    }
+
+    @Override
+    public SequenceNode deepCopy() {
+        List<ParseNode> copy = _sequence.stream()
+            .map(ParseNode::deepCopy)
+            .collect(Collectors.toList());
+
+        return new SequenceNode(copy);
+    }
+
+    @Override
+    public @NotNull ListIterator<ParseNode> listIterator(int index) {
+        return _sequence.listIterator(index);
     }
 }

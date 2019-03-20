@@ -9,13 +9,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 /**
  * Creator: Patrick
  * Created: 20.03.2019
  * This node never returns invalid.
  */
-public class MultiNode<T extends ParseNode> extends AbstractParseNode implements ListIterable<T> {
+public class MultiNode<T extends CopyNode<T>> extends AbstractParseNode implements ListIterable<T> {
     private final List<T> _elements;
     private final Supplier<T> _tokenConstructor;
 
@@ -50,9 +51,21 @@ public class MultiNode<T extends ParseNode> extends AbstractParseNode implements
         return Strings.concat(_elements);
     }
 
+    @Override
+    public MultiNode<T> deepCopy() {
+        List<T> elements = _elements.stream()
+            .map(CopyNode::deepCopy)
+            .collect(Collectors.toList());
+
+        MultiNode<T> copy = new MultiNode<>(_tokenConstructor);
+        copy._elements.addAll(elements);
+
+        return copy;
+    }
+
     @NotNull
     @Override
-    public ListIterator<T> listIterator() {
-        return _elements.listIterator();
+    public ListIterator<T> listIterator(int index) {
+        return _elements.listIterator(index);
     }
 }

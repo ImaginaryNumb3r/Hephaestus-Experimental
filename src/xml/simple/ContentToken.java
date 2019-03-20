@@ -63,4 +63,17 @@ public class ContentToken extends AbstractParseNode {
     public String toString() {
         return _prefix + _buffer.toString() + _postfix;
     }
+
+    @Override
+    public ParseNode deepCopy() {
+        ContentToken contentToken = new ContentToken(_prefix, _postfix);
+        contentToken.setContent(_buffer);
+
+        return contentToken;
+    }
+
+    public void setContent(CharSequence content) {
+        _buffer.setLength(0);
+        _buffer.append(content);
+    }
 }

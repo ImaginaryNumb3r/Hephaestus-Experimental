@@ -3,7 +3,7 @@ package xml.simple;
 /**
  * @author Patrick Plieschnegger
  */
-public class StringTerminal extends AbstractParseNode {
+public class StringTerminal extends AbstractParseNode implements CopyNode<StringTerminal> {
     private final String _terminal;
 
     public StringTerminal(String terminal) {_terminal = terminal;}
@@ -23,5 +23,10 @@ public class StringTerminal extends AbstractParseNode {
     @Override
     public String toString() {
         return _terminal;
+    }
+
+    @Override
+    public StringTerminal deepCopy() {
+        return this;
     }
 }

@@ -5,7 +5,7 @@ package xml.simple;
  * Created: 20.03.2019
  * Purpose:
  */
-public class CharTerminal extends AbstractParseNode {
+public class CharTerminal extends AbstractParseNode implements CopyNode<CharTerminal> {
     private final char _character;
 
     public CharTerminal(char character) {
@@ -22,5 +22,10 @@ public class CharTerminal extends AbstractParseNode {
     @Override
     public String toString() {
         return Character.toString(_character);
+    }
+
+    @Override
+    public CharTerminal deepCopy() {
+        return this;
     }
 }
