@@ -1,4 +1,4 @@
-package parsing.xml.model;
+package parsing.model;
 
 /**
  * Creator: Patrick

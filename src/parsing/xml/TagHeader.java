@@ -1,9 +1,9 @@
 package parsing.xml;
 
-import parsing.xml.model.CharTerminal;
-import parsing.xml.model.CopyNode;
-import parsing.xml.model.SequenceNode;
-import parsing.xml.model.TextToken;
+import parsing.model.CharTerminal;
+import parsing.model.CopyNode;
+import parsing.model.SequenceNode;
+import parsing.model.TextToken;
 
 import java.util.ArrayList;
 import java.util.Arrays;

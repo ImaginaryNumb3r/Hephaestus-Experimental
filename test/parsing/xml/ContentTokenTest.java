@@ -1,11 +1,11 @@
 package parsing.xml;
 
 import org.junit.Test;
-import parsing.xml.model.ContentToken;
-import parsing.xml.model.ParseNode;
+import parsing.model.ContentToken;
+import parsing.model.ParseNode;
 
 import static org.junit.Assert.*;
-import static parsing.xml.model.ParseNode.INVALID;
+import static parsing.model.ParseNode.INVALID;
 
 /**
  * Creator: Patrick
