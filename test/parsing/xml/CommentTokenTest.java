@@ -8,13 +8,25 @@ import org.junit.Test;
  * Purpose:
  */
 public class CommentTokenTest extends AbstractParseNodeTest {
-    private static final String COMMENT = "<!-- comment -->";
 
     @Test
     public void testParse() {
-        CommentToken token = new CommentToken();
+        String comment = "<!-- comment -->";
         String expected = " comment ";
+        CommentToken token = new CommentToken();
 
-        checkParse(expected, COMMENT, token, token::getContent);
+        checkParse(expected, comment, token, token::getContent);
+
+        comment = "<!---->";
+        expected = "";
+        token = new CommentToken();
+
+        checkParse(expected, comment, token, token::getContent);
+
+        comment = "<!--a-->";
+        expected = "a";
+        token = new CommentToken();
+
+        checkParse(expected, comment, token, token::getContent);
     }
 }
