@@ -1,11 +1,19 @@
 package parsing.xml;
 
+import parsing.model.ContentToken;
+import parsing.model.ParseNode;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static parsing.model.ParseNode.INVALID;
 
 /**
  * Creator: Patrick
@@ -46,9 +54,21 @@ public class AbstractParseNodeTest {
 
         } catch (IOException e) {
             e.printStackTrace();
-            throw new RuntimeException("Cannot initialize Test: " + ClosedTagTest.class);
+            throw new RuntimeException("Cannot initialize Test: " + TagCloseTest.class);
         }
 
         return samples;
+    }
+
+    protected void checkParse(String expected, String data, ParseNode token, Supplier<String> dataSupplier) {
+
+        int parse = token.parse(data, 0);
+        assertNotEquals(INVALID, parse);
+
+        assertEquals(expected, dataSupplier.get());
+        assertEquals(data, token.toString());
+
+        ParseNode copy = token.deepCopy();
+        assertEquals(token, copy);
     }
 }

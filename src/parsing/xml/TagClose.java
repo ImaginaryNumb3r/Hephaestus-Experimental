@@ -3,7 +3,6 @@ package parsing.xml;
 import parsing.model.CopyNode;
 import parsing.model.SequenceNode;
 import parsing.model.StringTerminal;
-import parsing.model.WhitespaceToken;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,10 +14,10 @@ import java.util.Objects;
  * Created: 20.03.2019
  * '<' Text Blank Attributes Blank '/>'
  */
-public class ClosedTag extends SequenceNode implements CopyNode<ClosedTag> {
+public class TagClose extends SequenceNode implements CopyNode<TagClose> {
     private final TagHeader _head;
 
-    public ClosedTag() {
+    public TagClose() {
         super(new ArrayList<>());
         _head = new TagHeader();
 
@@ -48,8 +47,8 @@ public class ClosedTag extends SequenceNode implements CopyNode<ClosedTag> {
     }
 
     @Override
-    public ClosedTag deepCopy() {
-        ClosedTag copy = new ClosedTag();
+    public TagClose deepCopy() {
+        TagClose copy = new TagClose();
         TagHeader headCopy = _head.deepCopy();
 
         var attributesCopy = headCopy.getAttributes();
@@ -64,9 +63,9 @@ public class ClosedTag extends SequenceNode implements CopyNode<ClosedTag> {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ClosedTag)) return false;
+        if (!(o instanceof TagClose)) return false;
         if (!super.equals(o)) return false;
-        ClosedTag that = (ClosedTag) o;
+        TagClose that = (TagClose) o;
         return Objects.equals(_head, that._head);
     }
 

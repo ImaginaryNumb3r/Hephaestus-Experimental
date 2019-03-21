@@ -24,7 +24,7 @@ public class ContentTokenTest {
 
         data = "=== data ! #%&";
         expected = " data ! ";
-        token = new ContentToken("===", "#%&\"");
+        token = new ContentToken("===", "#%&");
 
         checkParse(expected, data, token);
     }

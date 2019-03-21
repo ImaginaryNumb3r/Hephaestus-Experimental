@@ -9,6 +9,8 @@ public abstract class AbstractParseNode implements ParseNode {
 
     @Override
     public int parse(String chars, int index) {
+        // TODO: Reset function that sets everything to the initial state. This is important for consecutive calls.
+
         if (index >= chars.length()) {
             return INVALID;
         }

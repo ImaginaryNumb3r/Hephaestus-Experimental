@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 /**
  * Creator: Patrick
  * Created: 20.03.2019
- * Purpose:
+ * TODO: This could be turned into a "Commentable"
  */
 public class TagHeader extends SequenceNode implements CopyNode<TagHeader> {
     private final TextToken _name;

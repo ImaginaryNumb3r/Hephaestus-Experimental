@@ -12,13 +12,18 @@ import java.util.Collection;
  * '<' Text Blank Attributes Blank '>' ( String ) '<' Text Blank '>'
  * // TODO: Assert that the closing brackets are the same as the opening brackets.
  */
-public class OpenedTag extends SequenceNode implements CopyNode<OpenedTag> {
+public class TagOpening extends SequenceNode implements CopyNode<TagOpening> {
 
-    public OpenedTag() {
+    public TagOpening() {
         super(Arrays.asList(
                 new TagHeader(),
                 new CharTerminal('>'),
-                new StringToken(), // Node Value -> Needs to be either a sub-node or an (empty) string.
+
+                // Value / Inner nodes
+                new EitherNode<>(new XMLNode(), new StringToken()),
+                // new StringToken(), // Node Value -> Needs to be either a sub-node or an (empty) string.
+
+                // XML Node
                 new CharTerminal('<'),
                 new TextToken(), // Node name
                 new WhitespaceToken(),
@@ -27,12 +32,12 @@ public class OpenedTag extends SequenceNode implements CopyNode<OpenedTag> {
     }
 
 
-    public OpenedTag(Collection<? extends ParseNode> sequence) {
+    public TagOpening(Collection<? extends ParseNode> sequence) {
         super(sequence);
     }
 
     @Override
-    public OpenedTag deepCopy() {
+    public TagOpening deepCopy() {
         throw new NoImplementationException();
     }
 }
