@@ -16,7 +16,6 @@ public class TagOpening extends SequenceNode implements CopyNode<TagOpening> {
 
     public TagOpening() {
         super(Arrays.asList(
-                new TagHeader(),
                 new CharTerminal('>'),
 
                 // Value / Inner nodes

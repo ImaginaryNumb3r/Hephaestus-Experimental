@@ -8,8 +8,8 @@ import java.util.Objects;
  * Purpose:
  */
 public class EitherNode<O extends CopyNode<O>, M extends CopyNode<M>> extends AbstractParseNode {
-    private final O _optional;
-    private final M _mandatory;
+    protected final O _optional;
+    protected final M _mandatory;
     private Status _status;
 
     public EitherNode(O optional, M mandatory) {
@@ -45,7 +45,7 @@ public class EitherNode<O extends CopyNode<O>, M extends CopyNode<M>> extends Ab
     }
 
     @Override
-    public ParseNode deepCopy() {
+    public EitherNode<O, M> deepCopy() {
         O optionalCopy = _optional.deepCopy();
         M mandatoryCopy = _mandatory.deepCopy();
 

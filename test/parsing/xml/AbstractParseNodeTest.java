@@ -1,6 +1,5 @@
 package parsing.xml;
 
-import parsing.model.ContentToken;
 import parsing.model.ParseNode;
 
 import java.io.BufferedReader;
@@ -54,7 +53,7 @@ public class AbstractParseNodeTest {
 
         } catch (IOException e) {
             e.printStackTrace();
-            throw new RuntimeException("Cannot initialize Test: " + TagCloseTest.class);
+            throw new RuntimeException("Cannot initialize Test: " + ClosedTagTest.class);
         }
 
         return samples;

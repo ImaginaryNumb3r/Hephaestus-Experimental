@@ -1,8 +1,7 @@
 package parsing.xml;
 
 import essentials.contract.NoImplementationException;
-import parsing.model.CopyNode;
-import parsing.model.SequenceNode;
+import parsing.model.*;
 
 import java.util.ArrayList;
 
@@ -13,14 +12,19 @@ import java.util.ArrayList;
  */
 public class XMLTag extends SequenceNode implements CopyNode<XMLTag> {
     private final TagHeader _head;
-    // TODO: Either Close Tag or Opening Tag
+    private final EitherNode<StringTerminal, TagOpening> _tail;
 
     public XMLTag() {
         super(new ArrayList<>());
 
         _head = new TagHeader();
-        // TODO: Initialize sequence
+        _tail = new EitherNode<>(new StringTerminal("/>"), new TagOpening());
+
+        _sequence.add(_head);
+        _sequence.add(_tail);
     }
+
+
 
     @Override
     public XMLTag deepCopy() {

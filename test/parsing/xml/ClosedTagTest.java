@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
  * Created: 20.03.2019
  * Purpose:
  */
-public class TagCloseTest extends AbstractParseNodeTest {
+public class ClosedTagTest extends AbstractParseNodeTest {
     private static final List<String> SAMPLES = readTestData("ClosedTag.xml");
 
     @Test
@@ -24,11 +24,11 @@ public class TagCloseTest extends AbstractParseNodeTest {
     }
 
     private void checkParse(String xml) {
-        TagClose tagClose = new TagClose();
-        int parse = tagClose.parse(xml, 0);
+        ClosedTag closedTag = new ClosedTag();
+        int parse = closedTag.parse(xml, 0);
         Assert.assertNotEquals(parse, ParseNode.INVALID);
 
-        String string = tagClose.toString();
+        String string = closedTag.toString();
         assertEquals(xml, string);
     }
 
@@ -40,12 +40,12 @@ public class TagCloseTest extends AbstractParseNodeTest {
     }
 
     public void checkCopy(String xml) {
-        TagClose tagClose = new TagClose();
-        int parse = tagClose.parse(xml, 0);
+        ClosedTag closedTag = new ClosedTag();
+        int parse = closedTag.parse(xml, 0);
         Assert.assertNotEquals(parse, ParseNode.INVALID);
 
-        TagClose copy = tagClose.deepCopy();
+        ClosedTag copy = closedTag.deepCopy();
 
-        assertEquals(tagClose, copy);
+        assertEquals(closedTag, copy);
     }
 }

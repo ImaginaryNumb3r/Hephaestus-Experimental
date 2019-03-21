@@ -14,10 +14,10 @@ import java.util.Objects;
  * Created: 20.03.2019
  * '<' Text Blank Attributes Blank '/>'
  */
-public class TagClose extends SequenceNode implements CopyNode<TagClose> {
+public class ClosedTag extends SequenceNode implements CopyNode<ClosedTag> {
     private final TagHeader _head;
 
-    public TagClose() {
+    public ClosedTag() {
         super(new ArrayList<>());
         _head = new TagHeader();
 
@@ -47,8 +47,8 @@ public class TagClose extends SequenceNode implements CopyNode<TagClose> {
     }
 
     @Override
-    public TagClose deepCopy() {
-        TagClose copy = new TagClose();
+    public ClosedTag deepCopy() {
+        ClosedTag copy = new ClosedTag();
         TagHeader headCopy = _head.deepCopy();
 
         var attributesCopy = headCopy.getAttributes();
@@ -63,9 +63,9 @@ public class TagClose extends SequenceNode implements CopyNode<TagClose> {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof TagClose)) return false;
+        if (!(o instanceof ClosedTag)) return false;
         if (!super.equals(o)) return false;
-        TagClose that = (TagClose) o;
+        ClosedTag that = (ClosedTag) o;
         return Objects.equals(_head, that._head);
     }
 

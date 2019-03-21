@@ -7,4 +7,6 @@ public interface CopyNode<T extends ParseNode> extends ParseNode {
 
     T deepCopy();
 
+    // void setData();
+
 }
