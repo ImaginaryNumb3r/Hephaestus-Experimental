@@ -1,10 +1,8 @@
 package parsing.xml;
 
 import essentials.contract.NoImplementationException;
-import parsing.model.AbstractParseNode;
 import parsing.model.CopyNode;
 import parsing.model.EitherNode;
-import parsing.model.ParseNode;
 
 /**
  * Creator: Patrick

@@ -2,11 +2,9 @@ package parsing.xml;
 
 import essentials.contract.NoImplementationException;
 import parsing.model.CopyNode;
-import parsing.model.ParseNode;
 import parsing.model.SequenceNode;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * Creator: Patrick
