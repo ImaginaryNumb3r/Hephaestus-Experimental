@@ -29,4 +29,11 @@ public abstract class AbstractParseNode implements ParseNode {
     public String asString() {
         return toString();
     }
+
+    /* Make abstract and force custom implementation.
+    @Override
+    public abstract boolean equals(Object obj);
+
+    @Override
+    public abstract int hashCode(); */
 }

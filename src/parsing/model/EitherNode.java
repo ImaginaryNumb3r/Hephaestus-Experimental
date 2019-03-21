@@ -42,7 +42,7 @@ public class EitherNode<O extends CopyNode<O>, M extends CopyNode<M>> extends Ab
         return _status == Status.OPTIONAL;
     }
 
-    public Optional<O> ifFirst() {
+    public Optional<O> first() {
         return _status == Status.OPTIONAL
                 ? Optional.of(_optional)
                 : Optional.empty();
@@ -52,7 +52,7 @@ public class EitherNode<O extends CopyNode<O>, M extends CopyNode<M>> extends Ab
         return _status == Status.MANDATORY;
     }
 
-    public Optional<M> ifSecond() {
+    public Optional<M> second() {
         return _status == Status.OPTIONAL
                 ? Optional.of(_mandatory)
                 : Optional.empty();

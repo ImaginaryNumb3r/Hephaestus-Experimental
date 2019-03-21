@@ -1,7 +1,11 @@
 package parsing.xml;
 
+import essentials.contract.NoImplementationException;
+import parsing.model.ContentToken;
 import parsing.model.CopyNode;
 import parsing.model.EitherNode;
+
+import java.util.Optional;
 
 /**
  * Creator: Patrick
@@ -15,24 +19,25 @@ public class XMLNode extends EitherNode<XMLTag, CommentToken> implements CopyNod
         super(new XMLTag(), new CommentToken());
     }
 
-    public XMLTag getXMLTag() {
-        return _optional;
+    public Optional<XMLTag> tag() {
+        return first();
     }
 
-    public CommentToken getComment() {
-        return _mandatory;
+    public Optional<CommentToken> getComment() {
+        return second();
     }
 
-    public String getCommentContent() {
-        return _mandatory.getContent();
+    public Optional<String> getCommentContent() {
+        return second().map(ContentToken::getContent);
     }
 
     @Override
     public XMLNode deepCopy() {
         XMLNode copy = new XMLNode();
         copy.getComment().setContent(getCommentContent());
-        copy.getXMLTag(); // TODO: Copy
+        copy.tag(); // TODO: Copy
+        throw new NoImplementationException();
 
-        return copy;
+        // return copy;
     }
 }

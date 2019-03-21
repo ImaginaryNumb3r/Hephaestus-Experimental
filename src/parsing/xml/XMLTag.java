@@ -13,23 +13,23 @@ import java.util.List;
  */
 public class XMLTag extends SequenceNode implements CopyNode<XMLTag> {
     private final TagHeader _head;
-    private final EitherNode<StringTerminal, TagOpening> _tail;
+    private final XMLBody _tail;
 
     public XMLTag() {
         super(new ArrayList<>());
 
         _head = new TagHeader();
-        _tail = new EitherNode<>(new StringTerminal("/>"), new TagOpening());
+        _tail = new XMLBody();
 
         _sequence.add(_head);
-        _sequence.add(_tail);/*
+        _sequence.add(_tail);
         _sequence.add((ConstraintNode) (chars, index) -> {
-            _tail.ifSecond().map(tail ->
-                    tail.
-            )
+            _tail.node().map(node -> {
+                node.
+            });
 
             return index;
-        });*/
+        });
     }
 
     public String getName() {
