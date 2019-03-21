@@ -25,6 +25,11 @@ public interface ParseNode {
     /**
      * @return String representation of the token if parsing is finished. Otherwise null.
      */
+    String asString();
+
+    /**
+     * @return String representation of the token if parsing is finished. Otherwise null.
+     */
     String toString();
 
     ParseNode deepCopy();

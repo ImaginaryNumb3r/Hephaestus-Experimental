@@ -30,7 +30,6 @@ public class TagOpening extends SequenceNode implements CopyNode<TagOpening> {
         ));
     }
 
-
     public TagOpening(Collection<? extends ParseNode> sequence) {
         super(sequence);
     }

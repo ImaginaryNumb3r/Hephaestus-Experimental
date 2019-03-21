@@ -1,6 +1,7 @@
 package parsing.model;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Creator: Patrick
@@ -35,6 +36,30 @@ public class EitherNode<O extends CopyNode<O>, M extends CopyNode<M>> extends Ab
         }
 
         return index;
+    }
+
+    public boolean hasFirst() {
+        return _status == Status.OPTIONAL;
+    }
+
+    public Optional<O> ifFirst() {
+        return _status == Status.OPTIONAL
+                ? Optional.of(_optional)
+                : Optional.empty();
+    }
+
+    public boolean hasSecond() {
+        return _status == Status.MANDATORY;
+    }
+
+    public Optional<M> ifSecond() {
+        return _status == Status.OPTIONAL
+                ? Optional.of(_mandatory)
+                : Optional.empty();
+    }
+
+    public CopyNode<?> getValue() {
+        return _status == Status.OPTIONAL ? _optional : _mandatory;
     }
 
     @Override

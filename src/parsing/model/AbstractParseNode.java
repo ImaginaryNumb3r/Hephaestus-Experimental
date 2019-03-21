@@ -25,4 +25,8 @@ public abstract class AbstractParseNode implements ParseNode {
      */
     public abstract String toString();
 
+    @Override
+    public String asString() {
+        return toString();
+    }
 }
