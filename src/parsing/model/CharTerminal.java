@@ -32,6 +32,16 @@ public class CharTerminal extends AbstractParseNode implements CopyNode<CharTerm
     }
 
     @Override
+    public void setData(CharTerminal other) {
+        throw new UnsupportedOperationException("Cannot mutate terminal tokens.");
+    }
+
+    @Override
+    public void reset() {
+        // Noop.
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof CharTerminal)) return false;

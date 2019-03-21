@@ -1,5 +1,8 @@
 package parsing.model;
 
+import lib.Nulls;
+import parsing.xml.XMLNode;
+
 import java.util.Objects;
 import java.util.Optional;
 
@@ -11,7 +14,7 @@ import java.util.Optional;
 public class EitherNode<O extends CopyNode<O>, M extends CopyNode<M>> extends AbstractParseNode {
     protected final O _optional;
     protected final M _mandatory;
-    private Status _status;
+    protected Status _status;
 
     public EitherNode(O optional, M mandatory) {
         _optional = optional;
@@ -77,6 +80,23 @@ public class EitherNode<O extends CopyNode<O>, M extends CopyNode<M>> extends Ab
         return new EitherNode<>(optionalCopy, mandatoryCopy);
     }
 
+    protected void reset() {
+        Nulls.ifPresent(_mandatory, _mandatory::reset);
+        Nulls.ifPresent(_optional, _optional::reset);
+        _status = Status.NONE;
+    }
+
+    protected void setData(EitherNode<O, M> other) {
+        if (_mandatory != null) {
+            _mandatory.setData(other._mandatory);
+        }
+        if (_optional != null) {
+            _optional.setData(other._optional);
+        }
+
+        _status = other._status;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -92,7 +112,7 @@ public class EitherNode<O extends CopyNode<O>, M extends CopyNode<M>> extends Ab
         return Objects.hash(_optional, _mandatory, _status);
     }
 
-    private enum Status {
+    protected enum Status {
         OPTIONAL, MANDATORY, NONE
     }
 }

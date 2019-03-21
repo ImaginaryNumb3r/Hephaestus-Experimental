@@ -48,17 +48,29 @@ public class AttributeToken extends SequenceNode implements CopyNode<AttributeTo
 
     @Override
     public AttributeToken deepCopy() {
-        var sequence = _sequence.stream()
-            .map(ParseNode::deepCopy)
-            .collect(Collectors.toList());
-
         AttributeToken copy = new AttributeToken();
-        copy._sequence.clear();
-        copy._sequence.addAll(sequence);
-        copy.setName(getName());
-        copy.setValue(getValue());
+        copy.setData(this);
 
         return copy;
+    }
+
+    @Override
+    public void reset() {
+        _name.reset();
+        _value.setContent("");
+    }
+
+    @Override
+    public void setData(AttributeToken other) {
+        var sequenceCopy = other._sequence.stream()
+                .map(ParseNode::deepCopy)
+                .collect(Collectors.toList());
+
+        _sequence.clear();
+        _sequence.addAll(sequenceCopy);
+        setName(getName());
+        setValue(getValue());
+
     }
 
     @Override

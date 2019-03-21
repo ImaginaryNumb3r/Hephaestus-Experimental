@@ -21,4 +21,13 @@ public class CommentToken extends ContentToken implements CopyNode<CommentToken>
 
         return copy;
     }
+
+    @Override
+    public void reset() {
+        super.reset();
+    }
+
+    public void setData(CommentToken other) {
+        super.setData(other);
+    }
 }

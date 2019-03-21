@@ -20,4 +20,14 @@ public class PrologToken extends ContentToken implements CopyNode<PrologToken> {
 
         return copy;
     }
+
+    @Override
+    public void setData(PrologToken other) {
+        super.setData(other);
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
+    }
 }

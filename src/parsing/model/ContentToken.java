@@ -1,5 +1,7 @@
 package parsing.model;
 
+import essentials.contract.NoImplementationException;
+
 import java.util.Objects;
 
 /**
@@ -80,6 +82,10 @@ public class ContentToken extends AbstractParseNode {
         return copy;
     }
 
+    protected void reset() {
+        _buffer.setLength(0);
+    }
+
     public void setContent(CharSequence content) {
         _buffer.setLength(0);
         _buffer.append(content);
@@ -99,4 +105,9 @@ public class ContentToken extends AbstractParseNode {
     public int hashCode() {
         return Objects.hash(_buffer.toString(), _prefix, _postfix);
     }
+
+    public void setData(ContentToken other) {
+        throw new NoImplementationException();
+    }
+
 }

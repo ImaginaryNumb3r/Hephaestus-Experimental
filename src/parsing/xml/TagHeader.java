@@ -1,5 +1,6 @@
 package parsing.xml;
 
+import essentials.contract.NoImplementationException;
 import parsing.model.*;
 
 import java.util.ArrayList;
@@ -64,6 +65,19 @@ public class TagHeader extends SequenceNode implements CopyNode<TagHeader> {
         attributes.addAll(attributeCopies);
 
         return copy;
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
+        _name.reset();
+        _attributes.getElements().clear();
+        _whitespace.setWhitespace("");
+    }
+
+    @Override
+    public void setData(TagHeader other) {
+        throw new NoImplementationException();
     }
 
     @Override

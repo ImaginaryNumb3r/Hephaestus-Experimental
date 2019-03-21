@@ -17,7 +17,7 @@ public class MultiNode<T extends CopyNode<T>> extends AbstractParseNode implemen
     protected final List<T> _elements;
     private final Supplier<T> _tokenConstructor;
 
-    protected MultiNode(Supplier<T> tokenConstructor) {
+    public MultiNode(Supplier<T> tokenConstructor) {
         _elements = new ArrayList<>();
         _tokenConstructor = tokenConstructor;
     }

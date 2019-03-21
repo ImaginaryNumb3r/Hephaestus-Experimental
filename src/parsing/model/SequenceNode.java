@@ -15,6 +15,10 @@ import java.util.stream.Collectors;
 public class SequenceNode extends AbstractParseNode implements ListIterable<ParseNode> {
     protected final List<ParseNode> _sequence;
 
+    public SequenceNode(ParseNode... nodes) {
+        this(Arrays.asList(nodes));
+    }
+
     public SequenceNode(Collection<? extends ParseNode> sequence) {
         _sequence = new ArrayList<>(sequence);
     }
@@ -45,6 +49,19 @@ public class SequenceNode extends AbstractParseNode implements ListIterable<Pars
             .collect(Collectors.toList());
 
         return new SequenceNode(copy);
+    }
+
+    protected void reset() {
+        _sequence.clear();
+    }
+
+    protected void setData(SequenceNode other) {
+        reset();
+        var sequence = other._sequence.stream()
+                .map(ParseNode::deepCopy)
+                .collect(Collectors.toList());
+
+        _sequence.addAll(sequence);
     }
 
     @Override

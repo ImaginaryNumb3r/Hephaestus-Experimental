@@ -5,8 +5,6 @@ import parsing.model.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * Creator: Patrick
@@ -55,5 +53,15 @@ public class TagOpening extends SequenceNode implements CopyNode<TagOpening> {
     @Override
     public TagOpening deepCopy() {
         throw new NoImplementationException();
+    }
+
+    @Override
+    public void setData(TagOpening other) {
+        throw new NoImplementationException();
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
     }
 }

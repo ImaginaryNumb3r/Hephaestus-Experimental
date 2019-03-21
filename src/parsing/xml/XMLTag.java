@@ -13,22 +13,18 @@ import java.util.List;
  */
 public class XMLTag extends SequenceNode implements CopyNode<XMLTag> {
     private final TagHeader _head;
-    private final XMLBody _tail;
+    private final XMLTail _tail;
 
     public XMLTag() {
         super(new ArrayList<>());
 
         _head = new TagHeader();
-        _tail = new XMLBody();
+        _tail = new XMLTail();
 
         _sequence.add(_head);
         _sequence.add(_tail);
         _sequence.add((ConstraintNode) (chars, index) -> {
-            _tail.node().map(node -> {
-                node.
-            });
-
-            return index;
+            throw new NoImplementationException("Must confirm that head name and tail name is equal.");
         });
     }
 
@@ -47,5 +43,16 @@ public class XMLTag extends SequenceNode implements CopyNode<XMLTag> {
     @Override
     public XMLTag deepCopy() {
         throw new NoImplementationException();
+    }
+
+    @Override
+    public void setData(XMLTag other) {
+        throw new NoImplementationException();
+    }
+
+    @Override
+    public void reset() {
+        _head.reset();
+        _tail.reset();
     }
 }

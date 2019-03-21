@@ -7,7 +7,7 @@ import java.util.Objects;
  * Created: 20.03.2019
  * Accepts all input as long as the condition evaluates to true.
  */
-public class OptionalConsumer extends AbstractParseNode {
+public class OptionalConsumer extends AbstractParseNode implements CharSequence {
     protected final StringBuilder _buffer;
     protected final CharPredicate _acceptCondition;
 
@@ -31,6 +31,21 @@ public class OptionalConsumer extends AbstractParseNode {
     }
 
     @Override
+    public int length() {
+        return _buffer.length();
+    }
+
+    @Override
+    public char charAt(int index) {
+        return _buffer.charAt(index);
+    }
+
+    @Override
+    public CharSequence subSequence(int start, int end) {
+        return _buffer.subSequence(start, end);
+    }
+
+    @Override
     public String toString() {
         return _buffer.toString();
     }
@@ -41,6 +56,20 @@ public class OptionalConsumer extends AbstractParseNode {
         copy._buffer.append(_buffer);
 
         return copy;
+    }
+
+    /**
+     * The accepting condition is not copied because this method only sets the data.
+     * It does not change the behavior of the object.
+     * @param other
+     */
+    protected void setData(OptionalConsumer other) {
+        reset();
+        _buffer.append(other);
+    }
+
+    protected void reset() {
+        _buffer.setLength(0);
     }
 
     @Override

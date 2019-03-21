@@ -39,4 +39,14 @@ public class XMLBody extends EitherNode<XMLNode, StringTerminal> implements Copy
     public XMLBody deepCopy() {
         throw new NoImplementationException();
     }
+
+    @Override
+    public void reset() {
+        super.reset();
+    }
+
+    @Override
+    public void setData(XMLBody other) {
+        throw new NoImplementationException();
+    }
 }

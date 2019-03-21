@@ -19,4 +19,14 @@ public class StringToken extends OptionalConsumer implements CopyNode<StringToke
 
         return copy;
     }
+
+    @Override
+    public void reset() {
+        super.reset();
+    }
+
+    @Override
+    public void setData(StringToken other) {
+        super.setData(other);
+    }
 }

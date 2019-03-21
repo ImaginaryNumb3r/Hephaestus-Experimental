@@ -1,5 +1,6 @@
 package parsing.xml;
 
+import essentials.contract.NoImplementationException;
 import parsing.model.CopyNode;
 import parsing.model.SequenceNode;
 import parsing.model.StringTerminal;
@@ -58,6 +59,17 @@ public class ClosedTag extends SequenceNode implements CopyNode<ClosedTag> {
         copy.getAttributes().addAll(attributesCopy);
 
         return copy;
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
+        _head.reset();
+    }
+
+    @Override
+    public void setData(ClosedTag other) {
+        throw new NoImplementationException();
     }
 
     @Override

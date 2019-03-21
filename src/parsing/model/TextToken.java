@@ -5,7 +5,7 @@ package parsing.model;
  * Created: 20.03.2019
  * Non-empty string token.
  */
-public class TextToken extends ConsumerNode {
+public class TextToken extends ConsumerNode implements CopyNode<TextToken> {
 
     public TextToken() {
         super(Character::isAlphabetic);
@@ -28,6 +28,19 @@ public class TextToken extends ConsumerNode {
         return copy;
     }
 
+    @Override
+    public void reset() {
+        super.reset();
+    }
+
+    @Override
+    public void setData(TextToken other) {
+        super.setData(other);
+    }
+
+    /**
+     * @return the parsed text as string.
+     */
     @Override
     public String toString() {
         return super.toString();

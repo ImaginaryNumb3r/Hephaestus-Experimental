@@ -33,6 +33,16 @@ public class StringTerminal extends AbstractParseNode implements CopyNode<String
     }
 
     @Override
+    public void setData(StringTerminal violation) {
+        throw new UnsupportedOperationException("Cannot mutate terminal tokens.");
+    }
+
+    @Override
+    public void reset() {
+        // Noop.
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof StringTerminal)) return false;
