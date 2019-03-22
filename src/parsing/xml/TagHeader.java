@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 /**
  * Creator: Patrick
  * Created: 20.03.2019
- * TODO: This could be turned into a "Commentable"
+ * Grammar: <Name Attributes Whitespace
  */
 public class TagHeader extends SequenceNode implements CopyNode<TagHeader> {
     private final TextToken _name;

@@ -1,0 +1,10 @@
+<supercars company = "@Company_Name">
+	<carname type = "formula one">Ferrari 101</carname>
+	<carname type = "sports">Ferrari 202</carname>
+	<carname type = "@Integer_Type">@Integer_Value</carname>
+</supercars>
+
+<attributes
+	first = "true"
+	second="1.5s"
+	third="lorem ipsum" />

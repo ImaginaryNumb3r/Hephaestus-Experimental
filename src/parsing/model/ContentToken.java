@@ -22,6 +22,10 @@ public class ContentToken extends AbstractParseNode {
         _buffer = new StringBuilder();
         _prefix = prefix;
         _postfix = postfix;
+
+        if (postfix.isEmpty()) {
+            throw new IllegalStateException("Content postfix must not be empty. TODO: Turn this into a logging error");
+        }
     }
 
     @Override

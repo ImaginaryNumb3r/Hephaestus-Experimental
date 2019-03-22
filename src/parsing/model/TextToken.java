@@ -11,10 +11,10 @@ public class TextToken extends ConsumerNode implements CopyNode<TextToken> {
         super(Character::isAlphabetic);
     }
 
-    public void setText(String text) {
-        if (text.isBlank()) {
+    public void setText(CharSequence text) {
+        /* if (text.isBlank()) {
             throw new IllegalArgumentException("Cannot set value of Text to blank strings.");
-        }
+        }*/
 
         _buffer.setLength(0);
         _buffer.append(text);

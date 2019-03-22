@@ -85,4 +85,18 @@ public class OptionalConsumer extends AbstractParseNode implements CharSequence 
     public int hashCode() {
         return Objects.hash(_buffer.toString(), _acceptCondition);
     }
+
+    protected boolean isBlank(CharSequence sequence) {
+        for (int i = 0; i != sequence.length(); ++i) {
+            char ch = sequence.charAt(i);
+
+            boolean isWhitespace = Character.isWhitespace(ch);
+            if (!isWhitespace) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 }

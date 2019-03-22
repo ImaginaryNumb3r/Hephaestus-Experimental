@@ -3,11 +3,10 @@ package parsing.model;
 /**
  * Creator: Patrick
  * Created: 20.03.2019
- * Purpose:
+ * A token that parses all characters while the condition is met.
  */
 public class StringToken extends OptionalConsumer implements CopyNode<StringToken> {
 
-    // Potential problem: This also accepts empty string texts.
     public StringToken() {
         super(Character::isAlphabetic);
     }

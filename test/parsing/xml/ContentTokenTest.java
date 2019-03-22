@@ -27,6 +27,12 @@ public class ContentTokenTest {
         token = new ContentToken("===", "#%&");
 
         checkParse(expected, data, token);
+
+        data = " data />";
+        expected = " data ";
+        token = new ContentToken("", "/>");
+
+        checkParse(expected, data, token);
     }
 
     public void checkParse(String expected, String data, ContentToken token) {

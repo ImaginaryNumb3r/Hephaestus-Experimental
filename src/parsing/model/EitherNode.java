@@ -1,7 +1,6 @@
 package parsing.model;
 
 import lib.Nulls;
-import parsing.xml.XMLNode;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -38,7 +37,7 @@ public class EitherNode<O extends CopyNode<O>, M extends CopyNode<M>> extends Ab
             }
         }
 
-        return index;
+        return nextIndex;
     }
 
     public boolean hasFirst() {

@@ -24,17 +24,18 @@ public class SequenceNode extends AbstractParseNode implements ListIterable<Pars
     }
 
     @Override
-    protected int parseImpl(String chars, int index) {
+    protected int parseImpl(String chars, final int index) {
 
+        int nextIndex = index;
         for (ParseNode element : _sequence) {
-            index = element.parse(chars, index);
+            nextIndex = element.parse(chars, nextIndex);
 
-            if (index == INVALID) {
+            if (nextIndex == INVALID) {
                 return INVALID;
             }
         }
 
-        return index;
+        return nextIndex;
     }
 
     @Override

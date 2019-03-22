@@ -11,22 +11,25 @@ import java.util.stream.Collectors;
 /**
  * Creator: Patrick
  * Created: 21.03.2019
- * Purpose:
+ * Grammar: ( > InnerNodes </Name> ) | />
  */
 public class XMLTail extends SequenceNode implements CopyNode<XMLTail> {
-    private final MultiNode<XMLNode> _nodes;
+    private final InnerNodes _nodes;
     private final TextToken _name;
     private final StringTerminal _fallback;
+    private final WhitespaceToken _trailingWhitespace;
     private boolean _closedTag;
 
     public XMLTail() {
         super(new ArrayList<>());
 
-        _nodes = new MultiNode<>(XMLNode::new);
+        _nodes = new InnerNodes();
         _name = new TextToken();
+        _trailingWhitespace = new WhitespaceToken();
         _sequence.addAll(Arrays.asList(
                 new CharTerminal('>'),
                 _nodes,
+                _trailingWhitespace,
                 new StringTerminal("</"), _name, new CharTerminal('>')
         ));
 
@@ -104,5 +107,10 @@ public class XMLTail extends SequenceNode implements CopyNode<XMLTail> {
     @Override
     public XMLTail deepCopy() {
         throw new NoImplementationException();
+    }
+
+    @Override
+    public String toString() {
+        return _closedTag ? _fallback.toString() : super.toString();
     }
 }

@@ -6,7 +6,6 @@ import parsing.model.EitherNode;
 import parsing.model.StringTerminal;
 
 import java.util.Optional;
-import java.util.function.Consumer;
 
 /**
  * Creator: Patrick
