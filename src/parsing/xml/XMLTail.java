@@ -34,6 +34,7 @@ public class XMLTail extends SequenceNode implements CopyNode<XMLTail> {
         ));
 
         _fallback = new StringTerminal("/>");
+        _closedTag = false;
     }
 
     public List<XMLNode> nodes() {
@@ -96,12 +97,14 @@ public class XMLTail extends SequenceNode implements CopyNode<XMLTail> {
 
         _nodes.getElements().addAll(nodesCopy);
         _name.setData(other._name);
+        _closedTag = other._closedTag;
     }
 
     @Override
     public void reset() {
         _nodes.getElements().clear();
         _name.reset();
+        _closedTag = false;
     }
 
     @Override

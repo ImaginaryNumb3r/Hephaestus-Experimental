@@ -15,6 +15,11 @@ public class CommentToken extends ContentToken implements CopyNode<CommentToken>
     }
 
     @Override
+    protected int parseImpl(String chars, int index) {
+        return super.parseImpl(chars, index);
+    }
+
+    @Override
     public CommentToken deepCopy() {
         CommentToken copy = new CommentToken();
         copy._buffer.append(_buffer);
@@ -28,6 +33,7 @@ public class CommentToken extends ContentToken implements CopyNode<CommentToken>
     }
 
     public void setData(CommentToken other) {
-        super.setData(other);
+        reset();
+        _buffer.append(other.getContent());
     }
 }

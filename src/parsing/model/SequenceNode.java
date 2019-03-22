@@ -58,11 +58,11 @@ public class SequenceNode extends AbstractParseNode implements ListIterable<Pars
 
     protected void setData(SequenceNode other) {
         reset();
-        var sequence = other._sequence.stream()
+        var sequenceCopy = other._sequence.stream()
                 .map(ParseNode::deepCopy)
                 .collect(Collectors.toList());
 
-        _sequence.addAll(sequence);
+        _sequence.addAll(sequenceCopy);
     }
 
     @Override

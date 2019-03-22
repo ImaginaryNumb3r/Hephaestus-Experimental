@@ -1,11 +1,8 @@
 package parsing.xml;
 
-import essentials.contract.NoImplementationException;
 import parsing.model.CopyNode;
 import parsing.model.MultiNode;
-import parsing.model.ParseNode;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 /**

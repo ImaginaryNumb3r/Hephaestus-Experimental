@@ -85,6 +85,7 @@ public class XMLNode extends EitherNode<XMLTag, CommentToken> implements CopyNod
 
     @Override
     public void setData(XMLNode other) {
+        reset();
         super.setData(other);
     }
 
