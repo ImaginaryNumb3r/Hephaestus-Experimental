@@ -89,7 +89,7 @@ public class XMLTail extends SequenceNode implements CopyNode<XMLTail> {
 
     @Override
     public void setData(XMLTail other) {
-        reset();
+        super.setData(other);
         var nodesCopy = other._nodes.getElements().stream()
                 .map(XMLNode::deepCopy)
                 .collect(Collectors.toList());

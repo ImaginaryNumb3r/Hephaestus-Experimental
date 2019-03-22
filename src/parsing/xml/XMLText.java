@@ -1,6 +1,8 @@
 package parsing.xml;
 
 import parsing.model.ContentToken;
+import parsing.model.CopyNode;
+import parsing.model.ParseNode;
 
 import java.util.Objects;
 
@@ -9,7 +11,7 @@ import java.util.Objects;
  * Created: 22.03.2019
  * The text that can be between nodes
  */
-public class XMLText extends ContentToken {
+public class XMLText extends ContentToken implements CopyNode<XMLText> {
     private static final String POSTFIX = "</";
 
     public XMLText() {
@@ -37,5 +39,23 @@ public class XMLText extends ContentToken {
     @Override
     public int hashCode() {
         return Objects.hash(_buffer.toString());
+    }
+
+    @Override
+    public XMLText deepCopy() {
+        XMLText copy = new XMLText();
+        setContent(_buffer);
+
+        return copy;
+    }
+
+    @Override
+    public void setData(XMLText other) {
+        super.setData(other);
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
     }
 }
