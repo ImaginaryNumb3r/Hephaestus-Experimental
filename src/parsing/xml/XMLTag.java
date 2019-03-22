@@ -45,12 +45,16 @@ public class XMLTag extends AbstractParseNode implements CopyNode<XMLTag> {
 
     @Override
     public XMLTag deepCopy() {
-        throw new NoImplementationException();
+        XMLTag copy = new XMLTag();
+        copy.setData(this);
+
+        return copy;
     }
 
     @Override
     public void setData(XMLTag other) {
-        throw new NoImplementationException();
+        _head.setData(other._head);
+        _tail.setData(other._tail);
     }
 
     @Override

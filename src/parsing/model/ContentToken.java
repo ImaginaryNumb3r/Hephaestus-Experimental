@@ -111,6 +111,7 @@ public class ContentToken extends AbstractParseNode {
     }
 
     public void setData(ContentToken other) {
+        // If this fails, merge with CommentToken implementation.
         throw new NoImplementationException();
     }
 

@@ -53,7 +53,7 @@ public class TagHeader extends SequenceNode implements CopyNode<TagHeader> {
 
     @Override
     public TagHeader deepCopy() {
-        TagHeader copy = new TagHeader();
+        TagHeader copy = new TagHeader(); /*
         copy.setName(getName());
         copy._whitespace.setWhitespace(_whitespace.toString());
 
@@ -62,14 +62,18 @@ public class TagHeader extends SequenceNode implements CopyNode<TagHeader> {
                 .map(AttributeToken::deepCopy)
                 .collect(Collectors.toList());
 
-        attributes.addAll(attributeCopies);
+        attributes.addAll(attributeCopies); */
+        copy.setData(this);
 
         return copy;
     }
 
     @Override
     public void reset() {
+        // Clear sequence of elements.
         super.reset();
+
+        // Clear elements themselves within the sequence.
         _name.reset();
         _attributes.getElements().clear();
         _whitespace.setWhitespace("");
@@ -77,7 +81,22 @@ public class TagHeader extends SequenceNode implements CopyNode<TagHeader> {
 
     @Override
     public void setData(TagHeader other) {
-        throw new NoImplementationException();
+        reset();
+
+        setName(other.getName());
+        _whitespace.setWhitespace(other._whitespace.toString());
+
+        var attributes = getAttributes();
+        var attributeCopies = other._attributes.getElements().stream()
+                .map(AttributeToken::deepCopy)
+                .collect(Collectors.toList());
+
+        attributes.addAll(attributeCopies);
+
+        var sequenceCopy = other._sequence.stream()
+                .map(ParseNode::deepCopy)
+                .collect(Collectors.toList());
+        _sequence.addAll(sequenceCopy);
     }
 
     @Override

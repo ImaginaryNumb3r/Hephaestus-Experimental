@@ -37,6 +37,13 @@ public class InnerNodes extends MultiNode<XMLNode> {
         return nextIndex;
     }
 
+    @Override
+    public String toString() {
+        return _status == Status.TEXT ? _text.toString()
+                : _status == Status.NODE ? super.toString()
+                : "";
+    }
+
     private enum Status {
         TEXT, NODE, NONE
     }

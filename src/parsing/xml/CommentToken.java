@@ -28,6 +28,7 @@ public class CommentToken extends ContentToken implements CopyNode<CommentToken>
     }
 
     public void setData(CommentToken other) {
-        super.setData(other);
+        reset();
+        _buffer.append(other);
     }
 }
