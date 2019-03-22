@@ -50,7 +50,7 @@ public class XMLNode extends EitherNode<XMLTag, CommentToken> implements CopyNod
     }
 
     public boolean isTag() {
-        return super.hasSecond();
+        return super.hasFirst();
     }
 
     public boolean isComment() {

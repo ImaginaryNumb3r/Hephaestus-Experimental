@@ -30,7 +30,7 @@ public class XMLNodeTest extends AbstractParseNodeTest {
             XMLNode token = new XMLNode();
 
             checkParse(tag, tag, token, token::toString);
-            assertTrue(token.isComment());
+            assertTrue(token.isTag());
 
             assertTrue(token.getTag().isPresent());
             assertEquals(tag, token.getTag().get().toString());
