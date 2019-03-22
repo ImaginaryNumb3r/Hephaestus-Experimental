@@ -2,8 +2,6 @@ package parsing.xml;
 
 import org.junit.Test;
 
-import java.nio.file.Path;
-
 import static org.junit.Assert.*;
 
 /**
@@ -23,6 +21,19 @@ public class XMLNodeTest extends AbstractParseNodeTest {
 
             assertTrue(token.getCommentContent().isPresent());
             assertEquals(testPair.expected, token.getCommentContent().get());
+        }
+    }
+
+    @Test
+    public void testParseTags() {
+        for (String tag : XMLTagTest.TEST_DATA) {
+            XMLNode token = new XMLNode();
+
+            checkParse(tag, tag, token, token::toString);
+            assertTrue(token.isComment());
+
+            assertTrue(token.getTag().isPresent());
+            assertEquals(tag, token.getTag().get().toString());
         }
     }
 }
