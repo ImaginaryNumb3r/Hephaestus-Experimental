@@ -68,8 +68,8 @@ public class AttributeToken extends SequenceNode implements CopyNode<AttributeTo
 
         _sequence.clear();
         _sequence.addAll(sequenceCopy);
-        setName(getName());
-        setValue(getValue());
+        _name.setData(other._name);
+        _value.setData(other._value);
     }
 
     @Override

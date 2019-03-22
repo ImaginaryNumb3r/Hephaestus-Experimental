@@ -46,13 +46,16 @@ public class InnerNodes extends MultiNode<XMLNode> implements CopyNode<InnerNode
         InnerNodes copy = new InnerNodes();
         copy.setData(this);
 
+        if (!copy.equals(this)) {
+            throw new IllegalStateException();
+        }
+
         return copy;
     }
 
     @Override
     public void setData(InnerNodes other) {
         reset();
-
         _text.setData(other._text);
 
         var elementsCopy = other._elements.stream()
@@ -60,6 +63,7 @@ public class InnerNodes extends MultiNode<XMLNode> implements CopyNode<InnerNode
                 .collect(Collectors.toList());
 
         _elements.addAll(elementsCopy);
+        _status = other._status;
     }
 
     @Override

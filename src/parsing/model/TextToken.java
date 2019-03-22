@@ -7,7 +7,7 @@ package parsing.model;
  */
 public class TextToken extends ConsumerNode implements CopyNode<TextToken> {
 
-    public TextToken() {
+    public TextToken() { // TODO: Change to "not whitespace" -> character '!' could be making problems
         super(Character::isAlphabetic);
     }
 
@@ -44,5 +44,10 @@ public class TextToken extends ConsumerNode implements CopyNode<TextToken> {
     @Override
     public String toString() {
         return super.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
     }
 }

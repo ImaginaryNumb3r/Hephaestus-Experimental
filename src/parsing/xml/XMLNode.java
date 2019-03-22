@@ -76,6 +76,10 @@ public class XMLNode extends EitherNode<XMLTag, CommentToken> implements CopyNod
         Nulls.ifPresent(_optional, copy._optional::setData);
         copy._status = _status; */
 
+        if (!copy.equals(this)) {
+            throw new IllegalStateException();
+        }
+
         return copy;
     }
 
@@ -88,6 +92,7 @@ public class XMLNode extends EitherNode<XMLTag, CommentToken> implements CopyNod
     public void setData(XMLNode other) {
         reset();
         super.setData(other);
+        _leadingWhitespace.setWhitespace(other._leadingWhitespace);
     }
 
     @Override

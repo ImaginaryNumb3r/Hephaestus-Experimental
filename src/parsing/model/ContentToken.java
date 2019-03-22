@@ -112,6 +112,6 @@ public class ContentToken extends AbstractParseNode {
 
     public void setData(ContentToken other) {
         reset();
-        _buffer.append(other);
+        _buffer.append(other._buffer);
     }
 }

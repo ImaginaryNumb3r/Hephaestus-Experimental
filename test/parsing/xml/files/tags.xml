@@ -4,6 +4,11 @@
 	<carname type = "@Integer_Type">@Integer_Value</carname>
 </supercars>
 
+<supercars company = "@Company_Name">
+	<!-- -->
+	<tag><!-- --></tag>
+</supercars>
+
 <attributes
 	first = "true"
 	second="1.5s"

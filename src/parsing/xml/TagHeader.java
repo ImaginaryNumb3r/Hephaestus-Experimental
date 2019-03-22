@@ -97,6 +97,10 @@ public class TagHeader extends SequenceNode implements CopyNode<TagHeader> {
                 .map(ParseNode::deepCopy)
                 .collect(Collectors.toList());
         _sequence.addAll(sequenceCopy);
+
+        if (!equals(other)) {
+            throw new IllegalStateException();
+        }
     }
 
     @Override

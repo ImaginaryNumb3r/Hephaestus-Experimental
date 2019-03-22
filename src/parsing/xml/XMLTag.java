@@ -56,6 +56,10 @@ public class XMLTag extends AbstractParseNode implements CopyNode<XMLTag> {
     public void setData(XMLTag other) {
         _head.setData(other._head);
         _tail.setData(other._tail);
+
+        if (!equals(other)) {
+            throw new IllegalStateException();
+        }
     }
 
     @Override
