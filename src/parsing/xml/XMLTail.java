@@ -112,7 +112,10 @@ public class XMLTail extends SequenceNode implements CopyNode<XMLTail> {
 
     @Override
     public XMLTail deepCopy() {
-        throw new NoImplementationException();
+        XMLTail copy = new XMLTail();
+        copy.setData(this);
+
+        return copy;
     }
 
     @Override
