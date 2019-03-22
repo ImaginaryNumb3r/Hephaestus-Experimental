@@ -5,6 +5,7 @@ import parsing.model.CopyNode;
 import parsing.model.EitherNode;
 import parsing.model.WhitespaceToken;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -92,5 +93,19 @@ public class XMLNode extends EitherNode<XMLTag, CommentToken> implements CopyNod
     @Override
     public String toString() {
         return _leadingWhitespace.toString() + super.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof XMLNode)) return false;
+        if (!super.equals(o)) return false;
+        XMLNode xmlNode = (XMLNode) o;
+        return Objects.equals(_leadingWhitespace, xmlNode._leadingWhitespace);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), _leadingWhitespace);
     }
 }

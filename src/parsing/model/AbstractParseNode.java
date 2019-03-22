@@ -36,4 +36,10 @@ public abstract class AbstractParseNode implements ParseNode {
 
     @Override
     public abstract int hashCode(); */
+
+    @Override
+    public abstract boolean equals(Object obj);
+
+    @Override
+    public abstract int hashCode();
 }

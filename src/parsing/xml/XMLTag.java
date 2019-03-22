@@ -5,6 +5,7 @@ import parsing.model.AbstractParseNode;
 import parsing.model.CopyNode;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Creator: Patrick
@@ -92,5 +93,19 @@ public class XMLTag extends AbstractParseNode implements CopyNode<XMLTag> {
     @Override
     public String toString() {
         return _head.toString() + _tail.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof XMLTag)) return false;
+        XMLTag xmlTag = (XMLTag) o;
+        return Objects.equals(_head, xmlTag._head) &&
+                Objects.equals(_tail, xmlTag._tail);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(_head, _tail);
     }
 }

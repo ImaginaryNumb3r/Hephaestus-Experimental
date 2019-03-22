@@ -6,6 +6,7 @@ import parsing.model.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -90,6 +91,7 @@ public class XMLTail extends SequenceNode implements CopyNode<XMLTail> {
 
     @Override
     public void setData(XMLTail other) {
+        reset();
         super.setData(other);
         var nodesCopy = other._nodes.getElements().stream()
                 .map(XMLNode::deepCopy)
@@ -102,6 +104,7 @@ public class XMLTail extends SequenceNode implements CopyNode<XMLTail> {
 
     @Override
     public void reset() {
+        super.reset();
         _nodes.getElements().clear();
         _name.reset();
         _closedTag = false;
@@ -115,5 +118,23 @@ public class XMLTail extends SequenceNode implements CopyNode<XMLTail> {
     @Override
     public String toString() {
         return _closedTag ? _fallback.toString() : super.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof XMLTail)) return false;
+        if (!super.equals(o)) return false;
+        XMLTail that = (XMLTail) o;
+        return _closedTag == that._closedTag &&
+                Objects.equals(_nodes, that._nodes) &&
+                Objects.equals(_name, that._name) &&
+                Objects.equals(_fallback, that._fallback) &&
+                Objects.equals(_trailingWhitespace, that._trailingWhitespace);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), _nodes, _name, _fallback, _trailingWhitespace, _closedTag);
     }
 }
