@@ -20,7 +20,15 @@ public class XMLText extends ContentToken implements CopyNode<XMLText> {
     @Override
     protected int parseImpl(String chars, int index) {
         index = super.parseImpl(chars, index);
-        return index == INVALID ? INVALID : index - 1;
+
+        // Ensure that no invalid character is contained in the xml text.
+        for (int i = 0; i != _buffer.length(); ++i) {
+            if (_buffer.charAt(i) == '<') {
+                return INVALID;
+            }
+        }
+
+        return index == INVALID ? INVALID : index - 2;
     }
 
     @Override

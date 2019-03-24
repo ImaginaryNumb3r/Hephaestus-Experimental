@@ -24,7 +24,7 @@ public class InnerNodes extends MultiNode<XMLNode> implements CopyNode<InnerNode
     }
 
     @Override
-    protected int parseImpl(String chars, int index) {
+    protected int parseImpl(String chars, final int index) {
         int nextIndex = super.parseImpl(chars, index);
 
         // If the next index is the same as the input index, we know nothing could be parsed.

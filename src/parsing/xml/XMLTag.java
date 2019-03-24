@@ -87,7 +87,14 @@ public class XMLTag extends AbstractParseNode implements CopyNode<XMLTag> {
         return finalIndex;
     }
 
+    /**
+     * Validates the integrity of the whole tag.
+     * @return true if XML specification is adhered.
+     */
     private boolean isCorrect() {
+        // Don't compare tail with head name if there is no tail name.
+        if (_tail.isClosedTag()) return true;
+
         String name = _head.getName();
         String tailName = _tail.getName();
 

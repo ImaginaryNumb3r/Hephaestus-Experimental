@@ -48,7 +48,7 @@ public class ContentToken extends AbstractParseNode {
 
         _buffer.append(chars, start, index - 1);
 
-        return index;
+        return end;
     }
 
     /**

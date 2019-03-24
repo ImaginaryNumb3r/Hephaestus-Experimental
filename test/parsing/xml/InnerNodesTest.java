@@ -29,7 +29,7 @@ public class InnerNodesTest extends AbstractParseNodeTest {
         expected = "Text aoiweu!\"30912 ";
         var innerNodes = new InnerNodes();
         Supplier<String> actual = () -> innerNodes.getData().get() + "</";
-        checkParse(expected, string, innerNodes, () -> innerNodes.getData().get(), actual);
+        checkParse(expected, string, expected.length(), innerNodes, () -> innerNodes.getData().get(), actual);
 
         string = TEST_DATA.get(2);
         expected = string;

@@ -29,10 +29,6 @@ public class SequenceNode extends AbstractParseNode implements ListIterable<Pars
 
         int nextIndex = index;
         for (ParseNode element : _sequence) {
-            if (element instanceof InnerNodes) {
-                System.out.println("delete me");
-            }
-
             nextIndex = element.parse(chars, nextIndex);
 
             if (nextIndex == INVALID) {

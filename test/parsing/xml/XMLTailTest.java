@@ -19,6 +19,7 @@ public class XMLTailTest extends AbstractParseNodeTest {
         for (String tail : TEST_DATA) {
             XMLTail token = new XMLTail();
 
+            // TODO: < is not a valid character in XML texts
             checkParse(tail, tail, token, token::toString);
         }
     }

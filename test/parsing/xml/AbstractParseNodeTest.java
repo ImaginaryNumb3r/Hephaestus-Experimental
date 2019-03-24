@@ -60,13 +60,18 @@ public class AbstractParseNodeTest {
     }
 
     protected void checkParse(String expected, String data, ParseNode token, Supplier<String> dataSupplier) {
-        checkParse(expected, data, token, dataSupplier, token::toString);
+        checkParse(expected, data, data.length(), token, dataSupplier, token::toString);
     }
 
-    protected void checkParse(String expected, String data, ParseNode token, Supplier<String> dataSupplier, Supplier<String> toString) {
+    protected void checkParse(String expected, String data, int expectedParseLength, ParseNode token,
+                              Supplier<String> dataSupplier, Supplier<String> toString
+    ) {
         int parse = token.parse(data, 0);
-        String message = "Asserting that the token could be parsed fails for: " + token.getClass().getName();
+        String message = "Asserting that the token could be parsed fails for: " + data;
         assertNotEquals(message, INVALID, parse);
+
+        message = "Asserting that the parse index is correct fails for: " + data;
+        assertEquals(message, expectedParseLength, parse);
 
         message = "Comparison between parse output and expected output fails";
         assertEquals(message, expected, dataSupplier.get());
