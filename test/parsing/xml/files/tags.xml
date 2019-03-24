@@ -1,15 +1,22 @@
 <supercars company = "@Company_Name" >
-	<carname type = "formula one">Ferrari 101</carname >
+	<carname type = "formula one">Ferrari 101<!-- --></carname >
 	<carname type = "sports">Ferrari 202</ carname >
-	<carname type = "@Integer_Type">@Integer_Value</carname>
-</supercars>
+	<carname type = "@Integer_Type">@Integer_Value</
+		carname>
+</supercars
+>
 
 <supercars company = "@Company_Name">
 	<!-- -->
-	<tag><!-- --></tag>
+	<!--
+	-->
+	<tag><!--
+				--></tag>
 </supercars>
 
 <attributes
-	first = "true"
-	second="1.5s"
+	first =
+		"true"
+	second
+		="1.5s"
 	third="lorem ipsum" />

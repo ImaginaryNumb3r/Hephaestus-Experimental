@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
  * Creator: Patrick
  * Created: 22.03.2019
  * Grammar: ( XMLNode )* | XMLText
+ * TODO: Problem is that a comment can also be part within the text tag
  */
 public class InnerNodes extends MultiNode<XMLNode> implements CopyNode<InnerNodes> {
     private final XMLText _text;

@@ -2,7 +2,11 @@
 	<tag>Value</ tag  	>
 	<tag  ><!-- Inner Comment --></tag
 	>
-	<!-- Comment -->
+	<!--
+	Comment-->
+	<!--
+	Comment
+	-->
 </  carname >
 
 >@Integer_Value</ carname >
