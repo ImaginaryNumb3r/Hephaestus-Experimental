@@ -70,21 +70,21 @@ public class XMLTag extends AbstractParseNode implements CopyNode<XMLTag> {
 
     @Override
     protected int parseImpl(String chars, int index) {
-        int finalIndex;
-        /* finalIndex = _leadingWhitespace.parse(chars, index);
-        if (finalIndex != INVALID) index = finalIndex; */
+        int nextIndex;
+        /* nextIndex = _leadingWhitespace.parse(chars, index);
+        if (nextIndex != INVALID) index = nextIndex; */
 
-        finalIndex = _head.parse(chars, index);
+        nextIndex = _head.parse(chars, index);
 
-        if (finalIndex != INVALID) {
-            finalIndex = _tail.parse(chars, finalIndex);
+        if (nextIndex != INVALID) {
+            nextIndex = _tail.parse(chars, nextIndex);
         }
 
-        if (finalIndex == INVALID || !isCorrect()) {
+        if (nextIndex == INVALID || !isCorrect()) {
             return INVALID;
         }
 
-        return finalIndex;
+        return nextIndex;
     }
 
     /**

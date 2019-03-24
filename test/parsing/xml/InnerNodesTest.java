@@ -26,7 +26,7 @@ public class InnerNodesTest extends AbstractParseNodeTest {
         assertTrue(node.isComment());
 
         String string = TEST_DATA.get(1);
-        expected = "Text aoiweu!\"30912 ";
+        expected = "Text aoiweu!\"30912 <!-- -->";
         var innerNodes = new InnerNodes();
         Supplier<String> actual = () -> innerNodes.getData().get() + "</";
         checkParse(expected, string, expected.length(), innerNodes, () -> innerNodes.getData().get(), actual);

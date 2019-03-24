@@ -9,9 +9,11 @@ import parsing.model.CopyNode;
  * Purpose:
  */
 public class CommentToken extends ContentToken implements CopyNode<CommentToken> {
+    public static String COMMENT_START = "<!--";
+    public static String COMMENT_END = "-->";
 
     public CommentToken() {
-        super("<!--", "-->");
+        super(COMMENT_START, COMMENT_END);
     }
 
     @Override

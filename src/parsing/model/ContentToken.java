@@ -36,19 +36,19 @@ public class ContentToken extends AbstractParseNode {
 
         // Parse text until postfix is encountered.
         int start = index;
-        int end = INVALID;
+        int nextIndex = INVALID;
 
-        while (end == INVALID) {
-            end = parseString(_postfix, chars, index);
-            ++index;
+        while (nextIndex == INVALID) {
+            nextIndex = parseString(_postfix, chars, index);
 
             // Exhausted the string in the look for the postfix.
             if (index == chars.length()) return INVALID;
+            ++index;
         }
 
         _buffer.append(chars, start, index - 1);
 
-        return end;
+        return nextIndex;
     }
 
     /**
@@ -58,7 +58,7 @@ public class ContentToken extends AbstractParseNode {
      * @return offset to the given index.
      * @throws IndexOutOfBoundsException if the index is bigger than the string length.
      */
-    private int parseString(String expected, String chars, final int index) {
+    protected int parseString(String expected, String chars, final int index) {
         if (index >= chars.length()) {
             throw new IndexOutOfBoundsException("Parsing content token with an index bigger than the input. Expected: \"" + expected + "\"");
         }
