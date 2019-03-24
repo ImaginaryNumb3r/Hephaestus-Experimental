@@ -1,7 +1,5 @@
 package parsing.model;
 
-import essentials.contract.NoImplementationException;
-
 import java.util.Objects;
 
 /**

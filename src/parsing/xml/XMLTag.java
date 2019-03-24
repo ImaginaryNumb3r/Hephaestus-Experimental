@@ -1,6 +1,5 @@
 package parsing.xml;
 
-import essentials.contract.NoImplementationException;
 import parsing.model.AbstractParseNode;
 import parsing.model.CopyNode;
 

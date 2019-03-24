@@ -3,7 +3,6 @@ package parsing.model;
 import lib.ListIterable;
 import lib.Strings;
 import org.jetbrains.annotations.NotNull;
-import parsing.xml.InnerNodes;
 
 import java.util.*;
 import java.util.stream.Collectors;

@@ -6,8 +6,6 @@ import parsing.model.CopyNode;
 
 import java.util.Objects;
 
-import static parsing.xml.CommentToken.COMMENT_START;
-
 /**
  * Creator: Patrick
  * Created: 22.03.2019
