@@ -60,7 +60,10 @@ public class AbstractParseNodeTest {
     }
 
     protected void checkParse(String expected, String data, ParseNode token, Supplier<String> dataSupplier) {
+        checkParse(expected, data, token, dataSupplier, token::toString);
+    }
 
+    protected void checkParse(String expected, String data, ParseNode token, Supplier<String> dataSupplier, Supplier<String> toString) {
         int parse = token.parse(data, 0);
         String message = "Asserting that the token could be parsed fails for: " + token.getClass().getName();
         assertNotEquals(message, INVALID, parse);
@@ -69,7 +72,7 @@ public class AbstractParseNodeTest {
         assertEquals(message, expected, dataSupplier.get());
 
         message = "Raw comparison between parse input and output fails";
-        assertEquals(message, data, token.toString());
+        assertEquals(message, data, toString.get());
 
         message = "Asserting that a copy is equal failed for: " + token.getClass().getName();
         ParseNode copy = token.deepCopy();

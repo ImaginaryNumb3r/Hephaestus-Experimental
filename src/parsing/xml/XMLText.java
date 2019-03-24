@@ -2,7 +2,6 @@ package parsing.xml;
 
 import parsing.model.ContentToken;
 import parsing.model.CopyNode;
-import parsing.model.ParseNode;
 
 import java.util.Objects;
 
@@ -12,7 +11,7 @@ import java.util.Objects;
  * The text that can be between nodes
  */
 public class XMLText extends ContentToken implements CopyNode<XMLText> {
-    private static final String POSTFIX = "/>";
+    private static final String POSTFIX = "</";
 
     public XMLText() {
         super("", POSTFIX);
@@ -20,12 +19,18 @@ public class XMLText extends ContentToken implements CopyNode<XMLText> {
 
     @Override
     protected int parseImpl(String chars, int index) {
-        return super.parseImpl(chars, index) - 1;
+        index = super.parseImpl(chars, index);
+        return index == INVALID ? INVALID : index - 1;
     }
 
     @Override
     public String toString() {
-        return _buffer.toString() + POSTFIX;
+        // Do not print postfix because it only serves as a termination marker.
+        return _buffer.toString();
+    }
+
+    public String rawString() {
+        return toString() + POSTFIX;
     }
 
     @Override
