@@ -12,7 +12,7 @@ import java.util.Objects;
  * The text that can be between nodes
  */
 public class XMLText extends ContentToken implements CopyNode<XMLText> {
-    private static final String POSTFIX = "</";
+    private static final String POSTFIX = "/>";
 
     public XMLText() {
         super("", POSTFIX);
@@ -25,7 +25,7 @@ public class XMLText extends ContentToken implements CopyNode<XMLText> {
 
     @Override
     public String toString() {
-        return _buffer.toString();
+        return _buffer.toString() + POSTFIX;
     }
 
     @Override

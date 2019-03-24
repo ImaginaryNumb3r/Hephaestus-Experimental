@@ -83,7 +83,10 @@ public class XMLTail extends SequenceNode implements CopyNode<XMLTail> {
         // Fallback to closed token.
         if (status == INVALID) {
             status = _fallback.parse(chars, index);
-            _closedTag = true;
+
+            if (status != INVALID) {
+                _closedTag = true;
+            }
         }
 
         return status;

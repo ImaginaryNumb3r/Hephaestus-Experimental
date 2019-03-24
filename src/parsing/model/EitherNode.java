@@ -26,13 +26,11 @@ public class EitherNode<O extends CopyNode<O>, M extends CopyNode<M>> extends Ab
         int nextIndex = _optional.parse(chars, index);
 
         if (nextIndex != INVALID) {
-            index = nextIndex;
             _status = Status.OPTIONAL;
         } else {
             nextIndex = _mandatory.parse(chars, index);
 
             if (nextIndex != INVALID) {
-                index = nextIndex;
                 _status = Status.MANDATORY;
             }
         }

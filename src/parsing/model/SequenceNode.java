@@ -3,6 +3,7 @@ package parsing.model;
 import lib.ListIterable;
 import lib.Strings;
 import org.jetbrains.annotations.NotNull;
+import parsing.xml.InnerNodes;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -28,6 +29,10 @@ public class SequenceNode extends AbstractParseNode implements ListIterable<Pars
 
         int nextIndex = index;
         for (ParseNode element : _sequence) {
+            if (element instanceof InnerNodes) {
+                System.out.println("delete me");
+            }
+
             nextIndex = element.parse(chars, nextIndex);
 
             if (nextIndex == INVALID) {

@@ -41,6 +41,9 @@ public class ContentToken extends AbstractParseNode {
         while (end == INVALID) {
             end = parseString(_postfix, chars, index);
             ++index;
+
+            // Exhausted the string in the look for the postfix.
+            if (index == chars.length()) return INVALID;
         }
 
         _buffer.append(chars, start, index - 1);
@@ -49,21 +52,27 @@ public class ContentToken extends AbstractParseNode {
     }
 
     /**
-     * @param string string for matching.
+     * @param expected string for matching.
      * @param chars character array for parsing
      * @param index within character array
-     * @return offset to the given index
+     * @return offset to the given index.
+     * @throws IndexOutOfBoundsException if the index is bigger than the string length.
      */
-    private int parseString(String string, String chars, final int index) {
+    private int parseString(String expected, String chars, final int index) {
+        if (index >= chars.length()) {
+            throw new IndexOutOfBoundsException("Parsing content token with an index bigger than the input. Expected: \"" + expected + "\"");
+        }
 
         int offset;
-        for (offset = 0; offset != string.length(); ++offset) {
-            char expected = string.charAt(offset);
+        for (offset = 0; offset != expected.length(); ++offset) {
+            char expectedChar = expected.charAt(offset);
 
-            // if (index + offset >= string.length()) return INVALID;
-            char actual = chars.charAt(index + offset);
+            if (index + offset >= chars.length()) {
+                return INVALID;
+            }
+            char actualChar = chars.charAt(index + offset);
 
-            if (expected != actual) return INVALID;
+            if (expectedChar != actualChar) return INVALID;
         }
 
         return index + offset;

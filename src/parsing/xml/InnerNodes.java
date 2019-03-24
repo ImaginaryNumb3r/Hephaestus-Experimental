@@ -1,14 +1,17 @@
 package parsing.xml;
 
+import lib.Nulls;
 import parsing.model.CopyNode;
 import parsing.model.MultiNode;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
  * Creator: Patrick
  * Created: 22.03.2019
- * Grammar: XMLText | ( XMLNode )*
+ * Grammar: ( XMLNode )* | XMLText
  */
 public class InnerNodes extends MultiNode<XMLNode> implements CopyNode<InnerNodes> {
     private final XMLText _text;
@@ -64,6 +67,22 @@ public class InnerNodes extends MultiNode<XMLNode> implements CopyNode<InnerNode
 
         _elements.addAll(elementsCopy);
         _status = other._status;
+    }
+
+    public boolean isText() {
+        return _status == Status.TEXT;
+    }
+
+    public boolean hasInnerNodes() {
+        return _status == Status.NODE;
+    }
+
+    public Optional<String> getData() {
+        return Nulls.box(isText(), _text.getContent());
+    }
+
+    public Optional<List<XMLNode>> innerNodes() {
+        return Nulls.box(hasInnerNodes(), _elements);
     }
 
     @Override

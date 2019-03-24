@@ -1,5 +1,7 @@
 package lib;
 
+import javax.swing.text.html.Option;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
@@ -7,7 +9,7 @@ import java.util.function.Consumer;
  * Created: 21.03.2019
  * Purpose:
  */
-public class Nulls {
+public final class Nulls {
 
     public static <T> void ifPresent(T object, Consumer<T> consumer) {
         if (object != null) {
@@ -26,4 +28,9 @@ public class Nulls {
             action.run();
         }
     }
+
+    public static <T> Optional<T> box(boolean condition, T instance) {
+        return condition ? Optional.of(instance) : Optional.empty();
+    }
+
 }
