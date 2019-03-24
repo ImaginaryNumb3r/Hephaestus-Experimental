@@ -43,6 +43,10 @@ public class MultiNode<T extends CopyNode<T>> extends AbstractParseNode implemen
         return index;
     }
 
+    protected void reset() {
+        _elements.clear();
+    }
+
     public List<T> getElements() {
         return _elements;
     }

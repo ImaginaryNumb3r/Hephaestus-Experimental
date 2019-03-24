@@ -4,13 +4,14 @@ import parsing.model.CopyNode;
 import parsing.model.MultiNode;
 
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Creator: Patrick
  * Created: 20.03.2019
- * Purpose:
+ * ZODO: Rename to XML Attributes?
  */
-public class AttributesNode extends MultiNode<AttributeToken> {
+public class AttributesNode extends MultiNode<AttributeToken> implements CopyNode<AttributesNode> {
 
     protected AttributesNode() {
         super(AttributeToken::new);
@@ -27,4 +28,21 @@ public class AttributesNode extends MultiNode<AttributeToken> {
 
         return copy;
     }
+
+    @Override
+    public void setData(AttributesNode other) {
+        _elements.clear();
+
+        var elementsCopy = other._elements.stream()
+                .map(AttributeToken::deepCopy)
+                .collect(Collectors.toList());
+        _elements.addAll(elementsCopy);
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
+    }
+
+
 }
