@@ -31,7 +31,9 @@ public class XMLTail extends SequenceNode implements CopyNode<XMLTail> {
                 new CharTerminal('>'),
                 _nodes,
                 _trailingWhitespace,
-                new StringTerminal("</"), _name, new CharTerminal('>')
+                new StringTerminal("</"),
+                new WhitespaceToken(), _name, new WhitespaceToken(),
+                new CharTerminal('>')
         ));
 
         _fallback = new StringTerminal("/>");

@@ -1,8 +1,11 @@
 <attributes
 	first = "true"
 	second="1.5s"
-	third="lorem ipsum" />
+	third="lorem ipsum"
+/>
 
-<attributes single="one"/>
+<attributes single  = "one"  />
 
 <empty/>
+
+<empty />

@@ -1,9 +1,10 @@
 >
-	<tag>Value</tag>
-	<tag><!-- Inner Comment --></tag>
+	<tag>Value</ tag  	>
+	<tag  ><!-- Inner Comment --></tag
+	>
 	<!-- Comment -->
-</carname>
+</  carname >
 
->@Integer_Value</carname>
+>@Integer_Value</ carname >
 
 />
