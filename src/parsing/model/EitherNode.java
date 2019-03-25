@@ -11,9 +11,9 @@ import java.util.Optional;
  * Purpose:
  */
 public class EitherNode<O extends CopyNode<O>, M extends CopyNode<M>> extends AbstractParseNode {
-    protected final O _optional;
-    protected final M _mandatory;
-    protected Status _status;
+    private final O _optional;
+    private final M _mandatory;
+    private Status _status;
 
     public EitherNode(O optional, M mandatory) {
         _optional = optional;
@@ -38,21 +38,21 @@ public class EitherNode<O extends CopyNode<O>, M extends CopyNode<M>> extends Ab
         return nextIndex;
     }
 
-    public boolean hasFirst() {
+    protected boolean hasFirst() {
         return _status == Status.OPTIONAL;
     }
 
-    public Optional<O> first() {
+    protected Optional<O> first() {
         return _status == Status.OPTIONAL
                 ? Optional.of(_optional)
                 : Optional.empty();
     }
 
-    public boolean hasSecond() {
+    protected boolean hasSecond() {
         return _status == Status.MANDATORY;
     }
 
-    public Optional<M> second() {
+    protected Optional<M> second() {
         return _status == Status.MANDATORY
                 ? Optional.of(_mandatory)
                 : Optional.empty();

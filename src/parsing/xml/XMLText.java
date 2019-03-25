@@ -13,7 +13,6 @@ import java.util.Objects;
  */
 public class XMLText extends ContentToken implements CopyNode<XMLText> {
     private static final String POSTFIX = "<";
-    private static final String POSTFIX2 = "<!--";
 
     public XMLText() {
         super("", POSTFIX);
@@ -27,7 +26,6 @@ public class XMLText extends ContentToken implements CopyNode<XMLText> {
         // Revert lookahead.
         index = index - POSTFIX.length();
         int nextIndex = index;
-        // index -= POSTFIX.length();
 
         // Hack: Also append comments. The grammar does not support it yet.
         while (nextIndex != INVALID) {
@@ -48,14 +46,7 @@ public class XMLText extends ContentToken implements CopyNode<XMLText> {
             }
         }
 
-        /*
         // TODO: Remove and turn into a general rule for content token at parse-time.
-        // Ensure that no invalid character is contained in the xml text.
-        for (int i = 0; i != _buffer.length(); ++i) {
-            if (_buffer.charAt(i) == '<') {
-                return INVALID;
-            }
-        } */
 
         return index;
     }

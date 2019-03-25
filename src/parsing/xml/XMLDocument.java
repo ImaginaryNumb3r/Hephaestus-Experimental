@@ -1,7 +1,6 @@
 package parsing.xml;
 
 import parsing.model.AbstractParseNode;
-import parsing.model.ParseNode;
 import parsing.model.WhitespaceToken;
 
 import java.util.Objects;

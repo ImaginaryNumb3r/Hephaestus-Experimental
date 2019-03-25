@@ -13,12 +13,10 @@ import java.util.Objects;
  *          <Name Attributes Whitespace ( ( > InnerNodes </Name> ) | /> )
  */
 public class XMLTag extends AbstractParseNode implements CopyNode<XMLTag> {
-//    private final WhitespaceToken _leadingWhitespace;
     private final TagHeader _head;
     private final XMLTail _tail;
 
     public XMLTag() {
-//        _leadingWhitespace = new WhitespaceToken();
         _head = new TagHeader();
         _tail = new XMLTail();
     }
@@ -34,14 +32,6 @@ public class XMLTag extends AbstractParseNode implements CopyNode<XMLTag> {
     public List<AttributeToken> getAttributes() {
         return _head.getAttributes();
     }
-
-/*    public String getLeadingWhitespace() {
-        return _leadingWhitespace.toString();
-    }
-
-    public void setLeadingWhitespace(CharSequence whitespace) {
-        _leadingWhitespace.setWhitespace(whitespace);
-    }*/
 
     @Override
     public XMLTag deepCopy() {

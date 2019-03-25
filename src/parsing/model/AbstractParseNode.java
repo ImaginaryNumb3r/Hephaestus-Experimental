@@ -31,13 +31,6 @@ public abstract class AbstractParseNode implements ParseNode {
         return toString();
     }
 
-    /* Make abstract and force custom implementation.
-    @Override
-    public abstract boolean equals(Object obj);
-
-    @Override
-    public abstract int hashCode(); */
-
     @Override
     public abstract boolean equals(Object obj);
 

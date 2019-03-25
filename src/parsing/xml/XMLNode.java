@@ -65,18 +65,13 @@ public class XMLNode extends EitherNode<XMLTag, CommentToken> implements CopyNod
             throw new IllegalStateException("Whitespace tokens must not return INVALID");
         }
 
-        // TODO: Problem is that there can't be whitespace just before a comment.
-
         return super.parseImpl(chars, index);
     }
 
     @Override
     public XMLNode deepCopy() {
         XMLNode copy = new XMLNode();
-        copy.setData(this); /*
-        Nulls.ifPresent(_mandatory, copy._mandatory::setData);
-        Nulls.ifPresent(_optional, copy._optional::setData);
-        copy._status = _status; */
+        copy.setData(this);
 
         if (!copy.equals(this)) {
             throw new IllegalStateException();

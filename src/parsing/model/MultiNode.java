@@ -95,8 +95,7 @@ public class MultiNode<T extends CopyNode<T>> extends AbstractParseNode implemen
         }
 
         // Return false if other iterator has excessive elements.
-        if (otherIter.hasNext()) return false;
-        return true;
+        return !otherIter.hasNext();
     }
 
     @Override

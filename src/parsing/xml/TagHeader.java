@@ -52,16 +52,7 @@ public class TagHeader extends SequenceNode implements CopyNode<TagHeader> {
 
     @Override
     public TagHeader deepCopy() {
-        TagHeader copy = new TagHeader(); /*
-        copy.setName(getName());
-        copy._whitespace.setWhitespace(_whitespace.toString());
-
-        var attributes = copy.getAttributes();
-        var attributeCopies = _attributes.getElements().stream()
-                .map(AttributeToken::deepCopy)
-                .collect(Collectors.toList());
-
-        attributes.addAll(attributeCopies); */
+        TagHeader copy = new TagHeader();
         copy.setData(this);
 
         return copy;

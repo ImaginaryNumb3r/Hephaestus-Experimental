@@ -22,5 +22,7 @@ public class XMLDocumentTest extends AbstractParseNodeTest {
         var token = new XMLDocument();
 
         checkParse(file, file, token, token::toString);
+
+        System.out.println();
     }
 }

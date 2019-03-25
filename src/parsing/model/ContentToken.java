@@ -56,7 +56,7 @@ public class ContentToken extends AbstractParseNode {
      * @return offset to the given index.
      * @throws IndexOutOfBoundsException if the index is bigger than the string length.
      */
-    protected int parseString(String expected, String chars, final int index) {
+    private int parseString(String expected, String chars, final int index) {
         if (index >= chars.length()) {
             throw new IndexOutOfBoundsException("Parsing content token with an index bigger than the input. Expected: \"" + expected + "\"");
         }

@@ -14,9 +14,9 @@ import java.util.stream.Collectors;
  * Grammar: ( > InnerNodes </Name> ) | />
  */
 public class XMLTail extends SequenceNode implements CopyNode<XMLTail> {
+    private static final StringTerminal FALLBACK = new StringTerminal("/>");
     private final InnerNodes _nodes;
     private final TextToken _name;
-    private final StringTerminal _fallback;
     private final WhitespaceToken _trailingWhitespace;
     private boolean _closedTag;
 
@@ -35,7 +35,6 @@ public class XMLTail extends SequenceNode implements CopyNode<XMLTail> {
                 new CharTerminal('>')
         ));
 
-        _fallback = new StringTerminal("/>");
         _closedTag = false;
     }
 
@@ -83,7 +82,7 @@ public class XMLTail extends SequenceNode implements CopyNode<XMLTail> {
 
         // Fallback to closed token.
         if (nextIndex == INVALID) {
-            nextIndex = _fallback.parse(chars, index);
+            nextIndex = FALLBACK.parse(chars, index);
 
             if (nextIndex != INVALID) {
                 _closedTag = true;
@@ -97,10 +96,6 @@ public class XMLTail extends SequenceNode implements CopyNode<XMLTail> {
     public void setData(XMLTail other) {
         reset();
         super.setData(other);
-        /* var nodesCopy = other._nodes.getElements().stream()
-                .map(XMLNode::deepCopy)
-                .collect(Collectors.toList()); */
-        // _nodes.getElements().addAll(nodesCopy);
 
         _nodes.setData(other._nodes);
         _name.setData(other._name);
@@ -130,7 +125,7 @@ public class XMLTail extends SequenceNode implements CopyNode<XMLTail> {
 
     @Override
     public String toString() {
-        return _closedTag ? _fallback.toString() : super.toString();
+        return _closedTag ? FALLBACK.toString() : super.toString();
     }
 
     @Override
@@ -142,12 +137,11 @@ public class XMLTail extends SequenceNode implements CopyNode<XMLTail> {
         return _closedTag == that._closedTag &&
                 Objects.equals(_nodes, that._nodes) &&
                 Objects.equals(_name, that._name) &&
-                Objects.equals(_fallback, that._fallback) &&
                 Objects.equals(_trailingWhitespace, that._trailingWhitespace);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), _nodes, _name, _fallback, _trailingWhitespace, _closedTag);
+        return Objects.hash(super.hashCode(), _nodes, _name, FALLBACK, _trailingWhitespace, _closedTag);
     }
 }
