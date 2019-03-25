@@ -2,6 +2,7 @@ package parsing.xml;
 
 import parsing.model.AbstractParseNode;
 import parsing.model.CopyNode;
+import parsing.model.ParseNode;
 import parsing.model.WhitespaceToken;
 
 import java.util.Objects;
@@ -20,6 +21,27 @@ public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocume
         _prolog = new XMLProlog();
         _root = new XMLTag();
         _whitespace = new WhitespaceToken();
+    }
+
+    public static XMLDocument of(String rawXML) {
+        XMLDocument document = new XMLDocument();
+        int status = document.parse(rawXML, 0);
+
+        return status != INVALID ? document : null;
+    }
+
+    public void visit(XMLVisitor visitor) {
+        visit(_root, visitor);
+    }
+
+    public void visit(XMLTag root, XMLVisitor visitor) {
+        visitor.visitTag(root);
+
+        for (AttributeToken attribute : root.attributes()) {
+            visitor.visitAttribute(attribute, root);
+        }
+
+        root.children().forEach(child -> visit(child, visitor));
     }
 
     @Override
