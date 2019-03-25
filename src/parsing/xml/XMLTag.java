@@ -33,6 +33,10 @@ public class XMLTag extends AbstractParseNode implements CopyNode<XMLTag> {
         return _head.getAttributes();
     }
 
+    public boolean isClosed() {
+        return _tail.isClosedTag();
+    }
+
     @Override
     public XMLTag deepCopy() {
         XMLTag copy = new XMLTag();

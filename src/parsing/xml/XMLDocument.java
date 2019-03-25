@@ -1,6 +1,7 @@
 package parsing.xml;
 
 import parsing.model.AbstractParseNode;
+import parsing.model.CopyNode;
 import parsing.model.WhitespaceToken;
 
 import java.util.Objects;
@@ -10,10 +11,11 @@ import java.util.Objects;
  * Created: 25.03.2019
  * Purpose:
  */
-public class XMLDocument extends AbstractParseNode {
+public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocument> {
     private final XMLProlog _prolog;
     private final XMLTag _root;
     private WhitespaceToken _whitespace;
+    private boolean _hasProlog;
 
     public XMLDocument() {
         _prolog = new XMLProlog();
@@ -24,6 +26,8 @@ public class XMLDocument extends AbstractParseNode {
     @Override
     protected int parseImpl(String chars, int index) {
         int nextIndex = _prolog.parse(chars, index);
+        _hasProlog = nextIndex != INVALID;
+
         index = nextIndex != INVALID ? nextIndex : index;
 
         index = _whitespace.parse(chars, index);
@@ -48,6 +52,34 @@ public class XMLDocument extends AbstractParseNode {
         copy._whitespace.setData(_whitespace);
 
         return copy;
+    }
+
+    public XMLProlog getProlog() {
+        return _prolog;
+    }
+
+    public XMLTag getRoot() {
+        return _root;
+    }
+
+    public String getWhitespace() {
+        return _whitespace.toString();
+    }
+
+    @Override
+    public void setData(XMLDocument other) {
+        XMLTag rootCopy = other._root.deepCopy();
+        XMLProlog prologCopy = other._prolog.deepCopy();
+
+        _root.setData(rootCopy);
+        _prolog.setData(prologCopy);
+        _whitespace.setData(_whitespace);
+    }
+
+    @Override
+    public void reset() {
+        _prolog.reset();
+        _root.reset();
     }
 
     @Override
