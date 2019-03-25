@@ -44,6 +44,7 @@ public class XMLProlog extends SequenceNode implements CopyNode<XMLProlog> {
 
     @Override
     public void reset() {
+        super.reset();
         _attributes.reset();
         _trailingWhitespace.reset();
     }
@@ -54,6 +55,11 @@ public class XMLProlog extends SequenceNode implements CopyNode<XMLProlog> {
         super.setData(other);
         _attributes.setData(other._attributes);
         _trailingWhitespace.setData(other._trailingWhitespace);
+
+
+        if (!equals(other)) {
+            throw new IllegalStateException();
+        }
     }
 
     @Override

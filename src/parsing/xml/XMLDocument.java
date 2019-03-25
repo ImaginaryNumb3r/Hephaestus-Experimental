@@ -42,9 +42,10 @@ public class XMLDocument extends AbstractParseNode {
     public XMLDocument deepCopy() {
         XMLDocument copy = new XMLDocument();
         XMLTag rootCopy = _root.deepCopy();
+        XMLProlog prologCopy = _prolog.deepCopy();
 
         copy._root.setData(rootCopy);
-        copy._prolog.setData(_prolog);
+        copy._prolog.setData(prologCopy);
         copy._whitespace.setData(_whitespace);
 
         return copy;
