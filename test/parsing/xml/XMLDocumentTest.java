@@ -14,7 +14,7 @@ public class XMLDocumentTest extends AbstractParseNodeTest {
     @Test
     public void testComplete() {
         for (String data : readTestData("document.xml")) {
-            XMLTag token = new XMLTag();
+            var token = new XMLDocument();
 
             checkParse(data, data, token, token::toString);
         }

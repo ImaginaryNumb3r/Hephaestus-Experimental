@@ -2,6 +2,7 @@ package parsing.xml;
 
 import parsing.model.AbstractParseNode;
 import parsing.model.ParseNode;
+import parsing.model.WhitespaceToken;
 
 /**
  * Creator: Patrick
@@ -11,10 +12,12 @@ import parsing.model.ParseNode;
 public class XMLDocument extends AbstractParseNode {
     private final XMLProlog _prolog;
     private final XMLTag _root;
+    private WhitespaceToken _whitespace;
 
     public XMLDocument() {
         _prolog = new XMLProlog();
         _root = new XMLTag();
+        _whitespace = new WhitespaceToken();
     }
 
     @Override
@@ -22,6 +25,7 @@ public class XMLDocument extends AbstractParseNode {
         int nextIndex = _prolog.parse(chars, index);
         index = nextIndex != INVALID ? nextIndex : index;
 
+        index = _whitespace.parse(chars, index);
         nextIndex = _root.parse(chars, index);
 
         return nextIndex;
