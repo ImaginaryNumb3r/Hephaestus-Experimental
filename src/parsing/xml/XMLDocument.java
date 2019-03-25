@@ -4,6 +4,8 @@ import parsing.model.AbstractParseNode;
 import parsing.model.ParseNode;
 import parsing.model.WhitespaceToken;
 
+import java.util.Objects;
+
 /**
  * Creator: Patrick
  * Created: 25.03.2019
@@ -33,21 +35,33 @@ public class XMLDocument extends AbstractParseNode {
 
     @Override
     public String toString() {
-        return null;
+        return _prolog.toString() + _whitespace.toString() + _root.toString();
     }
 
     @Override
-    public ParseNode deepCopy() {
-        return null;
+    public XMLDocument deepCopy() {
+        XMLDocument copy = new XMLDocument();
+        XMLTag rootCopy = _root.deepCopy();
+
+        copy._root.setData(rootCopy);
+        copy._prolog.setData(_prolog);
+        copy._whitespace.setData(_whitespace);
+
+        return copy;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return false;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof XMLDocument)) return false;
+        XMLDocument that = (XMLDocument) o;
+        return Objects.equals(_prolog, that._prolog) &&
+                Objects.equals(_root, that._root) &&
+                Objects.equals(_whitespace, that._whitespace);
     }
 
     @Override
     public int hashCode() {
-        return 0;
+        return Objects.hash(_prolog, _root, _whitespace);
     }
 }
