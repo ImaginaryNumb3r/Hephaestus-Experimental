@@ -16,6 +16,15 @@ import static org.junit.Assert.assertTrue;
 public class XMLDocumentTest extends AbstractParseNodeTest {
 
     @Test
+    public void testComplete2() throws IOException {
+        Path testFile = TEST_FILE_DIR.resolve("document2.xml");
+        String file = Files.readString(testFile);
+        var document = new XMLDocument();
+
+        checkParse(file, file, document, document::toString);
+    }
+
+    @Test
     public void testComplete() throws IOException {
         Path testFile = TEST_FILE_DIR.resolve("document.xml");
         String file = Files.readString(testFile);
