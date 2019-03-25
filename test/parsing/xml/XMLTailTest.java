@@ -4,8 +4,6 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 /**
  * Creator: Patrick
  * Created: 22.03.2019
