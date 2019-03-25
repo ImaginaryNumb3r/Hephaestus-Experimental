@@ -2,10 +2,7 @@ package parsing.xml;
 
 import parsing.model.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -38,11 +35,29 @@ public class XMLTail extends SequenceNode implements CopyNode<XMLTail> {
         _closedTag = false;
     }
 
+    /**
+     * @return a list of all child tags and comments.
+     */
     public List<XMLNode> nodes() {
         return _nodes.getElements();
     }
 
-    public List<XMLNode> children() {
+    public boolean isText() {
+        return _nodes.isText();
+    }
+
+    public boolean hasInnerNodes() {
+        return _nodes.hasInnerNodes();
+    }
+
+    public Optional<String> getData() {
+        return _nodes.getData();
+    }
+
+    /**
+     * @return the list of child tags. This does not include comments.
+     */
+    public List<XMLNode> childTags() {
         return _nodes.getElements().stream()
                 .filter(XMLNode::isTag)
                 .collect(Collectors.toList());

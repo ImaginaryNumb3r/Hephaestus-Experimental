@@ -5,6 +5,8 @@ import parsing.model.CopyNode;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Creator: Patrick
@@ -29,12 +31,23 @@ public class XMLTag extends AbstractParseNode implements CopyNode<XMLTag> {
         _head.setName(name);
     }
 
-    public List<AttributeToken> getAttributes() {
+    public List<AttributeToken> attributes() {
         return _head.getAttributes();
     }
 
     public boolean isClosed() {
         return _tail.isClosedTag();
+    }
+
+    public List<XMLTag> children() {
+        return _tail.nodes().stream()
+                .filter(XMLNode::isTag)
+                .map(XMLNode::toTag)
+                .collect(Collectors.toList());
+    }
+
+    public List<XMLNode> elements() {
+        return _tail.nodes();
     }
 
     @Override

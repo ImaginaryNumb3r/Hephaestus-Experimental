@@ -15,7 +15,6 @@ public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocume
     private final XMLProlog _prolog;
     private final XMLTag _root;
     private WhitespaceToken _whitespace;
-    private boolean _hasProlog;
 
     public XMLDocument() {
         _prolog = new XMLProlog();
@@ -26,8 +25,6 @@ public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocume
     @Override
     protected int parseImpl(String chars, int index) {
         int nextIndex = _prolog.parse(chars, index);
-        _hasProlog = nextIndex != INVALID;
-
         index = nextIndex != INVALID ? nextIndex : index;
 
         index = _whitespace.parse(chars, index);
@@ -64,6 +61,10 @@ public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocume
 
     public String getWhitespace() {
         return _whitespace.toString();
+    }
+
+    public void setWhitespace(CharSequence whitespace) {
+        _whitespace.setWhitespace(whitespace);
     }
 
     @Override

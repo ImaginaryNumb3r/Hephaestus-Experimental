@@ -1,5 +1,6 @@
 package parsing.xml;
 
+import essentials.annotations.Package;
 import parsing.model.ContentToken;
 import parsing.model.CopyNode;
 import parsing.model.EitherNode;
@@ -26,6 +27,10 @@ public class XMLNode extends EitherNode<XMLTag, CommentToken> implements CopyNod
 
     public Optional<XMLTag> getTag() {
         return first();
+    }
+
+    @Package XMLTag toTag() {
+        return first().get();
     }
 
     public Optional<CommentToken> getComment() {
