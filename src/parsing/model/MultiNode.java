@@ -29,10 +29,6 @@ public class MultiNode<T extends CopyNode<T>> extends AbstractParseNode implemen
     protected int parseImpl(String chars, int index) {
         T token = _tokenConstructor.get();
 
-        if (index < 1900 && index > 1741) {
-            System.out.println();
-        }
-
         int nextIndex;
 
         // TODO: test multi node

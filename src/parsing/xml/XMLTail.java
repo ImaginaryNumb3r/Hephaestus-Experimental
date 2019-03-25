@@ -81,10 +81,6 @@ public class XMLTail extends SequenceNode implements CopyNode<XMLTail> {
     public int parse(String chars, int index) {
         int nextIndex = super.parse(chars, index);
 
-        if (index > 1800 && index < 1900) {
-            System.out.println();
-        }
-
         // Fallback to closed token.
         if (nextIndex == INVALID) {
             nextIndex = _fallback.parse(chars, index);

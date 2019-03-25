@@ -2,6 +2,10 @@ package parsing.xml;
 
 import org.junit.Test;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import static org.junit.Assert.*;
 
 /**
@@ -12,11 +16,11 @@ import static org.junit.Assert.*;
 public class XMLDocumentTest extends AbstractParseNodeTest {
 
     @Test
-    public void testComplete() {
-        for (String data : readTestData("document.xml")) {
-            var token = new XMLDocument();
+    public void testComplete() throws IOException {
+        Path testFile = TEST_FILE_DIR.resolve("document.xml");
+        String file = Files.readString(testFile);
+        var token = new XMLDocument();
 
-            checkParse(data, data, token, token::toString);
-        }
+        checkParse(file, file, token, token::toString);
     }
 }

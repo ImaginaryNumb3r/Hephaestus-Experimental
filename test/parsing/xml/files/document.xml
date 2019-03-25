@@ -54,7 +54,6 @@
 				</ModelConditionState>
 			</ScriptedModelDraw>
 			
-			<!-- This here is the problem -> too much whitespace? -->
 			<ScriptedModelDraw
 				id="ModuleTag_DefaultDecal"
 				MaxRecoilDistance="3"
