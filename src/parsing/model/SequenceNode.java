@@ -34,7 +34,7 @@ public class SequenceNode extends AbstractParseNode implements ListIterable<Pars
             if (!result.isValid()) {
                 return result;
             }
-            nextIndex = result.cursorPosition();
+            nextIndex = result.index();
         }
 
         return result;

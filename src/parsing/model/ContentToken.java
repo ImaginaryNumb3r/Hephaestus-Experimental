@@ -32,7 +32,7 @@ public class ContentToken extends AbstractParseNode {
         ParseResult result = parseString(_prefix, chars, index);
         if (result.isInvalid()) return result;
 
-        index = result.cursorPosition();
+        index = result.index();
 
         // Parse text until postfix is encountered.
         int start = index;
@@ -65,10 +65,9 @@ public class ContentToken extends AbstractParseNode {
             throw new IndexOutOfBoundsException("Parsing content token with an index bigger than the input. Expected: \"" + expected + "\"");
         }
 
-        int nextIndex = index;
-
-        for (int offset = 0; offset != expected.length(); ++offset) {
-            nextIndex = index + offset;
+        int offset;
+        for (offset = 0; offset != expected.length(); ++offset) {
+            int nextIndex = index + offset;
             char expectedChar = expected.charAt(offset);
 
             if (nextIndex >= chars.length()) {
@@ -79,7 +78,7 @@ public class ContentToken extends AbstractParseNode {
             if (expectedChar != actualChar) return ParseResult.invalid(nextIndex, "Matching failed for pattern \"" + expected +"\".");
         }
 
-        return ParseResult.at(nextIndex);
+        return ParseResult.at(index + offset);
     }
 
     public String getContent() {

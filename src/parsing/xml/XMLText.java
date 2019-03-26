@@ -25,30 +25,31 @@ public class XMLText extends ContentToken implements CopyNode<XMLText> {
         if (result.isInvalid()) return result;
 
         // Revert lookahead.
-        int nextIndex = result.cursorPosition() - POSTFIX.length();
+        int nextIndex = result.index() - POSTFIX.length();
+        var next = ParseResult.at(nextIndex);
 
         // Hack: Also append comments. The grammar does not support it yet.
-        while (result.isValid()) {
+        while (next.isValid()) {
             CommentToken comment = new CommentToken();
-            ParseResult commentResult = comment.parse(chars, nextIndex);
+            next = comment.parse(chars, next.index());
 
-            if (commentResult.isValid()) {
-                nextIndex = commentResult.cursorPosition();
+            if (next.isValid()) {
                 _buffer.append(comment);
+                result = next;
 
                 XMLText text = new XMLText();
-                ParseResult textResult = text.parse(chars, nextIndex);
+                next = text.parse(chars, next.index());
 
-                if (textResult.isValid()) {
-                    nextIndex = textResult.cursorPosition();
+                if (next.isValid()) {
                     _buffer.append(text);
+                    result = next;
                 }
             }
         }
 
         // TODO: Remove and turn into a general rule for content token at parse-time.
 
-        if (nextIndex != result.cursorPosition()) throw new IllegalStateException("TODO");
+        // if (nextIndex != result.index()) throw new IllegalStateException("TODO");
 
         return result;
     }

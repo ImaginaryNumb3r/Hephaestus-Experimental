@@ -47,7 +47,7 @@ public class ParseResult {
         return _message;
     }
 
-    public int cursorPosition() {
+    public int index() {
         if (!_isValid) {
             throw new IllegalStateException("Cannot get position of an invalid cursor.");
         }
@@ -86,4 +86,8 @@ public class ParseResult {
         return new ParseResult(cursor, null, true);
     }
 
+    @Override
+    public String toString() {
+        return isValid() ? "Index: " + _cursorPosition : "Invalid";
+    }
 }

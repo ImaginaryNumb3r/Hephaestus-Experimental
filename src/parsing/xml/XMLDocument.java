@@ -47,12 +47,12 @@ public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocume
     @Override
     protected ParseResult parseImpl(String chars, int index) {
         ParseResult prolog = _prolog.parse(chars, index);
-        index = prolog.isValid() ? prolog.cursorPosition() : index;
+        index = prolog.isValid() ? prolog.index() : index;
 
         ParseResult whitespace = _whitespace.parse(chars, index);
         if (whitespace.isInvalid()) return whitespace;
 
-        index = whitespace.cursorPosition();
+        index = whitespace.index();
         return _root.parse(chars, index);
     }
 

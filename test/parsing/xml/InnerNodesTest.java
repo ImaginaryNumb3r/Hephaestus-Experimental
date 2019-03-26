@@ -22,6 +22,8 @@ public class InnerNodesTest extends AbstractParseNodeTest {
         String expected = "<!-- Comment -->";
         InnerNodes nodes = new InnerNodes();
         checkParse(expected, comment, nodes, nodes::toString);
+
+        assertTrue(!nodes.getElements().isEmpty());
         XMLNode node = nodes.getElements().get(0);
         assertTrue(node.isComment());
 

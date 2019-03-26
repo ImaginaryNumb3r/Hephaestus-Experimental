@@ -34,9 +34,9 @@ public class MultiNode<T extends CopyNode<T>> extends AbstractParseNode implemen
         ParseResult result;
         // TODO: test multi node
         // Parse whole tokens until the one where it fails.
-        while (! (result = token.parse(chars, nextIndex)).isValid()) {
+        while ((result = token.parse(chars, nextIndex)).isValid()) {
             _elements.add(token);
-            nextIndex = result.cursorPosition();
+            nextIndex = result.index();
 
             token = _tokenConstructor.get();
         }

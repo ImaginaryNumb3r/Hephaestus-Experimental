@@ -80,7 +80,7 @@ public class XMLTag extends AbstractParseNode implements CopyNode<XMLTag> {
 
         ParseResult headResult = _head.parse(chars, index);
         if (headResult.isInvalid()) return headResult;
-        nextIndex = headResult.cursorPosition();
+        nextIndex = headResult.index();
 
         ParseResult tailResult = _tail.parse(chars, nextIndex);
         if (tailResult.isInvalid()) return headResult;
