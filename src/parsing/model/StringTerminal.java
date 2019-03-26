@@ -11,15 +11,15 @@ public class StringTerminal extends AbstractParseNode implements CopyNode<String
     public StringTerminal(String terminal) {_terminal = terminal;}
 
     @Override
-    protected int parseImpl(String chars, int index) {
+    protected ParseResult parseImpl(String chars, int index) {
         int offset = 0;
         for (char expected : _terminal.toCharArray()) {
             char ch = chars.charAt(index + offset++);
 
-            if (ch != expected) return INVALID;
+            if (ch != expected) return ParseResult.notMatch(index + offset, expected, ch);
         }
 
-        return index + offset;
+        return ParseResult.at(index + offset);
     }
 
     @Override

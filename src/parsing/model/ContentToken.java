@@ -27,26 +27,30 @@ public class ContentToken extends AbstractParseNode {
     }
 
     @Override
-    protected int parseImpl(String chars, int index) {
+    protected ParseResult parseImpl(String chars, int index) {
         // Ensure that prefix is correct.
-        index = parseString(_prefix, chars, index);
-        if (index == INVALID) return INVALID;
+        ParseResult result = parseString(_prefix, chars, index);
+        if (result.isValid()) return result;
+
+        index = result.cursorPosition();
 
         // Parse text until postfix is encountered.
         int start = index;
-        int nextIndex = INVALID;
+        result = null;
 
-        while (nextIndex == INVALID) {
-            nextIndex = parseString(_postfix, chars, index);
+        while (result == null || !result.isValid()) {
+            result = parseString(_postfix, chars, index);
 
-            // Exhausted the string in the look for the postfix.
-            if (index == chars.length()) return INVALID;
+            if (index == chars.length()) {
+                String message = "Exhausted the string in the look for the postfix";
+                return ParseResult.invalid(index, message);
+            }
             ++index;
         }
 
         _buffer.append(chars, start, index - 1);
 
-        return nextIndex;
+        return result;
     }
 
     /**
@@ -56,24 +60,26 @@ public class ContentToken extends AbstractParseNode {
      * @return offset to the given index.
      * @throws IndexOutOfBoundsException if the index is bigger than the string length.
      */
-    private int parseString(String expected, String chars, final int index) {
+    private ParseResult parseString(String expected, String chars, final int index) {
         if (index >= chars.length()) {
             throw new IndexOutOfBoundsException("Parsing content token with an index bigger than the input. Expected: \"" + expected + "\"");
         }
 
-        int offset;
-        for (offset = 0; offset != expected.length(); ++offset) {
+        int nextIndex = index;
+
+        for (int offset = 0; offset != expected.length(); ++offset) {
+            nextIndex = index + offset;
             char expectedChar = expected.charAt(offset);
 
-            if (index + offset >= chars.length()) {
-                return INVALID;
+            if (nextIndex >= chars.length()) {
+                return ParseResult.invalid(nextIndex, "Matching failed for pattern \"" + expected +"\". End of document.");
             }
-            char actualChar = chars.charAt(index + offset);
+            char actualChar = chars.charAt(nextIndex);
 
-            if (expectedChar != actualChar) return INVALID;
+            if (expectedChar != actualChar) return ParseResult.invalid(nextIndex, "Matching failed for pattern \"" + expected +"\".");
         }
 
-        return index + offset;
+        return ParseResult.at(nextIndex);
     }
 
     public String getContent() {

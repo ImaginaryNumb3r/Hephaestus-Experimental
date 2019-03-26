@@ -19,7 +19,7 @@ public class OptionalConsumer extends AbstractParseNode implements CharSequence 
     }
 
     @Override
-    protected int parseImpl(String chars, int index) {
+    protected ParseResult parseImpl(String chars, int index) {
 
         char ch = chars.charAt(index);
         while (_acceptCondition.test(ch)) {
@@ -29,7 +29,7 @@ public class OptionalConsumer extends AbstractParseNode implements CharSequence 
             ch = chars.charAt(++index);
         }
 
-        return index;
+        return ParseResult.at(index);
     }
 
     @Override

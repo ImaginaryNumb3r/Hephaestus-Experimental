@@ -8,18 +8,18 @@ package parsing.model;
 public abstract class AbstractParseNode implements ParseNode {
 
     @Override
-    public int parse(String chars, int index) {
+    public ParseResult parse(String chars, int index) {
         // TODO: Reset function that sets everything to the initial state. This is important for consecutive calls.
 
         if (index >= chars.length() || index < 0) {
-            if (index >= chars.length()) return INVALID;
+            if (index >= chars.length()) return ParseResult.invalid(index, "Index is larger than document length.");
             if (index < 0) throw new IndexOutOfBoundsException(index);
         }
 
         return parseImpl(chars, index);
     }
 
-    protected abstract int parseImpl(String chars, int index);
+    protected abstract ParseResult parseImpl(String chars, int index);
 
     /**
      * @return String representation of the token if parsing is finished. Otherwise null.

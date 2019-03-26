@@ -15,10 +15,15 @@ public class CharTerminal extends AbstractParseNode implements CopyNode<CharTerm
     }
 
     @Override
-    protected int parseImpl(String chars, int index) {
+    protected ParseResult parseImpl(String chars, int index) {
         char character = chars.charAt(index);
 
-        return character == _character ? index + 1 : INVALID;
+        if (character == _character) {
+            return ParseResult.at(index + 1);
+        } else {
+            String message = "Character " + character + " does not match " + _character + " at index: " + index;
+            return ParseResult.invalid(index, message);
+        }
     }
 
     @Override

@@ -22,20 +22,23 @@ public class EitherNode<O extends CopyNode<O>, M extends CopyNode<M>> extends Ab
     }
 
     @Override
-    protected int parseImpl(String chars, int index) {
-        int nextIndex = _optional.parse(chars, index);
+    protected ParseResult parseImpl(String chars, final int index) {
+        var result = _optional.parse(chars, index);
 
-        if (nextIndex != INVALID) {
+        if (result.isValid()) {
             _status = Status.OPTIONAL;
         } else {
-            nextIndex = _mandatory.parse(chars, index);
+            ParseResult mandatory = _mandatory.parse(chars, index);
 
-            if (nextIndex != INVALID) {
+            if (mandatory.isValid()) {
                 _status = Status.MANDATORY;
+                result = mandatory;
+            } else {
+                result = ParseResult.invalid(index, "Could not parse either node", result, mandatory);
             }
         }
 
-        return nextIndex;
+        return result;
     }
 
     protected boolean hasFirst() {
