@@ -26,22 +26,26 @@ public class MultiNode<T extends CopyNode<T>> extends AbstractParseNode implemen
      * @return Never returns INVALID. If nothing could be parsed, the return value is the same as the index parameter.
      */
     @Override
-    protected ParseResult parseImpl(String chars, final int index) {
+    protected ParseResult parseImpl(String chars, int index) {
         T token = _tokenConstructor.get();
 
-        int nextIndex = index;
+        ParseResult result = null;
+        boolean isParsing = true;
+        while (isParsing) {
+            var next = token.parse(chars, index);
+            isParsing = next.isValid();
 
-        ParseResult result;
-        // TODO: test multi node
-        // Parse whole tokens until the one where it fails.
-        while ((result = token.parse(chars, nextIndex)).isValid()) {
-            _elements.add(token);
-            nextIndex = result.index();
-
-            token = _tokenConstructor.get();
+            if (isParsing) {
+                index = next.index();
+                result = next;
+                _elements.add(token);
+                token = _tokenConstructor.get();
+            } else if (result == null) {
+                result = next;
+            }
         }
 
-        return ParseResult.at(nextIndex);
+        return result;
     }
 
     protected void reset() {

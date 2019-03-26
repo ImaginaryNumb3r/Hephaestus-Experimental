@@ -64,8 +64,7 @@ public class XMLNode extends EitherNode<XMLTag, CommentToken> implements CopyNod
         ParseResult result = _leadingWhitespace.parse(chars, index);
         if (result.isInvalid()) throw new IllegalStateException("Whitespace tokens must not return INVALID");
 
-        index = result.index();
-        return super.parseImpl(chars, index);
+        return super.parseImpl(chars, result.index());
     }
 
     @Override

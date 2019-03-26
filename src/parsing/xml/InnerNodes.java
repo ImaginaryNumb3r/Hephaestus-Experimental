@@ -27,10 +27,9 @@ public class InnerNodes extends MultiNode<XMLNode> implements CopyNode<InnerNode
     @Override
     protected ParseResult parseImpl(String chars, final int index) {
         ParseResult result = super.parseImpl(chars, index);
-        int nextIndex = result.index();
 
         // If the next index is the same as the input index, we know nothing could be parsed.
-        if (nextIndex != index) {
+        if (result.isValid()) {
             _status = Status.NODE;
         }
         // Fallback to parsing the node value as a string.

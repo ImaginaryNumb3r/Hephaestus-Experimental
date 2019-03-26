@@ -25,8 +25,8 @@ public class XMLText extends ContentToken implements CopyNode<XMLText> {
         if (result.isInvalid()) return result;
 
         // Revert lookahead.
-        int nextIndex = result.index() - POSTFIX.length();
-        var next = ParseResult.at(nextIndex);
+        result = ParseResult.at(result.index() - POSTFIX.length());
+        var next = result;
 
         // Hack: Also append comments. The grammar does not support it yet.
         while (next.isValid()) {
