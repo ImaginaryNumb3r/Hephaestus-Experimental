@@ -66,7 +66,13 @@ public class AbstractParseNodeTest {
     protected void checkParse(String expected, String data, int expectedParseLength, ParseNode token,
                               Supplier<String> dataSupplier, Supplier<String> toString
     ) {
+        long before = System.currentTimeMillis();
         int parse = token.parse(data, 0);
+        long after = System.currentTimeMillis();
+
+        System.out.println("Time to parse: " + (after - before));
+        if (true) return;
+
         String message = "Asserting that the token could be parsed fails for: " + data;
         assertNotEquals(message, INVALID, parse);
 
