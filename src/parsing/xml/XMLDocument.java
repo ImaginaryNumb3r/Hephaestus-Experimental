@@ -1,6 +1,9 @@
 package parsing.xml;
 
-import parsing.model.*;
+import parsing.model.AbstractParseNode;
+import parsing.model.CopyNode;
+import parsing.model.ParseResult;
+import parsing.model.WhitespaceToken;
 
 import java.util.Objects;
 

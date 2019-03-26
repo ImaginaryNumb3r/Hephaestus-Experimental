@@ -30,7 +30,7 @@ public class ContentToken extends AbstractParseNode {
     protected ParseResult parseImpl(String chars, int index) {
         // Ensure that prefix is correct.
         ParseResult result = parseString(_prefix, chars, index);
-        if (result.isValid()) return result;
+        if (result.isInvalid()) return result;
 
         index = result.cursorPosition();
 

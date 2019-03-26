@@ -4,8 +4,8 @@ import org.junit.Test;
 import parsing.model.ContentToken;
 import parsing.model.ParseNode;
 
-import static org.junit.Assert.*;
-import static parsing.model.ParseNode.INVALID;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Creator: Patrick

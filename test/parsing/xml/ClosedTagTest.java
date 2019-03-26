@@ -1,8 +1,6 @@
 package parsing.xml;
 
-import org.junit.Assert;
 import org.junit.Test;
-import parsing.model.ParseNode;
 
 import java.util.List;
 

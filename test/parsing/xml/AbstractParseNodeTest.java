@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static org.junit.Assert.*;
-import static parsing.model.ParseNode.INVALID;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Creator: Patrick
