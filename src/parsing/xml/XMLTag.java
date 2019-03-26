@@ -2,6 +2,7 @@ package parsing.xml;
 
 import parsing.model.AbstractParseNode;
 import parsing.model.CopyNode;
+import parsing.model.ParseResult;
 
 import java.util.List;
 import java.util.Objects;
@@ -74,22 +75,21 @@ public class XMLTag extends AbstractParseNode implements CopyNode<XMLTag> {
     }
 
     @Override
-    protected int parseImpl(String chars, int index) {
+    protected ParseResult parseImpl(String chars, int index) {
         int nextIndex;
-        /* nextIndex = _leadingWhitespace.parse(chars, index);
-        if (nextIndex != INVALID) index = nextIndex; */
 
-        nextIndex = _head.parse(chars, index);
+        ParseResult headResult = _head.parse(chars, index);
+        if (headResult.isInvalid()) return headResult;
+        nextIndex = headResult.cursorPosition();
 
-        if (nextIndex != INVALID) {
-            nextIndex = _tail.parse(chars, nextIndex);
+        ParseResult tailResult = _tail.parse(chars, nextIndex);
+        if (tailResult.isInvalid()) return headResult;
+
+        if (!isCorrect()) {
+            return ParseResult.invalid(index, "Rejected parsing XML Tag because of inconsistent tag names", headResult, tailResult);
         }
 
-        if (nextIndex == INVALID || !isCorrect()) {
-            return INVALID;
-        }
-
-        return nextIndex;
+        return tailResult;
     }
 
     /**

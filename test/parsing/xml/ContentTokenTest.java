@@ -4,8 +4,7 @@ import org.junit.Test;
 import parsing.model.ContentToken;
 import parsing.model.ParseNode;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 import static parsing.model.ParseNode.INVALID;
 
 /**
@@ -38,8 +37,8 @@ public class ContentTokenTest {
 
     public void checkParse(String expected, String data, ContentToken token) {
 
-        int parse = token.parse(data, 0);
-        assertNotEquals(INVALID, parse);
+        var result = token.parse(data, 0);
+        assertTrue(result.isValid());
 
         assertEquals(expected, token.getContent());
         assertEquals(data, token.toString());

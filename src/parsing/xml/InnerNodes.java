@@ -3,6 +3,7 @@ package parsing.xml;
 import lib.Nulls;
 import parsing.model.CopyNode;
 import parsing.model.MultiNode;
+import parsing.model.ParseResult;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,8 +25,9 @@ public class InnerNodes extends MultiNode<XMLNode> implements CopyNode<InnerNode
     }
 
     @Override
-    protected int parseImpl(String chars, final int index) {
-        int nextIndex = super.parseImpl(chars, index);
+    protected ParseResult parseImpl(String chars, final int index) {
+        ParseResult result = super.parseImpl(chars, index);
+        int nextIndex = result.cursorPosition();
 
         // If the next index is the same as the input index, we know nothing could be parsed.
         if (nextIndex != index) {
@@ -33,14 +35,14 @@ public class InnerNodes extends MultiNode<XMLNode> implements CopyNode<InnerNode
         }
         // Fallback to parsing the node value as a string.
         else {
-            nextIndex = _text.parse(chars, index);
+            ParseResult fallback = _text.parse(chars, index);
+            if (fallback.isInvalid()) return ParseResult.invalid(index, "TODO", result, fallback);
 
-            if (nextIndex != INVALID) {
-                _status = Status.TEXT;
-            }
+            result = fallback;
+            _status = Status.TEXT;
         }
 
-        return nextIndex;
+        return result;
     }
 
     @Override

@@ -1,9 +1,6 @@
 package parsing.xml;
 
-import parsing.model.AbstractParseNode;
-import parsing.model.CopyNode;
-import parsing.model.ParseNode;
-import parsing.model.WhitespaceToken;
+import parsing.model.*;
 
 import java.util.Objects;
 
@@ -25,9 +22,9 @@ public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocume
 
     public static XMLDocument of(String rawXML) {
         XMLDocument document = new XMLDocument();
-        int status = document.parse(rawXML, 0);
+        var result = document.parse(rawXML, 0);
 
-        return status != INVALID ? document : null;
+        return result.isValid() ? document : null;
     }
 
     public void visit(XMLVisitor visitor) {
@@ -45,14 +42,15 @@ public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocume
     }
 
     @Override
-    protected int parseImpl(String chars, int index) {
-        int nextIndex = _prolog.parse(chars, index);
-        index = nextIndex != INVALID ? nextIndex : index;
+    protected ParseResult parseImpl(String chars, int index) {
+        ParseResult prolog = _prolog.parse(chars, index);
+        index = prolog.isValid() ? prolog.cursorPosition() : index;
 
-        index = _whitespace.parse(chars, index);
-        nextIndex = _root.parse(chars, index);
+        ParseResult whitespace = _whitespace.parse(chars, index);
+        if (whitespace.isInvalid()) return whitespace;
 
-        return nextIndex;
+        index = whitespace.cursorPosition();
+        return _root.parse(chars, index);
     }
 
     @Override

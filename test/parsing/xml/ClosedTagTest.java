@@ -7,6 +7,7 @@ import parsing.model.ParseNode;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Creator: Patrick
@@ -25,8 +26,8 @@ public class ClosedTagTest extends AbstractParseNodeTest {
 
     private void checkParse(String xml) {
         ClosedTag closedTag = new ClosedTag();
-        int parse = closedTag.parse(xml, 0);
-        Assert.assertNotEquals(parse, ParseNode.INVALID);
+        var result = closedTag.parse(xml, 0);
+        assertTrue(result.isValid());
 
         String string = closedTag.toString();
         assertEquals(xml, string);
@@ -41,8 +42,8 @@ public class ClosedTagTest extends AbstractParseNodeTest {
 
     public void checkCopy(String xml) {
         ClosedTag closedTag = new ClosedTag();
-        int parse = closedTag.parse(xml, 0);
-        Assert.assertNotEquals(parse, ParseNode.INVALID);
+        var result = closedTag.parse(xml, 0);
+        assertTrue(result.isValid());
 
         ClosedTag copy = closedTag.deepCopy();
 

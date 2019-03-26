@@ -3,6 +3,7 @@ package parsing.xml;
 import essentials.annotations.Package;
 import parsing.model.ContentToken;
 import parsing.model.CopyNode;
+import parsing.model.ParseResult;
 
 import java.util.Objects;
 
@@ -19,36 +20,37 @@ public class XMLText extends ContentToken implements CopyNode<XMLText> {
     }
 
     @Override
-    protected int parseImpl(String chars, int index) {
-        index = super.parseImpl(chars, index);
-        if (index == INVALID) return INVALID;
+    protected ParseResult parseImpl(String chars, final int index) {
+        ParseResult result = super.parseImpl(chars, index);
+        if (result.isInvalid()) return result;
 
         // Revert lookahead.
-        index = index - POSTFIX.length();
-        int nextIndex = index;
+        int nextIndex = result.cursorPosition() - POSTFIX.length();
 
         // Hack: Also append comments. The grammar does not support it yet.
-        while (nextIndex != INVALID) {
+        while (result.isValid()) {
             CommentToken comment = new CommentToken();
-            nextIndex = comment.parse(chars, nextIndex);
+            ParseResult commentResult = comment.parse(chars, nextIndex);
 
-            if (nextIndex != INVALID) {
+            if (commentResult.isValid()) {
+                nextIndex = commentResult.cursorPosition();
                 _buffer.append(comment);
-                index = nextIndex;
 
                 XMLText text = new XMLText();
-                nextIndex = text.parse(chars, nextIndex);
+                ParseResult textResult = text.parse(chars, nextIndex);
 
-                if (nextIndex != INVALID) {
+                if (textResult.isValid()) {
+                    nextIndex = textResult.cursorPosition();
                     _buffer.append(text);
-                    index = nextIndex;
                 }
             }
         }
 
         // TODO: Remove and turn into a general rule for content token at parse-time.
 
-        return index;
+        if (nextIndex != result.cursorPosition()) throw new IllegalStateException("TODO");
+
+        return result;
     }
 
     @Package String getRaw() {

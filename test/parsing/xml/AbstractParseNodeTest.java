@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 import static parsing.model.ParseNode.INVALID;
 
 /**
@@ -67,17 +66,17 @@ public class AbstractParseNodeTest {
                               Supplier<String> dataSupplier, Supplier<String> toString
     ) {
         long before = System.currentTimeMillis();
-        int parse = token.parse(data, 0);
+        var result = token.parse(data, 0);
         long after = System.currentTimeMillis();
 
         System.out.println("Time to parse: " + (after - before));
         if (true) return;
 
         String message = "Asserting that the token could be parsed fails for: " + data;
-        assertNotEquals(message, INVALID, parse);
+        assertTrue(message, result.isValid());
 
         message = "Asserting that the parse index is correct fails for: " + data;
-        assertEquals(message, expectedParseLength, parse);
+        assertEquals(message, expectedParseLength, result.cursorPosition());
 
         message = "Comparison between parse output and expected output fails";
         assertEquals(message, expected, dataSupplier.get());

@@ -92,19 +92,18 @@ public class XMLTail extends SequenceNode implements CopyNode<XMLTail> {
     }
 
     @Override
-    public int parse(String chars, int index) {
-        int nextIndex = super.parse(chars, index);
+    public ParseResult parse(String chars, int index) {
+        ParseResult result = super.parse(chars, index);
 
-        // Fallback to closed token.
-        if (nextIndex == INVALID) {
-            nextIndex = FALLBACK.parse(chars, index);
+        if (result.isInvalid()) {
+            result = FALLBACK.parse(chars, index);
 
-            if (nextIndex != INVALID) {
+            if (result.isValid()) {
                 _closedTag = true;
             }
         }
 
-        return nextIndex;
+        return result;
     }
 
     @Override

@@ -82,6 +82,7 @@ public class ParseResult {
     }
 
     public static ParseResult at(int cursor) {
+        Contract.checkNegative(cursor);
         return new ParseResult(cursor, null, true);
     }
 

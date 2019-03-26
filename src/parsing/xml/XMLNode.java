@@ -1,10 +1,7 @@
 package parsing.xml;
 
 import essentials.annotations.Package;
-import parsing.model.ContentToken;
-import parsing.model.CopyNode;
-import parsing.model.EitherNode;
-import parsing.model.WhitespaceToken;
+import parsing.model.*;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -63,13 +60,11 @@ public class XMLNode extends EitherNode<XMLTag, CommentToken> implements CopyNod
     }
 
     @Override
-    protected int parseImpl(String chars, int index) {
-        index = _leadingWhitespace.parse(chars, index);
+    protected ParseResult parseImpl(String chars, int index) {
+        ParseResult result = _leadingWhitespace.parse(chars, index);
+        if (result.isInvalid()) throw new IllegalStateException("Whitespace tokens must not return INVALID");
 
-        if (index == INVALID) {
-            throw new IllegalStateException("Whitespace tokens must not return INVALID");
-        }
-
+        index = result.cursorPosition();
         return super.parseImpl(chars, index);
     }
 

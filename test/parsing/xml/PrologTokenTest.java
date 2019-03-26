@@ -5,6 +5,7 @@ import org.junit.Test;
 import parsing.model.ParseNode;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Creator: Patrick
@@ -17,9 +18,9 @@ public class PrologTokenTest {
     @Test
     public void testToken() {
         ParseNode token = new PrologToken();
-        int parse = token.parse(PROLOG, 0);
+        var result = token.parse(PROLOG, 0);
 
-        Assert.assertNotEquals(ParseNode.INVALID, parse);
+        assertTrue(result.isValid());
         assertEquals(PROLOG, token.toString());
 
         ParseNode copy = token.deepCopy();
