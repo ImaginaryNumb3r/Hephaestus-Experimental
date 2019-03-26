@@ -29,7 +29,7 @@ public class MultiNode<T extends CopyNode<T>> extends AbstractParseNode implemen
     protected ParseResult parseImpl(String chars, int index) {
         T token = _tokenConstructor.get();
 
-        ParseResult result = null;
+        ParseResult result = ParseResult.at(index);
         boolean isParsing = true;
         while (isParsing) {
             var next = token.parse(chars, index);
@@ -40,11 +40,10 @@ public class MultiNode<T extends CopyNode<T>> extends AbstractParseNode implemen
                 result = next;
                 _elements.add(token);
                 token = _tokenConstructor.get();
-            } else if (result == null) {
-                result = next;
             }
         }
 
+        if (result.isInvalid()) throw new IllegalStateException("MultiNode must not return invalid");
         return result;
     }
 
