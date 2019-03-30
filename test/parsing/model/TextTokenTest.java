@@ -6,8 +6,6 @@ import parsing.xml.AbstractParseNodeTest;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 /**
  * Creator: Patrick
  * Created: 30.03.2019
