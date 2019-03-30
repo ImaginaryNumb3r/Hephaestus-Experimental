@@ -1,3 +1,11 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+	<AudioFile
+		id="JC_CNC3EP1_ShellRemix"
+		PCCompression="EALayer3"
+		File="AUDIO:Music/Command and Conquer - Tiberian Dawn - GDI Map Theme.mp3"
+		GUIPreset="Default" />
+</AssetDeclaration>
+
 <supercars company = "@Company_Name" >
 	<carname type = "formula one">Ferrari 101<!-- --></carname >
 	<carname type = "sports">Ferrari 202</ carname >
@@ -22,9 +30,17 @@
 	third="lorem ipsum" />
 
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-<AudioFile
-	id="Gui_MPCountdown"
-	File="Gui_MPCountdown.wav"
-	PCCompression="XAS"
-	GUIPreset="Default" />
+	<AudioFile
+		id="Gui_MPCountdown"
+		File="Gui_MPCountdown.wav"
+		PCCompression="XAS"
+		GUIPreset="Default" />
+</AssetDeclaration>
+
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AudioFile
+		id="AutoResolve2"
+		File="AutoResolve2.wav"
+		PCCompression="XAS"
+		GUIPreset="Default" />
 </AssetDeclaration>

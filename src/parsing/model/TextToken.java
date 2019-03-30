@@ -10,7 +10,7 @@ import java.util.Set;
  * Non-empty string token.
  */
 public class TextToken extends ConsumerNode implements CopyNode<TextToken> {
-    private static final Set<Character> ALLOWED_CHARS = Set.of('_', '.', ':');
+    private static final Set<Character> ALLOWED_CHARS = Set.of('_', '.', ':', '-');
 
     public TextToken() { // TODO: Change to "not whitespace" -> character '!' could be making problems
         super(ch -> Character.isAlphabetic(ch) || Character.isDigit(ch) || ALLOWED_CHARS.contains(ch));
