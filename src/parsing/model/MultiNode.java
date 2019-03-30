@@ -35,6 +35,10 @@ public class MultiNode<T extends CopyNode<T>> extends AbstractParseNode implemen
             var next = token.parse(chars, index);
             isParsing = next.isValid();
 
+            if (next.isValid() && next.index() >= 5301 && index < 5341) {
+                System.out.println();
+            }
+
             if (isParsing) {
                 index = next.index();
                 result = next;
