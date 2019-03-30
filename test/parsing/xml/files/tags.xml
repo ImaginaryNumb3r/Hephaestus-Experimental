@@ -20,3 +20,11 @@
 	second
 		="1.5s"
 	third="lorem ipsum" />
+
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<AudioFile
+	id="Gui_MPCountdown"
+	File="Gui_MPCountdown.wav"
+	PCCompression="XAS"
+	GUIPreset="Default" />
+</AssetDeclaration>

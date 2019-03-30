@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+	<GameObject
+		id="BlackHandCarryAllDebris_01"
+		KindOf="NO_COLLIDE UNATTACKABLE INERT INERT_SHROUD_REVEALER NOT_AUTOACQUIRABLE"
+		RadarPriority="NOT_ON_RADAR"
+		Side="Neutral"
+		EditorName="NODCarryAllDebris_01"
+		EditorSorting="MISC_MAN_MADE"
+		CommandSet="EmptyCommandSet">
+		<DisplayName>Debris</DisplayName>
+		<ArmorSet
+			Armor="NoArmor" />
+		<Draws>
+			<ScriptedModelDraw
+				id="0x50DF2C46"
+				MaxRecoilDistance="3"
+				RecoilDamping="0.4"
+				OkToChangeModelColor="True">
+				<ModelConditionState
+					ParseCondStateType="PARSE_DEFAULT">
+					<Model
+						Name="W3DContainer:NUCARRYALLR01" />
+					<Texture
+						Original="NUCarryAll_D"
+						New="NUBHCarry_D" />
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<RandomModelCondition
+				id="ModuleTag_Reskin"
+				Conditions="USER_1" />
+			
+			<Physics
+				id="0x6D41764B"
+				BounceCount="0"
+				TumbleRandomly="True" />
+			<LifetimeUpdate
+				id="0x6D14780C"
+				MinLifetime="1s"
+				MaxLifetime="1s" />
+			<SlowDeath
+				id="0x73542D4A"
+				SinkRate="0.5"
+				SinkDelay="2s"
+				DestructionDelay="4s">
+				<DieMuxData
+					DeathTypes="ALL" />
+			</SlowDeath>
+		</Behaviors>
+		<Body>
+			<ActiveBody
+				id="0xB313F576"
+				MaxHealth="100" />
+		</Body>
+		<Geometry
+			IsSmall="True">
+			<Shape
+				Type="BOX"
+				MajorRadius="10"
+				MinorRadius="10"
+				Height="10" />
+		</Geometry>
+		<ShadowInfo
+			Type="VOLUME" />
+		<VisionInfo
+			VisionRange="1"
+			ShroudClearingRange="1" />
+	</GameObject>
+	
+	
+	<GameObject
+		id="BlackHandCarryAllDebris_02"
+		KindOf="NO_COLLIDE UNATTACKABLE INERT INERT_SHROUD_REVEALER NOT_AUTOACQUIRABLE"
+		RadarPriority="NOT_ON_RADAR"
+		Side="Neutral"
+		EditorName="NODCarryAllDebris_02"
+		EditorSorting="MISC_MAN_MADE"
+		CommandSet="EmptyCommandSet">
+		<DisplayName>Debris</DisplayName>
+		<ArmorSet
+			Armor="NoArmor" />
+		<Draws>
+			<ScriptedModelDraw
+				id="0x50DF2C46"
+				MaxRecoilDistance="3"
+				RecoilDamping="0.4"
+				OkToChangeModelColor="True">
+				<ModelConditionState
+					ParseCondStateType="PARSE_DEFAULT">
+					<Model
+						Name="W3DContainer:NUCARRYALLR02" />
+					<Texture
+						Original="NUCarryAll_D"
+						New="NUBHCarry_D" />
+					<ParticleSysBone
+						BoneName="ROOTTRANSFORM"
+						FXParticleSystemTemplate="GDIDebrisSmallFire"
+						FollowBone="True" />
+					<ParticleSysBone
+						BoneName="ROOTTRANSFORM"
+						FXParticleSystemTemplate="GDIDebrisSmallFireDistortion"
+						FollowBone="True" />
+					<ParticleSysBone
+						BoneName="ROOTTRANSFORM"
+						FXParticleSystemTemplate="GDIDebrisSmallSmoke"
+						FollowBone="True" />
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<RandomModelCondition
+				id="ModuleTag_Reskin"
+				Conditions="USER_1" />
+			
+			<Physics
+				id="0x6D41764B"
+				BounceCount="0"
+				TumbleRandomly="True" />
+			<LifetimeUpdate
+				id="0x6D14780C"
+				MinLifetime="1s"
+				MaxLifetime="1s" />
+			<SlowDeath
+				id="0x73542D4A"
+				SinkRate="0.5"
+				SinkDelay="2s"
+				DestructionDelay="4s">
+				<DieMuxData
+					DeathTypes="ALL" />
+			</SlowDeath>
+		</Behaviors>
+		<Body>
+			<ActiveBody
+				id="0xB313F576"
+				MaxHealth="100" />
+		</Body>
+		<Geometry
+			IsSmall="True">
+			<Shape
+				Type="BOX"
+				MajorRadius="10"
+				MinorRadius="10"
+				Height="10" />
+		</Geometry>
+		<ShadowInfo
+			Type="VOLUME" />
+		<VisionInfo
+			VisionRange="1"
+			ShroudClearingRange="1" />
+	</GameObject>
+	
+	
+	<GameObject
+		id="BlackHandCarryAllDebris_03"
+		KindOf="NO_COLLIDE UNATTACKABLE INERT INERT_SHROUD_REVEALER NOT_AUTOACQUIRABLE"
+		RadarPriority="NOT_ON_RADAR"
+		Side="Neutral"
+		EditorName="NODCarryAllDebris_03"
+		EditorSorting="MISC_MAN_MADE"
+		CommandSet="EmptyCommandSet">
+		<DisplayName>Debris</DisplayName>
+		<ArmorSet
+			Armor="NoArmor" />
+		<Draws>
+			<ScriptedModelDraw
+				id="0x50DF2C46"
+				MaxRecoilDistance="3"
+				RecoilDamping="0.4"
+				OkToChangeModelColor="True">
+				<ModelConditionState
+					ParseCondStateType="PARSE_DEFAULT">
+					<Model
+						Name="W3DContainer:NUCARRYALLR03" />
+					<Texture
+						Original="NUCarryAll_D"
+						New="NUBHCarry_D" />
+					<ParticleSysBone
+						BoneName="ROOTTRANSFORM"
+						FXParticleSystemTemplate="GDIDebrisSmallFire"
+						FollowBone="True" />
+					<ParticleSysBone
+						BoneName="ROOTTRANSFORM"
+						FXParticleSystemTemplate="GDIDebrisSmallFireDistortion"
+						FollowBone="True" />
+					<ParticleSysBone
+						BoneName="ROOTTRANSFORM"
+						FXParticleSystemTemplate="GDIDebrisSmallSmoke"
+						FollowBone="True" />
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<RandomModelCondition
+				id="ModuleTag_Reskin"
+				Conditions="USER_1" />
+			
+			<Physics
+				id="0x6D41764B"
+				BounceCount="0"
+				TumbleRandomly="True" />
+			<LifetimeUpdate
+				id="0x6D14780C"
+				MinLifetime="1s"
+				MaxLifetime="1s" />
+			<SlowDeath
+				id="0x73542D4A"
+				SinkRate="0.5"
+				SinkDelay="2s"
+				DestructionDelay="4s">
+				<DieMuxData
+					DeathTypes="ALL" />
+			</SlowDeath>
+		</Behaviors>
+		<Body>
+			<ActiveBody
+				id="0xB313F576"
+				MaxHealth="100" />
+		</Body>
+		<Geometry
+			IsSmall="True">
+			<Shape
+				Type="BOX"
+				MajorRadius="10"
+				MinorRadius="10"
+				Height="10" />
+		</Geometry>
+		<ShadowInfo
+			Type="VOLUME" />
+		<VisionInfo
+			VisionRange="1"
+			ShroudClearingRange="1" />
+	</GameObject>
+	
+	
+	<GameObject
+		id="BlackHandCarryAllDebris_04"
+		KindOf="NO_COLLIDE UNATTACKABLE INERT INERT_SHROUD_REVEALER NOT_AUTOACQUIRABLE"
+		RadarPriority="NOT_ON_RADAR"
+		Side="Neutral"
+		EditorName="NODCarryAllDebris_04"
+		EditorSorting="MISC_MAN_MADE"
+		CommandSet="EmptyCommandSet">
+		<DisplayName>Debris</DisplayName>
+		<ArmorSet
+			Armor="NoArmor" />
+		<Draws>
+			<ScriptedModelDraw
+				id="0x50DF2C46"
+				MaxRecoilDistance="3"
+				RecoilDamping="0.4"
+				OkToChangeModelColor="True">
+				<ModelConditionState
+					ParseCondStateType="PARSE_DEFAULT">
+					<Model
+						Name="W3DContainer:NUCARRYALLR04" />
+					<Texture
+						Original="NUCarryAll_D"
+						New="NUBHCarry_D" />
+					<ParticleSysBone
+						BoneName="ROOTTRANSFORM"
+						FXParticleSystemTemplate="GDIDebrisSmallFire"
+						FollowBone="True" />
+					<ParticleSysBone
+						BoneName="ROOTTRANSFORM"
+						FXParticleSystemTemplate="GDIDebrisSmallFireDistortion"
+						FollowBone="True" />
+					<ParticleSysBone
+						BoneName="ROOTTRANSFORM"
+						FXParticleSystemTemplate="GDIDebrisSmallSmoke"
+						FollowBone="True" />
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<RandomModelCondition
+				id="ModuleTag_Reskin"
+				Conditions="USER_1" />
+			
+			<Physics
+				id="0x6D41764B"
+				BounceCount="0"
+				TumbleRandomly="True" />
+			<LifetimeUpdate
+				id="0x6D14780C"
+				MinLifetime="1s"
+				MaxLifetime="1s" />
+			<SlowDeath
+				id="0x73542D4A"
+				SinkRate="0.5"
+				SinkDelay="2s"
+				DestructionDelay="4s">
+				<DieMuxData
+					DeathTypes="ALL" />
+			</SlowDeath>
+		</Behaviors>
+		<Body>
+			<ActiveBody
+				id="0xB313F576"
+				MaxHealth="100" />
+		</Body>
+		<Geometry
+			IsSmall="True">
+			<Shape
+				Type="BOX"
+				MajorRadius="10"
+				MinorRadius="10"
+				Height="10" />
+		</Geometry>
+		<ShadowInfo
+			Type="VOLUME" />
+		<VisionInfo
+			VisionRange="1"
+			ShroudClearingRange="1" />
+	</GameObject>
+	
+	
+	<GameObject
+		id="BlackHandCarryAllDebris_05"
+		KindOf="NO_COLLIDE UNATTACKABLE INERT INERT_SHROUD_REVEALER NOT_AUTOACQUIRABLE"
+		RadarPriority="NOT_ON_RADAR"
+		Side="Neutral"
+		EditorName="NODCarryAllDebris_05"
+		EditorSorting="MISC_MAN_MADE"
+		CommandSet="EmptyCommandSet">
+		<DisplayName>Debris</DisplayName>
+		<ArmorSet
+			Armor="NoArmor" />
+		<Draws>
+			<ScriptedModelDraw
+				id="0x50DF2C46"
+				MaxRecoilDistance="3"
+				RecoilDamping="0.4"
+				OkToChangeModelColor="True">
+				<ModelConditionState
+					ParseCondStateType="PARSE_DEFAULT">
+					<Model
+						Name="W3DContainer:NUCARRYALLR05" />
+					<Texture
+						Original="NUCarryAll_D"
+						New="NUBHCarry_D" />
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<RandomModelCondition
+				id="ModuleTag_Reskin"
+				Conditions="USER_1" />
+			
+			<Physics
+				id="0x6D41764B"
+				BounceCount="0"
+				TumbleRandomly="True" />
+			<LifetimeUpdate
+				id="0x6D14780C"
+				MinLifetime="1s"
+				MaxLifetime="1s" />
+			<SlowDeath
+				id="0x73542D4A"
+				SinkRate="0.5"
+				SinkDelay="2s"
+				DestructionDelay="4s">
+				<DieMuxData
+					DeathTypes="ALL" />
+			</SlowDeath>
+		</Behaviors>
+		<Body>
+			<ActiveBody
+				id="0xB313F576"
+				MaxHealth="100" />
+		</Body>
+		<Geometry
+			IsSmall="True">
+			<Shape
+				Type="BOX"
+				MajorRadius="10"
+				MinorRadius="10"
+				Height="10" />
+		</Geometry>
+		<ShadowInfo
+			Type="VOLUME" />
+		<VisionInfo
+			VisionRange="1"
+			ShroudClearingRange="1" />
+	</GameObject>
+	
+	
+	<GameObject
+		id="BlackHandCarryAllDebris_06"
+		KindOf="NO_COLLIDE UNATTACKABLE INERT INERT_SHROUD_REVEALER NOT_AUTOACQUIRABLE"
+		RadarPriority="NOT_ON_RADAR"
+		Side="Neutral"
+		EditorName="NODCarryAllDebris_06"
+		EditorSorting="MISC_MAN_MADE"
+		CommandSet="EmptyCommandSet">
+		<DisplayName>Debris</DisplayName>
+		<ArmorSet
+			Armor="NoArmor" />
+		<Draws>
+			<ScriptedModelDraw
+				id="0x50DF2C46"
+				MaxRecoilDistance="3"
+				RecoilDamping="0.4"
+				OkToChangeModelColor="True">
+				<ModelConditionState
+					ParseCondStateType="PARSE_DEFAULT">
+					<Model
+						Name="W3DContainer:NUCARRYALLR_SKN" />
+					<Texture
+						Original="NUCarryAll_D"
+						New="NUBHCarry_D" />
+					<ParticleSysBone
+						BoneName="ROOTTRANSFORM"
+						FXParticleSystemTemplate="GDIDebrisSmallFire"
+						FollowBone="True" />
+					<ParticleSysBone
+						BoneName="ROOTTRANSFORM"
+						FXParticleSystemTemplate="GDIDebrisSmallFireDistortion"
+						FollowBone="True" />
+					<ParticleSysBone
+						BoneName="ROOTTRANSFORM"
+						FXParticleSystemTemplate="GDIDebrisSmallSmoke"
+						FollowBone="True" />
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<RandomModelCondition
+				id="ModuleTag_Reskin"
+				Conditions="USER_1" />
+			
+			<Physics
+				id="0x6D41764B"
+				MaxXRotationVelocity="15"
+				MaxYRotationVelocity="0"
+				MaxZRotationVelocity="180"
+				BounceCount="0"
+				GroundHitFX="FX_GDIVehicleExplodeNoScorch"
+				TumbleRandomly="True"
+				KillWhenRestingOnGround="True" />
+			<LifetimeUpdate
+				id="0x6D14780C"
+				MinLifetime="1s"
+				MaxLifetime="1s" />
+			<SlowDeath
+				id="0x73542D4A"
+				SinkRate="0.5"
+				SinkDelay="0.1s"
+				DestructionDelay="0.3s">
+				<DieMuxData
+					DeathTypes="ALL" />
+			</SlowDeath>
+		</Behaviors>
+		<Body>
+			<ActiveBody
+				id="0xB313F576"
+				MaxHealth="100" />
+		</Body>
+		<Geometry
+			IsSmall="True">
+			<Shape
+				Type="BOX"
+				MajorRadius="10"
+				MinorRadius="10"
+				Height="10" />
+		</Geometry>
+		<ShadowInfo
+			Type="VOLUME" />
+		<VisionInfo
+			VisionRange="1"
+			ShroudClearingRange="1" />
+	</GameObject>
+</AssetDeclaration>

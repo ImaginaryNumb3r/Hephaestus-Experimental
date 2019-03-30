@@ -1,14 +1,19 @@
 package parsing.model;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Creator: Patrick
  * Created: 20.03.2019
  * Non-empty string token.
  */
 public class TextToken extends ConsumerNode implements CopyNode<TextToken> {
+    private static final Set<Character> ALLOWED_CHARS = Set.of('_', '.', ':');
 
     public TextToken() { // TODO: Change to "not whitespace" -> character '!' could be making problems
-        super(ch -> Character.isAlphabetic(ch) || Character.isDigit(ch) || ch == '_' );
+        super(ch -> Character.isAlphabetic(ch) || Character.isDigit(ch) || ALLOWED_CHARS.contains(ch));
     }
 
     public void setText(CharSequence text) {
