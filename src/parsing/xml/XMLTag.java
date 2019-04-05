@@ -40,10 +40,7 @@ public class XMLTag extends AbstractParseNode implements CopyNode<XMLTag> {
     }
 
     public List<XMLTag> children() {
-        return _tail.nodes().stream()
-                .filter(XMLNode::isTag)
-                .map(XMLNode::toTag)
-                .collect(Collectors.toList());
+        return _tail.childTags();
     }
 
     public List<XMLNode> elements() {

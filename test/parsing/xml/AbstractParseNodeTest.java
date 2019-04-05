@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
  * Purpose:
  */
 public class AbstractParseNodeTest {
-    protected static final Path TEST_FILE_DIR = Path.of("test", "parsing", "xml", "files");
+    public static final Path TEST_FILE_DIR = Path.of("test", "parsing", "xml", "files");
 
     protected static List<String> readTestData(String string) {
         return readTestData(Path.of(string));

@@ -31,6 +31,10 @@ public class ParseResult {
         _innerErrors = new ArrayList<>(innerErrors);
     }
 
+    public List<ParseResult> innerErrors() {
+        return _innerErrors;
+    }
+
     public boolean isValid() {
         return _isValid;
     }

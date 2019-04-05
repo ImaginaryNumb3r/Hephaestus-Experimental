@@ -1,9 +1,12 @@
 package parsing.xml;
 
+import essentials.contract.NoImplementationException;
 import parsing.model.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static java.util.Collections.emptyList;
 
 /**
  * Creator: Patrick
@@ -39,7 +42,19 @@ public class XMLTail extends SequenceNode implements CopyNode<XMLTail> {
      * @return a list of all child tags and comments.
      */
     public List<XMLNode> nodes() {
-        return _nodes.getElements();
+        List<XMLNode> xmlNodes = _nodes.innerNodes().orElse(emptyList());
+
+        return xmlNodes;
+    }
+
+    /**
+     * @return the list of child tags. This does not include comments.
+     */
+    public List<XMLTag> childTags() {
+        return nodes().stream()
+                .filter(XMLNode::isTag)
+                .map(XMLNode::toTag)
+                .collect(Collectors.toList());
     }
 
     public boolean isText() {
@@ -52,15 +67,6 @@ public class XMLTail extends SequenceNode implements CopyNode<XMLTail> {
 
     public Optional<String> getData() {
         return _nodes.getData();
-    }
-
-    /**
-     * @return the list of child tags. This does not include comments.
-     */
-    public List<XMLNode> childTags() {
-        return _nodes.getElements().stream()
-                .filter(XMLNode::isTag)
-                .collect(Collectors.toList());
     }
 
     /**
@@ -106,6 +112,7 @@ public class XMLTail extends SequenceNode implements CopyNode<XMLTail> {
         return result;
     }
 
+    //<editor-fold desc="Data Methods">
     @Override
     public void setData(XMLTail other) {
         reset();
@@ -128,7 +135,6 @@ public class XMLTail extends SequenceNode implements CopyNode<XMLTail> {
         _name.reset();
         _closedTag = false;
     }
-
     @Override
     public XMLTail deepCopy() {
         XMLTail copy = new XMLTail();
@@ -158,4 +164,5 @@ public class XMLTail extends SequenceNode implements CopyNode<XMLTail> {
     public int hashCode() {
         return Objects.hash(super.hashCode(), _nodes, _name, FALLBACK, _trailingWhitespace, _closedTag);
     }
+    //</editor-fold>
 }

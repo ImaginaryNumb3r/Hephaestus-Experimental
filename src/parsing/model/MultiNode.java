@@ -40,6 +40,8 @@ public class MultiNode<T extends CopyNode<T>> extends AbstractParseNode implemen
                 result = next;
                 _elements.add(token);
                 token = _tokenConstructor.get();
+            } else {
+                result.innerErrors().addAll(next.innerErrors());
             }
         }
 

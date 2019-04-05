@@ -5,6 +5,10 @@ import parsing.model.CopyNode;
 import parsing.model.ParseResult;
 import parsing.model.WhitespaceToken;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Objects;
 
 /**
@@ -21,6 +25,20 @@ public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocume
         _prolog = new XMLProlog();
         _root = new XMLTag();
         _whitespace = new WhitespaceToken();
+    }
+
+    public static XMLDocument ofFile(Path path) throws IOException {
+        String rawDocument = Files.readString(path);
+
+        return XMLDocument.of(rawDocument);
+    }
+
+    public static XMLDocument ofFile(String filePath) throws IOException {
+        return ofFile(Path.of(filePath));
+    }
+
+    public static XMLDocument ofFile(File file) throws IOException {
+        return ofFile(file.getAbsolutePath());
     }
 
     public static XMLDocument of(String rawXML) {
