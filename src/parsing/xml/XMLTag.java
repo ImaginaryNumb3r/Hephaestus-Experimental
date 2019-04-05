@@ -6,6 +6,7 @@ import parsing.model.ParseResult;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -33,6 +34,30 @@ public class XMLTag extends AbstractParseNode implements CopyNode<XMLTag> {
 
     public List<AttributeToken> attributes() {
         return _head.getAttributes();
+    }
+
+    public Optional<AttributeToken> fetchAttribute(String attributeName) {
+        return attributes().stream()
+                .filter(attribute -> attribute.getName().equals(attributeName))
+                .findAny();
+    }
+
+    public AttributeToken getAttribute(String attributeName) {
+        return attributes().stream()
+                .filter(attribute -> attribute.getName().equals(attributeName))
+                .findAny()
+                .orElse(null);
+    }
+
+    public List<XMLTag> getTags(String tagName) {
+        return children().stream()
+                .filter(tag -> tag.getName().equals(tagName))
+                .collect(Collectors.toList());
+    }
+
+    public boolean hasAttribute(String attributeName) {
+        return attributes().stream()
+                .anyMatch(attribute -> attribute.getName().equals(attributeName));
     }
 
     public boolean isClosed() {

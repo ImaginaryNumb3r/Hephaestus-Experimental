@@ -1,6 +1,5 @@
 package parsing.xml;
 
-import essentials.contract.NoImplementationException;
 import parsing.model.*;
 
 import java.util.*;

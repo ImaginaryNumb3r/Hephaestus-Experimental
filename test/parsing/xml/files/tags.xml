@@ -29,7 +29,7 @@
 		="1.5s"
 	third="lorem ipsum" />
 
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
 	<AudioFile
 		id="Gui_MPCountdown"
 		File="Gui_MPCountdown.wav"
@@ -37,7 +37,7 @@
 		GUIPreset="Default" />
 </AssetDeclaration>
 
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
 	<AudioFile
 		id="AutoResolve2"
 		File="AutoResolve2.wav"

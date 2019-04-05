@@ -12,27 +12,27 @@ import java.util.Optional;
  */
 public class Navigator {
 
-    public Optional<XMLTag> getTag(XMLDocument root, String... path) {
+    public static Optional<XMLTag> getTag(XMLDocument root, String... path) {
         return getTag(root, Iterators.of(path));
     }
 
-    public Optional<XMLTag> getTag(XMLTag start, String... path) {
+    public static Optional<XMLTag> getTag(XMLTag start, String... path) {
         return getTag(start, Iterators.of(path));
     }
 
-    public Optional<XMLTag> getTag(XMLDocument root, Iterable<String> path) {
+    public static Optional<XMLTag> getTag(XMLDocument root, Iterable<String> path) {
         return getTag(root, path.iterator());
     }
 
-    public Optional<XMLTag> getTag(XMLTag root, Iterable<String> path) {
+    public static Optional<XMLTag> getTag(XMLTag root, Iterable<String> path) {
         return getTag(root, path.iterator());
     }
 
-    private Optional<XMLTag> getTag(XMLDocument root, Iterator<String> path) {
+    private static Optional<XMLTag> getTag(XMLDocument root, Iterator<String> path) {
         return getTag(root.getRoot(), path);
     }
 
-    private Optional<XMLTag> getTag(XMLTag start, Iterator<String> path) {
+    private static Optional<XMLTag> getTag(XMLTag start, Iterator<String> path) {
         // End recursion.
         if (!path.hasNext()) return Optional.of(start);
         String expected = path.next();
