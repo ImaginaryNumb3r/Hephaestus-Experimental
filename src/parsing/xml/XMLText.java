@@ -5,6 +5,7 @@ import parsing.model.ContentToken;
 import parsing.model.CopyNode;
 import parsing.model.ParseResult;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -46,6 +47,7 @@ public class XMLText extends ContentToken implements CopyNode<XMLText> {
                 }
             }
         }
+
 
         // TODO: Remove and turn into a general rule for content token at parse-time.
 

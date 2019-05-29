@@ -32,6 +32,25 @@ public class XMLTag extends AbstractParseNode implements CopyNode<XMLTag> {
         _head.setName(name);
     }
 
+    //<editor-fold desc="Child Tags">
+    public Optional<XMLTag> fetchTag(String name) {
+        return _tail.childTags().stream()
+                .filter(node -> node.getName().equals(name))
+                .findFirst();
+    }
+
+    public List<XMLTag> getTags(String tagName) {
+        return children().stream()
+                .filter(tag -> tag.getName().equals(tagName))
+                .collect(Collectors.toList());
+    }
+
+    public List<XMLTag> children() {
+        return _tail.childTags();
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="Attributes">
     public List<AttributeToken> attributes() {
         return _head.getAttributes();
     }
@@ -49,23 +68,22 @@ public class XMLTag extends AbstractParseNode implements CopyNode<XMLTag> {
                 .orElse(null);
     }
 
-    public List<XMLTag> getTags(String tagName) {
-        return children().stream()
-                .filter(tag -> tag.getName().equals(tagName))
-                .collect(Collectors.toList());
-    }
-
-    public boolean hasAttribute(String attributeName) {
+    public boolean hasAttributes(String attributeName) {
         return attributes().stream()
                 .anyMatch(attribute -> attribute.getName().equals(attributeName));
+    }
+    //</editor-fold>
+
+    public boolean hasData() {
+        return _tail.isText();
+    }
+
+    public Optional<String> getData() {
+        return _tail.getData();
     }
 
     public boolean isClosed() {
         return _tail.isClosedTag();
-    }
-
-    public List<XMLTag> children() {
-        return _tail.childTags();
     }
 
     public List<XMLNode> elements() {
