@@ -1,55 +1,62 @@
 package lib.arguments;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
- * Creator: Patrick
- * Created: 17.05.2019
- * Purpose:
+ * @author Patrick Plieschnegger
  */
-public class Argument { // TODO: Polymorphism. Split into different argument types via inheritance: Array, Value, None, Optional (value inherits optional).
-    private final String _name;
-    // private List<String> _value;
-    private String _value;
-    private final ArgumentOption _option;
+/*package*/ class Argument<T> {
+    protected final String _name;
+    protected final boolean _mandatory;
+    protected T _value;
 
-    protected Argument(String name, String value, ArgumentOption option) {
-        _value = value;
-        _option = option;
+    public Argument(String name, T value, boolean required) {
         _name = name;
+        _value = value;
+        _mandatory = required;
     }
 
-    protected void setValue(String value) {
-        if (_option == ArgumentOption.NONE)
-
-        _value = value;
+    /**
+     * Checks whether the argument is in a valid state.
+     * @return false if this is a mandatory argument and has no value. Otherwise true.
+     */
+    public boolean isValid() {
+        return !_mandatory || _value != null;
     }
 
     public String getName() {
         return _name;
     }
 
-    public ArgumentOption getOption() {
-        return _option;
+    public boolean isMandatory() {
+        return _mandatory;
     }
 
-    public String getValue() {
+    public T getValue() {
         return _value;
+    }
+
+    public void setValue(T value) {
+        _value = value;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Argument)) return false;
+
         Argument argument = (Argument) o;
-        return Objects.equals(_name, argument._name) &&
-                _option == argument._option;
+
+        if (_mandatory != argument._mandatory) return false;
+        if (!Objects.equals(_name, argument._name)) return false;
+        return Objects.equals(_value, argument._value);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(_name, _option);
+        int result = _name != null ? _name.hashCode() : 0;
+        result = 31 * result + (_mandatory ? 1 : 0);
+        result = 31 * result + (_value != null ? _value.hashCode() : 0);
+        return result;
     }
 }
