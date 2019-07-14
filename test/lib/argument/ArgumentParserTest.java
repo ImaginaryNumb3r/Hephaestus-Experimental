@@ -1,9 +1,12 @@
 package lib.argument;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Set;
+
+import static java.util.Collections.emptySet;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ArgumentParserTest {
 
@@ -12,15 +15,33 @@ public class ArgumentParserTest {
         String validInput = "-enabled";
         var validInputExpected = Set.of("enabled");
         String invalidInput = "-invalid";
-        String semiValidInput = "-invalid -extra";
+        String semiValidInput = "-enabled -extra";
         String syntacticallyWrongInput = "invalid";
 
-        var parser = makeParser(validInput);
-        Assert.assertEquals(parser.parse(validInput), validInputExpected);
-        Assert.assertEquals(parser.parseStrict(validInput), validInputExpected);
+        var parser = makeParser();
+        assertEquals(parser.parse(validInput), validInputExpected);
+        assertEquals(parser.parseStrict(validInput), validInputExpected);
+
+        assertEquals(parser.parse(invalidInput), emptySet());
+        assertThrow(IllegalStateException.class, () -> parser.parseStrict(invalidInput));
+
+        assertEquals(parser.parse(semiValidInput), validInputExpected);
+        assertThrow(IllegalStateException.class, () -> parser.parseStrict(semiValidInput));
+
+        assertEquals(parser.parse(syntacticallyWrongInput), emptySet());
+        assertThrow(IllegalStateException.class, () -> parser.parseStrict(syntacticallyWrongInput));
     }
 
-    private ArgumentParser makeParser(String input) {
+    private void assertThrow(Class<? extends Exception> exceptionClass, Runnable runnable) {
+        try {
+            runnable.run();
+        } catch (Exception ex) {
+            var exClass = ex.getClass();
+            assertTrue(exClass.isAssignableFrom(exceptionClass));
+        }
+    }
+
+    private ArgumentParser makeParser() {
         var disabled = Argument.asOption("disabled");
         var enabled = Argument.asOption("enabled");
 

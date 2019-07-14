@@ -52,6 +52,7 @@ public class ArgumentParser {
         var set = new HashSet<String>();
         for (String token : parts) {
             boolean parsed = false;
+            token = token.trim();
 
             var iter = _arguments.iterator();
             while (iter.hasNext() && !parsed) {
@@ -64,7 +65,7 @@ public class ArgumentParser {
             }
 
             if (!parsed && strictMode) {
-                throw new IllegalStateException("Cannot find argument for token \"" + token + "\"");
+                throw new IllegalStateException("Cannot find argument for input token \"" + token + "\".");
             }
         }
 
