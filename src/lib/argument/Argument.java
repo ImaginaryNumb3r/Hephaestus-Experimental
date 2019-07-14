@@ -96,7 +96,7 @@ public class Argument<T> {
         });
     }
 
-    public static Argument<Boolean> option(String name) {
+    public static Argument<Boolean> asOption(String name) {
         return new OptionalArgument(name);
     }
 

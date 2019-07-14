@@ -1,5 +1,6 @@
 package lib.argument;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,6 +46,8 @@ public class ArgumentParser {
 
     private Set<String> parse(String consoleInput, boolean strictMode) {
         String[] parts = consoleInput.split("[" + _delimiter +  "]");
+        // Ignore first element.
+        parts = Arrays.copyOfRange(parts, 1, parts.length);
 
         var set = new HashSet<String>();
         for (String token : parts) {
@@ -54,6 +57,10 @@ public class ArgumentParser {
             while (iter.hasNext() && !parsed) {
                 Argument<?> argument = iter.next();
                 parsed = argument.parse(token);
+
+                if (parsed) {
+                    set.add(argument.getName());
+                }
             }
 
             if (!parsed && strictMode) {
