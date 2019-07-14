@@ -6,6 +6,6 @@ Employ as much as you want... but do so on your own peril, as their APIs are cha
 
 Among these ancient tombs, you will find:  
 - **Hephaestus-XML:** A node based XLM parser and mutator with focus on highly static modelling.
-- **Argument Parser:** A builder for easy line argument parsing
+- **Argument Parser:** A builder for easy line argumentToken parsing
 
 Worship of these artifacts with care, as for one day their full potential may be achieved in order to elevate them to a higher place of existence.

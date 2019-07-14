@@ -3,5 +3,5 @@ package lib.arguments;
 /**
  * @author Patrick Plieschnegger
  */
-public interface Argument {
+public enum ParseState {
 }
