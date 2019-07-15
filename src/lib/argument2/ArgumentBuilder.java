@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import static java.lang.String.join;
 import static java.util.Arrays.asList;
+import static java.util.Arrays.copyOfRange;
 import static lib.argument2.Argument.makeOption;
 
 /**
@@ -157,8 +158,6 @@ public class ArgumentBuilder {
         for (String argumentPair : arguments) {
             String[] parts = argumentPair.split(ARGUMENT_DELIMITER);
             String name = parts[0];
-            var argValues = Arrays.copyOfRange(parts, 1, parts.length);
-
             isContained = _arrays.containsKey(name);
 
             if (isContained) {
@@ -167,6 +166,8 @@ public class ArgumentBuilder {
                 if (argumentPair.contains(ARGUMENT_ASSIGNMENT)) throw new ArgumentParseException("Array Argument", ARGUMENT_ASSIGNMENT);
 
                 Argument argument = _arrays.get(name);
+                var argValues = copyOfRange(parts, 1, parts.length);
+
                 argument.addValues(argValues);
 
                 values.put(name, argument);

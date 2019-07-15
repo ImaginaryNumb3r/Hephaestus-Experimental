@@ -1,11 +1,6 @@
 package lib.argument2;
 
-import essentials.contract.NoImplementationException;
-
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author Patrick Plieschnegger
@@ -25,28 +20,46 @@ public class Arguments {
         return _options.containsKey(optionName);
     }
 
-    public boolean isPresent(String argName) {
-        throw new NoImplementationException();
-    }
 
     public boolean containsArgument(String argName) {
         return _values.containsKey(argName);
     }
 
+    public boolean hasValue(String argName) {
+        Argument argument = _values.get(argName);
+
+        return !argument.getValues().isEmpty();
+    }
+
     public String getValue(String argName) {
-        throw new NoSuchElementException();
+        return fetchValue(argName)
+            .orElseThrow(NoSuchElementException::new);
     }
 
     public Optional<String> fetchValue(String argName) {
-        throw new NoSuchElementException();
+        Argument argument = _values.get(argName);
+        if (argument == null) return Optional.empty();
+
+        List<String> values = argument.getValues();
+
+        return values.isEmpty()
+            ? Optional.empty()
+            : Optional.of(values.get(0));
     }
 
-    public ArrayList<String> getArray() {
-        throw new NoImplementationException();
-    }
 
     public boolean containsArrayArgument(String name) {
         return _arrays.containsKey(name);
     }
 
+    public List<String> getArrayArgument(String arrayName) {
+        return fetchArrayArgument(arrayName)
+            .orElseThrow(NoSuchElementException::new);
+    }
+
+    public Optional<List<String>> fetchArrayArgument(String name) {
+        Argument argument = _arrays.get(name);
+
+        return Optional.ofNullable(argument).map(Argument::getValues);
+    }
 }
