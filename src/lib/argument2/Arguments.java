@@ -10,7 +10,7 @@ public class Arguments {
     private final Map<String, Argument> _values;
     private final Map<String, Argument> _arrays;
 
-    public Arguments(Map<String, Argument> options, Map<String, Argument> values, Map<String, Argument> arrays) {
+    protected Arguments(Map<String, Argument> options, Map<String, Argument> values, Map<String, Argument> arrays) {
         _options = options;
         _values = values;
         _arrays = arrays;
@@ -19,7 +19,6 @@ public class Arguments {
     public boolean containsOption(String optionName) {
         return _options.containsKey(optionName);
     }
-
 
     public boolean containsArgument(String argName) {
         return _values.containsKey(argName);
@@ -46,7 +45,6 @@ public class Arguments {
             ? Optional.empty()
             : Optional.of(values.get(0));
     }
-
 
     public boolean containsArrayArgument(String name) {
         return _arrays.containsKey(name);

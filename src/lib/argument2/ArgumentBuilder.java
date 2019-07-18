@@ -4,7 +4,6 @@ import essentials.contract.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
-import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,6 +32,8 @@ public class ArgumentBuilder {
     private final Map<String, Argument> _arrays = new HashMap<>();
 
     public void addOption(@NotNull String name) {
+        validateArgument(name);
+
         _options.put(name, new Argument(ArgumentType.OPTIONAL, name));
         checkForDuplicate(name, "option");
     }
@@ -47,7 +48,9 @@ public class ArgumentBuilder {
     }
 
     private void test(@NotNull String name, @NotNull ArgumentType type, String defaultValue) {
-        Contract.checkNulls(name, type, defaultValue);
+        Contract.checkNulls(type, defaultValue);
+        validateArgument(name);
+
         if (name.isEmpty()) throw new IllegalArgumentException("Argument name may not be empty");
 
         var argument = new Argument(type, name);
@@ -61,8 +64,10 @@ public class ArgumentBuilder {
 
 
     public void addArrayArgument(@NotNull String name, @NotNull ArgumentType type, @NotNull Iterable<String> defaultValues) {
-        Contract.checkNulls(name, type, defaultValues);
+        Contract.checkNulls(type, defaultValues);
         Contract.checkNulls(defaultValues);
+        validateArgument(name);
+
         if (name.isEmpty()) throw new IllegalArgumentException("Argument name may not be empty");
 
         _arrays.put(name, new Argument(type, name, defaultValues));
@@ -95,7 +100,6 @@ public class ArgumentBuilder {
         var options = new HashMap<String, Argument>();
         var values = new HashMap<String, Argument>();
         var arrays = new HashMap<String, Argument>();
-
 
         // Strip trailing whitespaces of all arguments.
         var arguments = Stream.of(input.split(ARGUMENT_PREFIX))
@@ -195,6 +199,17 @@ public class ArgumentBuilder {
         argument = argument != null ? argument : _arrays.get(name);
 
         return argument;
+    }
+
+    private void validateArgument(String input) {
+        Contract.checkNull(input);
+        if (input.isEmpty())
+            throw new IllegalArgumentException("Empty strings are not allowed as arguments");
+
+        for (char ch : input.toCharArray()) {
+            if (!Character.isAlphabetic(ch) && !Character.isDigit(ch))
+                throw new IllegalArgumentException("Only letters and numbers are allowed as argument names");
+        }
     }
 
     private interface Swapper {
