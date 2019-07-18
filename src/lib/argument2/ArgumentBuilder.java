@@ -23,13 +23,14 @@ import static lib.argument2.Argument.makeOption;
  *  - You want to abuse the API? Well fine, have fun dealing with the consequences.
  *  - If you are hell-bent on destroying the API, let yourself go. We are not babysitters.
  */
-public class ArgumentBuilder {
+public class ArgumentBuilder extends AbstractArgumentCollector {
     public static final String ARGUMENT_PREFIX = "-";
     public static final String ARGUMENT_ASSIGNMENT = "=";
     public static final String ARGUMENT_DELIMITER = " ";
-    private final Map<String, Argument> _options = new HashMap<>();
-    private final Map<String, Argument> _values = new HashMap<>();
-    private final Map<String, Argument> _arrays = new HashMap<>();
+
+    public ArgumentBuilder() {
+        super(new HashMap<>());
+    }
 
     public void addOption(@NotNull String name) {
         validateArgument(name);
@@ -86,21 +87,9 @@ public class ArgumentBuilder {
         addArrayArgument(name, type, List.of(defaultValue));
     }
 
-    /**
-     * @param argName name of the argument.
-     * @param description description to add to the argument.
-     * @throws java.util.NoSuchElementException if the argument was not defined.
-     */
-    public void addDescription(@NotNull String argName, @NotNull String description) {
-        Argument argument = get(argName);
-
-        if (argument == null) {
-            String message = join(" ", "Argument", argName, "is not a defined argument.");
-            throw new IllegalArgumentException(message);
-        }
-    }
-
     public Arguments parse(@NotNull String input) {
+        if (input.isBlank()) return new Arguments(_descriptions);
+
         var options = new HashMap<String, Argument>();
         var values = new HashMap<String, Argument>();
         var arrays = new HashMap<String, Argument>();
@@ -109,6 +98,7 @@ public class ArgumentBuilder {
         var arguments = Stream.of(input.split(ARGUMENT_PREFIX))
             .map(String::stripTrailing)
             .collect(Collectors.toList());
+
         var tempArguments = new ArrayList<String>();
         boolean isContained;
         Swapper argumentLists = () -> {
@@ -184,7 +174,7 @@ public class ArgumentBuilder {
             }
         }
 
-        return new Arguments(options, values, arrays);
+        return new Arguments(options, values, arrays, _descriptions);
     }
 
     private void checkForDuplicate(@NotNull String argName, @NotNull String argKind) {
@@ -195,14 +185,6 @@ public class ArgumentBuilder {
         if (duplicate) {
             throw new IllegalArgumentException("Cannot redefine " + argKind + " with name \"" + argName + "\" in argument builder");
         }
-    }
-
-    private Argument get(@NotNull String name) {
-        Argument argument = _options.get(name);
-        argument = argument != null ? argument : _values.get(name);
-        argument = argument != null ? argument : _arrays.get(name);
-
-        return argument;
     }
 
     private void validateArgument(String input) {

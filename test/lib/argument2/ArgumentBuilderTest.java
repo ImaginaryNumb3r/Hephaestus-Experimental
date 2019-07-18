@@ -6,8 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiPredicate;
 
-import static junit.framework.TestCase.assertTrue;
-import static junit.framework.TestCase.fail;
+import static junit.framework.TestCase.*;
 
 public class ArgumentBuilderTest {
 
@@ -52,23 +51,47 @@ public class ArgumentBuilderTest {
 
         int i = 0;
         for (var builder : builders) {
+            String kind = kinds.get(i);
+            var containsArgument = predicates.get(i);
+
             for (String valid : valids) {
                 var arguments = builder.parse(valid);
-                boolean isValid = predicates.get(i).test(arguments, valid);
+                boolean isValid = containsArgument.test(arguments, valid);
 
-                String kind = kinds.get(i);
                 assertTrue(kind + " could not be defined for: " + valid, isValid);
             }
             ++i;
         }
     }
 
+    @Test
+    public void testDescription() {
+        String optionDesc = "Description of the option";
+        String argDesc = "Description of the arg";
+        String arrayArgDesc = "Description of the array";
+
+        var builder = new ArgumentBuilder();
+        builder.addOption("option");
+        builder.addArgument("argument", ArgumentType.OPTIONAL);
+        builder.addArrayArgument("arrayArgument", ArgumentType.OPTIONAL);
+
+        builder.addDescription("option", optionDesc);
+        builder.addDescription("argument", argDesc);
+        builder.addDescription("arrayArgument", arrayArgDesc);
+
+        Arguments arguments = builder.parse("");
+
+        assertEquals(optionDesc, arguments.getDescription("option"));
+        assertEquals(argDesc, arguments.getDescription("argument"));
+        assertEquals(arrayArgDesc, arguments.getDescription("arrayArgument"));
+    }
+
     /*
      * To Test
-     *  - Description
      *  - Duplicate Entries
      *  - Default Values
      *  - Parsing with multiple values
+     *  - Test Optional/Mandatory
      */
 
 

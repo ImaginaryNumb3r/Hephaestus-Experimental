@@ -10,7 +10,6 @@ import java.util.List;
     private final String _name;
     private final ArgumentType _type;
     private final List<String> _values;
-    private String _description = "";
 
     public Argument(ArgumentType type, String name) {
         _values = new ArrayList<>();
@@ -38,10 +37,6 @@ import java.util.List;
 
     public String getName() {
         return _name;
-    }
-
-    public void setDescription(String description) {
-        _description = description;
     }
 
     public static Argument makeOption(String name) {

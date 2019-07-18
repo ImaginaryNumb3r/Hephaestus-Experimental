@@ -5,15 +5,18 @@ import java.util.*;
 /**
  * @author Patrick Plieschnegger
  */
-public class Arguments {
-    private final Map<String, Argument> _options;
-    private final Map<String, Argument> _values;
-    private final Map<String, Argument> _arrays;
+public class Arguments extends AbstractArgumentCollector {
 
-    protected Arguments(Map<String, Argument> options, Map<String, Argument> values, Map<String, Argument> arrays) {
-        _options = options;
-        _values = values;
-        _arrays = arrays;
+    protected Arguments(Map<String, String> descriptions) {
+        super(descriptions);
+    }
+
+    protected Arguments(Map<String, Argument> options,
+                        Map<String, Argument> values,
+                        Map<String, Argument> arrays,
+                        Map<String, String> descriptions
+    ) {
+        super(options, values, arrays, descriptions);
     }
 
     public boolean hasOption(String optionName) {
