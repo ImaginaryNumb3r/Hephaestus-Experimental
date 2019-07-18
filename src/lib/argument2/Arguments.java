@@ -16,7 +16,7 @@ public class Arguments {
         _arrays = arrays;
     }
 
-    public boolean containsOption(String optionName) {
+    public boolean hasOption(String optionName) {
         return _options.containsKey(optionName);
     }
 

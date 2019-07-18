@@ -74,6 +74,10 @@ public class ArgumentBuilder {
         checkForDuplicate(name, "argument");
     }
 
+    public void addArrayArgument(@NotNull String name, @NotNull ArgumentType type) {
+        addArrayArgument(name, type, new String[0]);
+    }
+
     public void addArrayArgument(@NotNull String name, @NotNull ArgumentType type, @NotNull String[] defaultValues) {
         addArrayArgument(name, type, asList(defaultValues));
     }
@@ -174,7 +178,7 @@ public class ArgumentBuilder {
 
                 argument.addValues(argValues);
 
-                values.put(name, argument);
+                arrays.put(name, argument);
             } else {
                 throw new ArgumentParseException("Cannot parse argument token: \"" + argumentPair + "\"");
             }
