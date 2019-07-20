@@ -1,6 +1,7 @@
 package lib.argument2;
 
 import org.junit.Test;
+import org.junit.Assert;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,7 +16,7 @@ public class ArgumentBuilderTest {
      */
     @Test
     public void testInvalidNames() {
-        List<String> invalids = Arrays.asList("-invalid", " ", "", null, "space ", "dot.", "\t", "question?");
+        List<String> invalids = Arrays.asList("-invalid", " ", "", null, "space space", "trailing ", "dot.", "\t", "question?");
 
         for (String invalid : invalids) {
             try {
@@ -64,6 +65,9 @@ public class ArgumentBuilderTest {
         }
     }
 
+    /**
+     * Adds description to existing and non-existing arguments and verifies their behavior.
+     */
     @Test
     public void testDescription() {
         String optionDesc = "Description of the option";
@@ -79,20 +83,79 @@ public class ArgumentBuilderTest {
         builder.addDescription("argument", argDesc);
         builder.addDescription("arrayArgument", arrayArgDesc);
 
+        // Argument descriptions can be derived from the builder and the argument object.
+        assertEquals(optionDesc, builder.getDescription("option"));
+        assertEquals(argDesc, builder.getDescription("argument"));
+        assertEquals(arrayArgDesc, builder.getDescription("arrayArgument"));
+
         Arguments arguments = builder.parse("");
 
         assertEquals(optionDesc, arguments.getDescription("option"));
         assertEquals(argDesc, arguments.getDescription("argument"));
         assertEquals(arrayArgDesc, arguments.getDescription("arrayArgument"));
+
+        assertException(IllegalArgumentException.class, () -> builder.addDescription("invalid", "desc"));
+    }
+
+   @Test
+    public void testDuplicates() {
+       var arguments = Arrays.asList("first", "second", "third");
+
+       for (String argument : arguments) {
+           for (int i = 0; i != 3; ++i) {
+
+               var builder = new ArgumentBuilder();
+               if (i == 0) {
+                   arguments.forEach(builder::addOption);
+               }
+               if (i == 1) {
+                   arguments.forEach(arg -> builder.addArgument(arg, ArgumentType.MANDATORY));
+               }
+               if (i == 2) {
+                   arguments.forEach(arg -> builder.addArrayArgument(arg, ArgumentType.MANDATORY));
+               }
+
+               assertException(IllegalArgumentException.class, () -> builder.addOption(argument));
+               assertException(IllegalArgumentException.class, () -> builder.addArgument(argument, ArgumentType.MANDATORY));
+               assertException(IllegalArgumentException.class, () -> builder.addArrayArgument(argument, ArgumentType.MANDATORY));
+           }
+       }
+   }
+
+    @Test
+    public void testDefaultValues() {
+        var builder = new ArgumentBuilder();
+        var arrayArguments = Arrays.asList("arg-1", "arg-2", "arg-3");
+        var defaultArgument = "default arg";
+
+        builder.addArgument("argument", ArgumentType.OPTIONAL, defaultArgument);
+        builder.addArrayArgument("arrayArg", ArgumentType.OPTIONAL, arrayArguments);
+
+        Arguments defaultArgs = builder.parse("");
+        assertEquals(defaultArgument, defaultArgs.getValue("argument"));
+        assertEquals(arrayArguments, defaultArgs.getArrayArgument("arrayArg"));
+
+        String argument = "-argument=value";
+        String arrayArgument = "-arrayArg arg-1 arg-2 arg-3"; // TODO: This should work, fix it.
+
+        Arguments arguments = builder.parse(argument + " " + arrayArgument);
+        assertEquals(defaultArgument, arguments.getValue("argument"));
+        assertEquals(arrayArguments, arguments.getArrayArgument("arrayArg"));
+    }
+
+    private <T extends RuntimeException> void assertException(Class<T> expected, Runnable action) {
+        try {
+            action.run();
+            Assert.fail();
+        } catch(RuntimeException ex) {
+            Assert.assertEquals(ex.getClass(), expected);
+        }
     }
 
     /*
-     * To Test
-     *  - Duplicate Entries
+     * TODO: Test
      *  - Default Values
      *  - Parsing with multiple values
      *  - Test Optional/Mandatory
      */
-
-
 }

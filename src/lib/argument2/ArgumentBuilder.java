@@ -22,6 +22,7 @@ import static lib.argument2.Argument.makeOption;
  *  - Don't like it? Don't use it!
  *  - You want to abuse the API? Well fine, have fun dealing with the consequences.
  *  - If you are hell-bent on destroying the API, let yourself go. We are not babysitters.
+ *  TODO: You could turn it into a fluent builder.
  */
 public class ArgumentBuilder extends AbstractArgumentCollector {
     public static final String ARGUMENT_PREFIX = "-";
@@ -34,25 +35,22 @@ public class ArgumentBuilder extends AbstractArgumentCollector {
 
     public void addOption(@NotNull String name) {
         validateArgument(name);
+        checkForDuplicate(name, "option");
 
         _options.put(name, new Argument(ArgumentType.OPTIONAL, name));
-        checkForDuplicate(name, "option");
     }
 
 
     public void addArgument(@NotNull String name, @NotNull ArgumentType type) {
-        test(name, type, name);
+        addArgument(name, type, null);
     }
 
-    public void addArgument(@NotNull String name, @NotNull ArgumentType type, @NotNull String defaultValue) {
-        test(name, type, defaultValue);
-    }
-
-    private void test(@NotNull String name, @NotNull ArgumentType type, String defaultValue) {
-        Contract.checkNulls(type, defaultValue);
+    public void addArgument(@NotNull String name, @NotNull ArgumentType type, String defaultValue) {
+        Contract.checkNulls(type);
         validateArgument(name);
 
         if (name.isEmpty()) throw new IllegalArgumentException("Argument name may not be empty");
+        checkForDuplicate(name, "argument");
 
         var argument = new Argument(type, name);
         if (defaultValue != null) {
@@ -60,7 +58,6 @@ public class ArgumentBuilder extends AbstractArgumentCollector {
         }
 
         _values.put(name, argument);
-        checkForDuplicate(name, "argument");
     }
 
 
@@ -68,18 +65,22 @@ public class ArgumentBuilder extends AbstractArgumentCollector {
         Contract.checkNulls(type, defaultValues);
         Contract.checkNulls(defaultValues);
         validateArgument(name);
+        checkForDuplicate(name, "argument");
+
+        for (String argument : defaultValues) {
+            validateArgument(argument);
+        }
 
         if (name.isEmpty()) throw new IllegalArgumentException("Argument name may not be empty");
 
         _arrays.put(name, new Argument(type, name, defaultValues));
-        checkForDuplicate(name, "argument");
     }
 
     public void addArrayArgument(@NotNull String name, @NotNull ArgumentType type) {
         addArrayArgument(name, type, new String[0]);
     }
 
-    public void addArrayArgument(@NotNull String name, @NotNull ArgumentType type, @NotNull String[] defaultValues) {
+    public void addArrayArgument(@NotNull String name, @NotNull ArgumentType type, @NotNull String... defaultValues) {
         addArrayArgument(name, type, asList(defaultValues));
     }
 
@@ -179,8 +180,8 @@ public class ArgumentBuilder extends AbstractArgumentCollector {
 
     private void checkForDuplicate(@NotNull String argName, @NotNull String argKind) {
         boolean duplicate = _options.containsKey(argName);
-        duplicate &= _values.containsKey(argName);
-        duplicate &= _arrays.containsKey(argName);
+        duplicate |= _values.containsKey(argName);
+        duplicate |= _arrays.containsKey(argName);
 
         if (duplicate) {
             throw new IllegalArgumentException("Cannot redefine " + argKind + " with name \"" + argName + "\" in argument builder");
