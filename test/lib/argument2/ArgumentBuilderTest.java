@@ -88,13 +88,16 @@ public class ArgumentBuilderTest {
         assertEquals(argDesc, builder.getDescription("argument"));
         assertEquals(arrayArgDesc, builder.getDescription("arrayArgument"));
 
-        Arguments arguments = builder.parse("");
+        var inputStrings = Arrays.asList("", "-option -argument -arrayArgument");
+        for (String inputString : inputStrings) {
+            Arguments arguments = builder.parse(inputString);
 
-        assertEquals(optionDesc, arguments.getDescription("option"));
-        assertEquals(argDesc, arguments.getDescription("argument"));
-        assertEquals(arrayArgDesc, arguments.getDescription("arrayArgument"));
+            assertEquals(optionDesc, arguments.getDescription("option"));
+            assertEquals(argDesc, arguments.getDescription("argument"));
+            assertEquals(arrayArgDesc, arguments.getDescription("arrayArgument"));
 
-        assertException(IllegalArgumentException.class, () -> builder.addDescription("invalid", "desc"));
+            assertException(IllegalArgumentException.class, () -> builder.addDescription("invalid", "desc"));
+        }
     }
 
    @Test
@@ -125,8 +128,8 @@ public class ArgumentBuilderTest {
     @Test
     public void testDefaultValues() {
         var builder = new ArgumentBuilder();
-        var arrayArguments = Arrays.asList("arg-1", "arg-2", "arg-3");
-        var defaultArgument = "default arg";
+        var arrayArguments = Arrays.asList("arg1", "arg2", "arg3");
+        var defaultArgument = "defaultArg";
 
         builder.addArgument("argument", ArgumentType.OPTIONAL, defaultArgument);
         builder.addArrayArgument("arrayArg", ArgumentType.OPTIONAL, arrayArguments);
@@ -135,12 +138,14 @@ public class ArgumentBuilderTest {
         assertEquals(defaultArgument, defaultArgs.getValue("argument"));
         assertEquals(arrayArguments, defaultArgs.getArrayArgument("arrayArg"));
 
+        // Overwrite default arguments
         String argument = "-argument=value";
-        String arrayArgument = "-arrayArg arg-1 arg-2 arg-3"; // TODO: This should work, fix it.
+        String arrayArgument = "-arrayArg 1 2 3";
+        // String arrayArgument = "-arrayArg arg-1 arg-2 arg-3"; // TODO: This should work, fix it.
 
         Arguments arguments = builder.parse(argument + " " + arrayArgument);
-        assertEquals(defaultArgument, arguments.getValue("argument"));
-        assertEquals(arrayArguments, arguments.getArrayArgument("arrayArg"));
+        assertEquals("value", arguments.getValue("argument"));
+        assertEquals(Arrays.asList("1", "2", "3"), arguments.getArrayArgument("arrayArg"));
     }
 
     private <T extends RuntimeException> void assertException(Class<T> expected, Runnable action) {

@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 import static java.lang.String.join;
 import static java.util.Arrays.asList;
 import static java.util.Arrays.copyOfRange;
+import static java.util.function.Predicate.not;
 import static lib.argument2.Argument.makeOption;
 
 /**
@@ -89,7 +90,9 @@ public class ArgumentBuilder extends AbstractArgumentCollector {
     }
 
     public Arguments parse(@NotNull String input) {
-        if (input.isBlank()) return new Arguments(_descriptions);
+        if (input.isBlank()) {
+            return new Arguments(_options, _values, _arrays, _descriptions);
+        }
 
         var options = new HashMap<String, Argument>();
         var values = new HashMap<String, Argument>();
@@ -98,6 +101,7 @@ public class ArgumentBuilder extends AbstractArgumentCollector {
         // Strip trailing whitespaces of all arguments.
         var arguments = Stream.of(input.split(ARGUMENT_PREFIX))
             .map(String::stripTrailing)
+            .filter(not(String::isBlank))
             .collect(Collectors.toList());
 
         var tempArguments = new ArrayList<String>();
@@ -120,7 +124,7 @@ public class ArgumentBuilder extends AbstractArgumentCollector {
                 options.put(argument, makeOption(input));
             } else {
                 // If argument cannot be parsed, add it to the list of residuals.
-                tempArguments.addAll(arguments);
+                tempArguments.add(argument);
             }
         }
 
@@ -141,14 +145,14 @@ public class ArgumentBuilder extends AbstractArgumentCollector {
                 // Retrieve value and set its value, if one is present.
                 Argument argument = _values.get(name);
                 if (parts.length == 2) {
-                    String value = parts[1];
-                    argument.addValue(value);
+                    argument.clearValues();
+                    argument.addValue(parts[1]);
                 }
 
                 values.put(name, argument);
             } else {
                 // If argument cannot be parsed, add it to the list of residuals.
-                tempArguments.addAll(arguments);
+                tempArguments.add(argumentPair);
             }
         }
 
@@ -167,6 +171,7 @@ public class ArgumentBuilder extends AbstractArgumentCollector {
                 Argument argument = _arrays.get(name);
                 var argValues = copyOfRange(parts, 1, parts.length);
 
+                argument.clearValues();
                 argument.addValues(argValues);
 
                 arrays.put(name, argument);

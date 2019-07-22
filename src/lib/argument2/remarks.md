@@ -18,3 +18,7 @@ TODO: Code Guidelines
     - For immutable Value Objects, omitting the use of getters is okay.  
     - Reflection is fine as long as you don't meddle with foreign libraries.  
     - Be cautious in comments with wording: In the Java world, words like `final` have a different meaning and should not be used lightly.
+
+
+For Version 1.1
+ - Non-alphanumeric characters for arguments if they don't start as prefixes

@@ -7,10 +7,6 @@ import java.util.*;
  */
 public class Arguments extends AbstractArgumentCollector {
 
-    protected Arguments(Map<String, String> descriptions) {
-        super(descriptions);
-    }
-
     protected Arguments(Map<String, Argument> options,
                         Map<String, Argument> values,
                         Map<String, Argument> arrays,

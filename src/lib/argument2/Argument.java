@@ -43,6 +43,10 @@ import java.util.List;
         return new Argument(ArgumentType.OPTIONAL, name);
     }
 
+    public void clearValues() {
+        _values.clear();
+    }
+
     public void addValue(String value) {
         _values.add(value);
     }
