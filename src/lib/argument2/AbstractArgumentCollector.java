@@ -3,8 +3,11 @@ package lib.argument2;
 import essentials.contract.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import static java.lang.String.join;
 
@@ -63,5 +66,14 @@ public abstract class AbstractArgumentCollector {
         Contract.checkNull(argumentName);
 
         return _descriptions.get(argumentName);
+    }
+
+    protected Iterator<Argument> iterator() {
+        var arguments = new ArrayList<Argument>();
+        arguments.addAll(_options.values());
+        arguments.addAll(_values.values());
+        arguments.addAll(_arrays.values());
+
+        return arguments.iterator();
     }
 }

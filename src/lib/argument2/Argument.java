@@ -35,6 +35,11 @@ import java.util.List;
         return _values;
     }
 
+    public boolean isValid() {
+        return _type == ArgumentType.OPTIONAL
+           || (_type == ArgumentType.MANDATORY && !_values.isEmpty());
+    }
+
     public String getName() {
         return _name;
     }

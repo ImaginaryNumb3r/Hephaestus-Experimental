@@ -96,7 +96,9 @@ public class ArgumentBuilderTest {
             assertEquals(argDesc, arguments.getDescription("argument"));
             assertEquals(arrayArgDesc, arguments.getDescription("arrayArgument"));
 
-            assertException(IllegalArgumentException.class, () -> builder.addDescription("invalid", "desc"));
+            assertException(IllegalArgumentException.class,
+                () -> builder.addDescription("invalid", "desc")
+            );
         }
     }
 
@@ -157,6 +159,20 @@ public class ArgumentBuilderTest {
         assertEquals(Arrays.asList("1", "2", "3"), arguments.getArrayArgument("arrayArg"));
     }
 
+    @Test
+    public void testMandatoryArguments() {
+        var builder = new ArgumentBuilder();
+        builder.addArgument("mandatory", ArgumentType.MANDATORY);
+        builder.addArgument("optional", ArgumentType.OPTIONAL);
+        builder.addArgument("default", "default");
+
+        // Assert exception when no mandatory is set.
+        assertException(ArgumentParseException.class, () -> builder.parse("-optional -default"));
+        assertException(ArgumentParseException.class, () -> builder.parse("-optional"));
+        assertException(ArgumentParseException.class, () -> builder.parse("-default"));
+        assertException(ArgumentParseException.class, () -> builder.parse(""));
+    }
+
     private <T extends RuntimeException> void assertException(Class<T> expected, Runnable action) {
         try {
             action.run();
@@ -168,7 +184,6 @@ public class ArgumentBuilderTest {
 
     /*
      * TODO: Test
-     *  - Parsing with multiple values
      *  - Test Optional/Mandatory
      */
 }

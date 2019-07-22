@@ -1,10 +1,12 @@
 package lib.argument2;
 
 import essentials.contract.Contract;
+import lib.Strings;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -100,10 +102,6 @@ public class ArgumentBuilder extends AbstractArgumentCollector {
     }
 
     public Arguments parse(@NotNull String input) {
-        if (input.isBlank()) {
-            return new Arguments(_options, _values, _arrays, _descriptions);
-        }
-
         var options = new HashMap<String, Argument>();
         var values = new HashMap<String, Argument>();
         var arrays = new HashMap<String, Argument>();
@@ -193,8 +191,26 @@ public class ArgumentBuilder extends AbstractArgumentCollector {
         _options.putAll(options);
         _values.putAll(values);
         _arrays.putAll(arrays);
+        verifyParsing();
 
         return new Arguments(_options, _values, _arrays, _descriptions);
+    }
+
+    private void verifyParsing() {
+        var forgottenArguments = new ArrayList<Argument>();
+
+        iterator().forEachRemaining(arg -> {
+            if (!arg.isValid())
+                forgottenArguments.add(arg);
+        });
+
+        if (!forgottenArguments.isEmpty()) {
+            throw new ArgumentParseException("Cannot parse arguments because there are mandatory arguments left unparsed: "
+                + (forgottenArguments.stream()
+                .filter(not(Argument::isValid))
+                .map(Argument::getName)
+                .toArray(String[]::new)));
+        }
     }
 
     private void checkForDuplicate(@NotNull String argName, @NotNull String argKind) {
