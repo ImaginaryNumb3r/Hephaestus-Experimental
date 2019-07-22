@@ -2,12 +2,12 @@ package lib.argument2;
 
 import essentials.contract.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static java.lang.String.join;
 import static java.util.Arrays.asList;
 import static java.util.Arrays.copyOfRange;
 import static java.util.function.Predicate.not;
@@ -46,7 +46,17 @@ public class ArgumentBuilder extends AbstractArgumentCollector {
         addArgument(name, type, null);
     }
 
-    public void addArgument(@NotNull String name, @NotNull ArgumentType type, String defaultValue) {
+    /**
+     * Makes the argument as implicitly optional since it can always fall back to the default value.
+     * @param name
+     * @param defaultValue
+     */
+    public void addArgument(@NotNull String name, @NotNull String defaultValue) {
+        Contract.checkNull(defaultValue);
+        addArgument(name, ArgumentType.OPTIONAL, defaultValue);
+    }
+
+    private void addArgument(@NotNull String name, @NotNull ArgumentType type, @Nullable String defaultValue) {
         Contract.checkNulls(type);
         validateArgument(name);
 
@@ -180,7 +190,11 @@ public class ArgumentBuilder extends AbstractArgumentCollector {
             }
         }
 
-        return new Arguments(options, values, arrays, _descriptions);
+        _options.putAll(options);
+        _values.putAll(values);
+        _arrays.putAll(arrays);
+
+        return new Arguments(_options, _values, _arrays, _descriptions);
     }
 
     private void checkForDuplicate(@NotNull String argName, @NotNull String argKind) {

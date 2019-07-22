@@ -18,7 +18,8 @@ TODO: Code Guidelines
     - For immutable Value Objects, omitting the use of getters is okay.  
     - Reflection is fine as long as you don't meddle with foreign libraries.  
     - Be cautious in comments with wording: In the Java world, words like `final` have a different meaning and should not be used lightly.
-
+    - If one parameter is marked with nullability, all parameters should be. For good style, probably all methods in the class should be.
+    - There is a difference between _must have_ and _good style_
 
 For Version 1.1
  - Non-alphanumeric characters for arguments if they don't start as prefixes

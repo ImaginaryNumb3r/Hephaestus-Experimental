@@ -131,7 +131,7 @@ public class ArgumentBuilderTest {
         var arrayArguments = Arrays.asList("arg1", "arg2", "arg3");
         var defaultArgument = "defaultArg";
 
-        builder.addArgument("argument", ArgumentType.OPTIONAL, defaultArgument);
+        builder.addArgument("argument", defaultArgument);
         builder.addArrayArgument("arrayArg", ArgumentType.OPTIONAL, arrayArguments);
 
         Arguments defaultArgs = builder.parse("");
@@ -146,6 +146,15 @@ public class ArgumentBuilderTest {
         Arguments arguments = builder.parse(argument + " " + arrayArgument);
         assertEquals("value", arguments.getValue("argument"));
         assertEquals(Arrays.asList("1", "2", "3"), arguments.getArrayArgument("arrayArg"));
+
+        // Test with default and overwritten arguments.
+        builder = new ArgumentBuilder();
+        builder.addArrayArgument("arrayArg", ArgumentType.OPTIONAL);
+        builder.addArgument("argument", defaultArgument);
+
+        arguments = builder.parse(arrayArgument);
+        assertEquals(defaultArgument, arguments.getValue("argument"));
+        assertEquals(Arrays.asList("1", "2", "3"), arguments.getArrayArgument("arrayArg"));
     }
 
     private <T extends RuntimeException> void assertException(Class<T> expected, Runnable action) {
@@ -159,7 +168,6 @@ public class ArgumentBuilderTest {
 
     /*
      * TODO: Test
-     *  - Default Values
      *  - Parsing with multiple values
      *  - Test Optional/Mandatory
      */
