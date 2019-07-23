@@ -1,18 +1,17 @@
 package lib.argument2;
 
 import essentials.contract.Contract;
-import lib.Strings;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.Arrays.asList;
 import static java.util.Arrays.copyOfRange;
 import static java.util.function.Predicate.not;
+import static lib.Maps.join;
 import static lib.argument2.Argument.makeOption;
 
 /**
@@ -65,10 +64,7 @@ public class ArgumentBuilder extends AbstractArgumentCollector {
         if (name.isEmpty()) throw new IllegalArgumentException("Argument name may not be empty");
         checkForDuplicate(name, "argument");
 
-        var argument = new Argument(type, name);
-        if (defaultValue != null) {
-            argument.addValue(defaultValue);
-        }
+        var argument = new Argument(type, name, defaultValue);
 
         _values.put(name, argument);
     }
@@ -102,9 +98,9 @@ public class ArgumentBuilder extends AbstractArgumentCollector {
     }
 
     public Arguments parse(@NotNull String input) {
-        var options = new HashMap<String, Argument>();
-        var values = new HashMap<String, Argument>();
-        var arrays = new HashMap<String, Argument>();
+        Map<String, Argument> options = new HashMap<>();
+        Map<String, Argument> values = new HashMap<>();
+        Map<String, Argument> arrays = new HashMap<>();
 
         // Strip trailing whitespaces of all arguments.
         var arguments = Stream.of(input.split(ARGUMENT_PREFIX))
@@ -152,9 +148,9 @@ public class ArgumentBuilder extends AbstractArgumentCollector {
 
                 // Retrieve value and set its value, if one is present.
                 Argument argument = _values.get(name);
+                argument = argument.copy();
                 if (parts.length == 2) {
-                    argument.clearValues();
-                    argument.addValue(parts[1]);
+                    argument.putValue(parts[1]);
                 }
 
                 values.put(name, argument);
@@ -177,10 +173,11 @@ public class ArgumentBuilder extends AbstractArgumentCollector {
                 if (argumentPair.contains(ARGUMENT_ASSIGNMENT)) throw new ArgumentParseException("Array Argument", ARGUMENT_ASSIGNMENT);
 
                 Argument argument = _arrays.get(name);
+                argument = argument.copy();
                 var argValues = copyOfRange(parts, 1, parts.length);
 
                 argument.clearValues();
-                argument.addValues(argValues);
+                argument.putValues(argValues);
 
                 arrays.put(name, argument);
             } else {
@@ -188,28 +185,33 @@ public class ArgumentBuilder extends AbstractArgumentCollector {
             }
         }
 
+        // Reminder: Initially, the field lists contain the default values.
+        options = join(options, _options, Argument::mergeWith);
+        values = join(values, _values, Argument::mergeWith);
+        arrays = join(arrays, _arrays, Argument::mergeWith);
+
+        verifyParsing(options, values, arrays);
+
+        // Apply changes to internal state once everything is verified.
         _options.putAll(options);
         _values.putAll(values);
         _arrays.putAll(arrays);
-        verifyParsing();
 
-        return new Arguments(_options, _values, _arrays, _descriptions);
+        return new Arguments(options, values, arrays, _descriptions);
     }
 
-    private void verifyParsing() {
-        var forgottenArguments = new ArrayList<Argument>();
+    private void verifyParsing(Map<String, Argument>... argumentMaps) {
+        var forgottenArguments = new ArrayList<String>();
 
-        iterator().forEachRemaining(arg -> {
-            if (!arg.isValid())
-                forgottenArguments.add(arg);
-        });
+        for (var argumentMap : argumentMaps) {
+            for (Argument arg : argumentMap.values()) {
+                if (!arg.isValid())
+                    forgottenArguments.add(arg.getName());
+            }
+        }
 
         if (!forgottenArguments.isEmpty()) {
-            throw new ArgumentParseException("Cannot parse arguments because there are mandatory arguments left unparsed: "
-                + (forgottenArguments.stream()
-                .filter(not(Argument::isValid))
-                .map(Argument::getName)
-                .toArray(String[]::new)));
+            throw new ArgumentParseException(forgottenArguments);
         }
     }
 

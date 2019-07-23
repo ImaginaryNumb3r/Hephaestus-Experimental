@@ -6,6 +6,7 @@ import org.junit.Assert;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiPredicate;
+import java.util.function.Predicate;
 
 import static junit.framework.TestCase.*;
 
@@ -171,19 +172,42 @@ public class ArgumentBuilderTest {
         assertException(ArgumentParseException.class, () -> builder.parse("-optional"));
         assertException(ArgumentParseException.class, () -> builder.parse("-default"));
         assertException(ArgumentParseException.class, () -> builder.parse(""));
+
+        // Assert exception when only one mandatory is set.
+        builder.addArgument("mandatory2", ArgumentType.MANDATORY);
+        assertException(ArgumentParseException.class, () -> builder.parse("-optional -default -mandatory=value"));
+        assertException(ArgumentParseException.class, () -> builder.parse("-optional -mandatory=value"));
+        assertException(ArgumentParseException.class, () -> builder.parse("-default -mandatory=value"));
+        assertException(ArgumentParseException.class, () -> builder.parse("-mandatory=value"));
+
+        assertException(ArgumentParseException.class, () -> builder.parse("-optional -default"), ex -> ex.getMissing().size() == 2);
+        assertException(ArgumentParseException.class, () -> builder.parse("-optional"), ex -> ex.getMissing().size() == 2);
+        assertException(ArgumentParseException.class, () -> builder.parse("-default"), ex -> ex.getMissing().size() == 2);
+        assertException(ArgumentParseException.class, () -> builder.parse(""), ex -> ex.getMissing().size() == 2);
+
+        // Assert that no exception is thrown when mandatory argument is set.
+        builder.parse("-optional -default -mandatory=value -mandatory2=value");
+        builder.parse("-optional -mandatory=value -mandatory2=value");
+        builder.parse("-default -mandatory=value -mandatory2=value");
+        builder.parse("-mandatory=value -mandatory2=value");
     }
 
     private <T extends RuntimeException> void assertException(Class<T> expected, Runnable action) {
+        assertException(expected, action, null);
+    }
+
+    private <T extends RuntimeException> void assertException(Class<T> expected, Runnable action, Predicate<T> test) {
         try {
             action.run();
             Assert.fail();
         } catch(RuntimeException ex) {
             Assert.assertEquals(ex.getClass(), expected);
+
+            if (test != null) {
+                // This cast will never fail because of the assertion above.
+                T exception = (T) ex;
+                assertTrue(test.test(exception));
+            }
         }
     }
-
-    /*
-     * TODO: Test
-     *  - Test Optional/Mandatory
-     */
 }

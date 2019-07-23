@@ -38,17 +38,22 @@ public class Arguments extends AbstractArgumentCollector {
         Argument argument = _values.get(argName);
         if (argument == null) return Optional.empty();
 
-        List<String> values = argument.getValues();
+        Collection<String> values = argument.getValues();
 
         return values.isEmpty()
-            ? Optional.empty()
-            : Optional.of(values.get(0));
+            ? Optional.empty() // Since collection doesn't have "get(0)".
+            : Optional.of(values.iterator().next());
     }
 
     public boolean containsArrayArgument(String name) {
         return _arrays.containsKey(name);
     }
 
+    /**
+     * Returns the arguments in the order they were declared.
+     * @param arrayName
+     * @return
+     */
     public List<String> getArrayArgument(String arrayName) {
         return fetchArrayArgument(arrayName)
             .orElseThrow(NoSuchElementException::new);

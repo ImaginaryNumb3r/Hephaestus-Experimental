@@ -14,7 +14,9 @@ TODO: Code Guidelines
     - No type inference on literals (acceptable for sinel instances where all other variables are initialized as `var`)
     - Comments are sentences. They start with a capital letter and end on a punctuation mark ('.', '!', '?')
     - Wording: "get" is always an quick operation with O(1). If that is not the case, use "load" or "make".  
-               "Fetch" can be used as an alternative to return Optionals.  
+               "Fetch" can be used as an alternative to return Optionals.
+               "Put" is an action which does not create duplicate entries in a collection.
+               When a method returns a mutable collection, it must be treated as property (and not be named get, set etc.) 
     - For immutable Value Objects, omitting the use of getters is okay.  
     - Reflection is fine as long as you don't meddle with foreign libraries.  
     - Be cautious in comments with wording: In the Java world, words like `final` have a different meaning and should not be used lightly.
@@ -23,3 +25,6 @@ TODO: Code Guidelines
 
 For Version 1.1
  - Non-alphanumeric characters for arguments if they don't start as prefixes
+
+With Maps you can have key-value pairs, which means you can make joins of all sorts.
+Joins are a (for the most part?) well understood concept.
