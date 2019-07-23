@@ -80,7 +80,7 @@ import java.util.*;
         }
     }
 
-    public Argument mergeWith(Argument other) {
+    protected Argument mergeWith(Argument other) {
         var argument = new Argument(_type, _name);
         var list = new ArrayList<>(_values);
         argument._hasDefault = _hasDefault;

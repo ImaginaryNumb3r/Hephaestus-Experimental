@@ -28,3 +28,5 @@ For Version 1.1
 
 With Maps you can have key-value pairs, which means you can make joins of all sorts.
 Joins are a (for the most part?) well understood concept.
+
+Good Testing takes time, but it's worth its time in gold.

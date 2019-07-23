@@ -12,6 +12,14 @@ import static junit.framework.TestCase.*;
 
 public class ArgumentBuilderTest {
 
+    // TODO: Some more tests which mix different types
+    // Next API Version:
+    //  - non-whitespace characters as valid identifiers.
+    //  - long and short names for arguments
+    //  - pretty print of all arguments
+    //  - Get rid of option and have two enums? 1) Mandatory/Optional declaration 2) Mandatory/Optional value
+    //  - don't have three different sets
+
     /**
      * Checks for thrown exceptions for different combinations of illegal characters.
      */
@@ -175,10 +183,10 @@ public class ArgumentBuilderTest {
 
         // Assert exception when only one mandatory is set.
         builder.addArgument("mandatory2", ArgumentType.MANDATORY);
-        assertException(ArgumentParseException.class, () -> builder.parse("-optional -default -mandatory=value"));
-        assertException(ArgumentParseException.class, () -> builder.parse("-optional -mandatory=value"));
-        assertException(ArgumentParseException.class, () -> builder.parse("-default -mandatory=value"));
-        assertException(ArgumentParseException.class, () -> builder.parse("-mandatory=value"));
+        assertException(ArgumentParseException.class, () -> builder.parse("-optional -default -mandatory=value"), ex -> ex.getMissing().size() == 1);
+        assertException(ArgumentParseException.class, () -> builder.parse("-optional -mandatory=value"), ex -> ex.getMissing().size() == 1);
+        assertException(ArgumentParseException.class, () -> builder.parse("-default -mandatory=value"), ex -> ex.getMissing().size() == 1);
+        assertException(ArgumentParseException.class, () -> builder.parse("-mandatory=value"), ex -> ex.getMissing().size() == 1);
 
         assertException(ArgumentParseException.class, () -> builder.parse("-optional -default"), ex -> ex.getMissing().size() == 2);
         assertException(ArgumentParseException.class, () -> builder.parse("-optional"), ex -> ex.getMissing().size() == 2);
