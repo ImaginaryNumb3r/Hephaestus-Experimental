@@ -1,4 +1,4 @@
-package lib.argument2;
+package lib.arguments;
 
 import org.junit.Test;
 import org.junit.Assert;
@@ -19,6 +19,8 @@ public class ArgumentBuilderTest {
     //  - pretty print of all arguments
     //  - Get rid of option and have two enums? 1) Mandatory/Optional declaration 2) Mandatory/Optional value
     //  - don't have three different sets
+    //  - Consider fluent API which exposes the Argument API
+    //  - Fluent Parser construction for existing API
 
     /**
      * Checks for thrown exceptions for different combinations of illegal characters.

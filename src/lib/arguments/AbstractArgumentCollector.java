@@ -1,4 +1,4 @@
-package lib.argument2;
+package lib.arguments;
 
 import essentials.contract.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.function.Consumer;
 
 import static java.lang.String.join;
 

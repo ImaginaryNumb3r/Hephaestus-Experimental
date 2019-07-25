@@ -1,4 +1,4 @@
-package lib.argument2;
+package lib.arguments;
 
 import lib.Strings;
 import org.jetbrains.annotations.NotNull;

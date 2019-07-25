@@ -1,4 +1,4 @@
-package lib.argument2;
+package lib.arguments;
 
 import essentials.contract.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -12,7 +12,7 @@ import static java.util.Arrays.asList;
 import static java.util.Arrays.copyOfRange;
 import static java.util.function.Predicate.not;
 import static lib.Maps.join;
-import static lib.argument2.Argument.makeOption;
+import static lib.arguments.Argument.makeOption;
 
 /**
  * A small and opinionated parser for command line arguments.

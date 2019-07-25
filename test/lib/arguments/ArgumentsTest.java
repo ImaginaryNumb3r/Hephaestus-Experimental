@@ -1,8 +1,6 @@
-package lib.argument2;
+package lib.arguments;
 
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class ArgumentsTest {
 

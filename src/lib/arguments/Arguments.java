@@ -1,4 +1,4 @@
-package lib.argument2;
+package lib.arguments;
 
 import java.util.*;
 
