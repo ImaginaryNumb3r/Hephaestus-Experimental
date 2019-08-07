@@ -12,7 +12,7 @@ import static java.util.Arrays.asList;
 import static java.util.Arrays.copyOfRange;
 import static java.util.function.Predicate.not;
 import static lib.Maps.join;
-import static lib.arguments.Argument.makeOption;
+import static lib.arguments.ArgumentImpl.makeOption;
 
 /**
  * A small and opinionated parser for command line arguments.
@@ -25,13 +25,14 @@ import static lib.arguments.Argument.makeOption;
  *  - You want to abuse the API? Well fine, have fun dealing with the consequences.
  *  - If you are hell-bent on destroying the API, let yourself go. We are not babysitters.
  *  TODO: You could turn it into a fluent builder.
+ *  - Two ways of doing it: Simple method invocation, or create an Argument and link it to the builder.
  */
-public class ArgumentBuilder extends AbstractArgumentCollector {
+public class ArgumentParseBuilder extends ArgumentCollector {
     public static final String ARGUMENT_PREFIX = "-";
     public static final String ARGUMENT_ASSIGNMENT = "=";
     public static final String ARGUMENT_DELIMITER = " ";
 
-    public ArgumentBuilder() {
+    public ArgumentParseBuilder() {
         super(new HashMap<>());
     }
 
@@ -39,9 +40,8 @@ public class ArgumentBuilder extends AbstractArgumentCollector {
         validateArgument(name);
         checkForDuplicate(name, "option");
 
-        _options.put(name, new Argument(ArgumentType.OPTIONAL, name));
+        _options.put(name, new ArgumentImpl(ArgumentType.OPTIONAL, name));
     }
-
 
     public void addArgument(@NotNull String name, @NotNull ArgumentType type) {
         addArgument(name, type, null);
@@ -61,10 +61,10 @@ public class ArgumentBuilder extends AbstractArgumentCollector {
         Contract.checkNulls(type);
         validateArgument(name);
 
-        if (name.isEmpty()) throw new IllegalArgumentException("Argument name may not be empty");
+        if (name.isEmpty()) throw new IllegalArgumentException("ArgumentImpl name may not be empty");
         checkForDuplicate(name, "argument");
 
-        var argument = new Argument(type, name, defaultValue);
+        var argument = new ArgumentImpl(type, name, defaultValue);
 
         _values.put(name, argument);
     }
@@ -80,9 +80,9 @@ public class ArgumentBuilder extends AbstractArgumentCollector {
             validateArgument(argument);
         }
 
-        if (name.isEmpty()) throw new IllegalArgumentException("Argument name may not be empty");
+        if (name.isEmpty()) throw new IllegalArgumentException("ArgumentImpl name may not be empty");
 
-        _arrays.put(name, new Argument(type, name, defaultValues));
+        _arrays.put(name, new ArgumentImpl(type, name, defaultValues));
     }
 
     public void addArrayArgument(@NotNull String name, @NotNull ArgumentType type) {
@@ -98,9 +98,9 @@ public class ArgumentBuilder extends AbstractArgumentCollector {
     }
 
     public Arguments parse(@NotNull String input) {
-        Map<String, Argument> options = new HashMap<>();
-        Map<String, Argument> values = new HashMap<>();
-        Map<String, Argument> arrays = new HashMap<>();
+        Map<String, ArgumentImpl> options = new HashMap<>();
+        Map<String, ArgumentImpl> values = new HashMap<>();
+        Map<String, ArgumentImpl> arrays = new HashMap<>();
 
         // Strip trailing whitespaces of all arguments.
         var arguments = Stream.of(input.split(ARGUMENT_PREFIX))
@@ -132,7 +132,7 @@ public class ArgumentBuilder extends AbstractArgumentCollector {
             }
         }
 
-        // Parse value Argument.
+        // Parse value ArgumentImpl.
         argumentLists.swap();
         for (String argumentPair : arguments) {
             String[] parts = argumentPair.split(ARGUMENT_ASSIGNMENT);
@@ -143,11 +143,11 @@ public class ArgumentBuilder extends AbstractArgumentCollector {
 
             if (isContained) {
                 // Ensure that no illegal characters are contained.
-                if (argumentPair.contains(ARGUMENT_PREFIX)) throw new ArgumentParseException("Value Argument", ARGUMENT_PREFIX);
-                if (argumentPair.contains(ARGUMENT_DELIMITER)) throw new ArgumentParseException("Value Argument", "[space]");
+                if (argumentPair.contains(ARGUMENT_PREFIX)) throw new ArgumentParseException("Value ArgumentImpl", ARGUMENT_PREFIX);
+                if (argumentPair.contains(ARGUMENT_DELIMITER)) throw new ArgumentParseException("Value ArgumentImpl", "[space]");
 
                 // Retrieve value and set its value, if one is present.
-                Argument argument = _values.get(name);
+                ArgumentImpl argument = _values.get(name);
                 argument = argument.copy();
                 if (parts.length == 2) {
                     argument.putValue(parts[1]);
@@ -169,10 +169,10 @@ public class ArgumentBuilder extends AbstractArgumentCollector {
 
             if (isContained) {
                 // Ensure that no illegal characters are contained.
-                if (argumentPair.contains(ARGUMENT_PREFIX)) throw new ArgumentParseException("Array Argument", ARGUMENT_PREFIX);
-                if (argumentPair.contains(ARGUMENT_ASSIGNMENT)) throw new ArgumentParseException("Array Argument", ARGUMENT_ASSIGNMENT);
+                if (argumentPair.contains(ARGUMENT_PREFIX)) throw new ArgumentParseException("Array ArgumentImpl", ARGUMENT_PREFIX);
+                if (argumentPair.contains(ARGUMENT_ASSIGNMENT)) throw new ArgumentParseException("Array ArgumentImpl", ARGUMENT_ASSIGNMENT);
 
-                Argument argument = _arrays.get(name);
+                ArgumentImpl argument = _arrays.get(name);
                 argument = argument.copy();
                 var argValues = copyOfRange(parts, 1, parts.length);
 
@@ -186,9 +186,9 @@ public class ArgumentBuilder extends AbstractArgumentCollector {
         }
 
         // Reminder: Initially, the field lists contain the default values.
-        options = join(options, _options, Argument::mergeWith);
-        values = join(values, _values, Argument::mergeWith);
-        arrays = join(arrays, _arrays, Argument::mergeWith);
+        options = join(options, _options, ArgumentImpl::mergeWith);
+        values = join(values, _values, ArgumentImpl::mergeWith);
+        arrays = join(arrays, _arrays, ArgumentImpl::mergeWith);
 
         verifyParsing(options, values, arrays);
 
@@ -200,11 +200,12 @@ public class ArgumentBuilder extends AbstractArgumentCollector {
         return new Arguments(options, values, arrays, _descriptions);
     }
 
-    private void verifyParsing(Map<String, Argument>... argumentMaps) {
+    @SafeVarargs
+    private void verifyParsing(Map<String, ArgumentImpl>... argumentMaps) {
         var forgottenArguments = new ArrayList<String>();
 
         for (var argumentMap : argumentMaps) {
-            for (Argument arg : argumentMap.values()) {
+            for (ArgumentImpl arg : argumentMap.values()) {
                 if (!arg.isValid())
                     forgottenArguments.add(arg.getName());
             }

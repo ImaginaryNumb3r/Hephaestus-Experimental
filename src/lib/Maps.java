@@ -9,6 +9,20 @@ import java.util.function.BinaryOperator;
  */
 public final class Maps {
 
+    public static <K, V> Map<K, V> leftRecursiveJoin(Map<K, V>... primary) {
+        if (primary.length == 0) return new HashMap<>(0);
+        int last = primary.length - 1;
+
+        var previous = primary[last];
+
+        for (int i = last - 1; i >= 0; --i) {
+            var curMap = primary[i];
+            previous = leftJoin(curMap, previous);
+        }
+
+        return previous;
+    }
+
     public static <K, V> Map<K, V> leftJoin(Map<K, V> primary, Map<K, V> secondary) {
         var joined = new HashMap<>(secondary);
         joined.putAll(primary);
@@ -31,6 +45,4 @@ public final class Maps {
 
         return joined;
     }
-
-
 }

@@ -13,23 +13,23 @@ import static java.lang.String.join;
 /**
  * @author Patrick Plieschnegger
  */
-public abstract class AbstractArgumentCollector {
-    protected final Map<String, Argument> _options;
-    protected final Map<String, Argument> _values;
-    protected final Map<String, Argument> _arrays;
+public abstract class ArgumentCollector {
+    protected final Map<String, ArgumentImpl> _options;
+    protected final Map<String, ArgumentImpl> _values;
+    protected final Map<String, ArgumentImpl> _arrays;
     protected final Map<String, String> _descriptions;
 
-    public AbstractArgumentCollector(@NotNull Map<String, String> descriptions) {
+    public ArgumentCollector(@NotNull Map<String, String> descriptions) {
         _options = new HashMap<>();
         _values = new HashMap<>();
         _arrays = new HashMap<>();
         _descriptions = new HashMap<>(descriptions);
     }
 
-    protected AbstractArgumentCollector(@NotNull Map<String, Argument> options,
-                                        @NotNull Map<String, Argument> values,
-                                        @NotNull Map<String, Argument> arrays,
-                                        @NotNull Map<String, String> descriptions
+    protected ArgumentCollector(@NotNull Map<String, ArgumentImpl> options,
+                                @NotNull Map<String, ArgumentImpl> values,
+                                @NotNull Map<String, ArgumentImpl> arrays,
+                                @NotNull Map<String, String> descriptions
     ) {
         _options = new HashMap<>(options);
         _values = new HashMap<>(values);
@@ -37,8 +37,8 @@ public abstract class AbstractArgumentCollector {
         _descriptions = new HashMap<>(descriptions);
     }
 
-    protected Argument get(@NotNull String name) {
-        Argument argument = _options.get(name);
+    protected ArgumentImpl get(@NotNull String name) {
+        ArgumentImpl argument = _options.get(name);
         argument = argument != null ? argument : _values.get(name);
         argument = argument != null ? argument : _arrays.get(name);
 
@@ -51,10 +51,10 @@ public abstract class AbstractArgumentCollector {
      * @throws java.util.NoSuchElementException if the argument was not defined.
      */
     public void addDescription(@NotNull String argName, @NotNull String description) {
-        Argument argument = get(argName);
+        ArgumentImpl argument = get(argName);
 
         if (argument == null) {
-            String message = join(" ", "Argument", argName, "is not a defined argument.");
+            String message = join(" ", "ArgumentImpl", argName, "is not a defined argument.");
             throw new IllegalArgumentException(message);
         }
 
@@ -67,8 +67,8 @@ public abstract class AbstractArgumentCollector {
         return _descriptions.get(argumentName);
     }
 
-    protected Iterator<Argument> iterator() {
-        var arguments = new ArrayList<Argument>();
+    protected Iterator<ArgumentImpl> iterator() {
+        var arguments = new ArrayList<ArgumentImpl>();
         arguments.addAll(_options.values());
         arguments.addAll(_values.values());
         arguments.addAll(_arrays.values());

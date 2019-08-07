@@ -5,11 +5,11 @@ import java.util.*;
 /**
  * @author Patrick Plieschnegger
  */
-public class Arguments extends AbstractArgumentCollector {
+public class Arguments extends ArgumentCollector {
 
-    protected Arguments(Map<String, Argument> options,
-                        Map<String, Argument> values,
-                        Map<String, Argument> arrays,
+    protected Arguments(Map<String, ArgumentImpl> options,
+                        Map<String, ArgumentImpl> values,
+                        Map<String, ArgumentImpl> arrays,
                         Map<String, String> descriptions
     ) {
         super(options, values, arrays, descriptions);
@@ -24,9 +24,9 @@ public class Arguments extends AbstractArgumentCollector {
     }
 
     public boolean hasValue(String argName) {
-        Argument argument = _values.get(argName);
+        ArgumentImpl argument = _values.get(argName);
 
-        return !argument.getValues().isEmpty();
+        return !argument.getValue().isEmpty();
     }
 
     public String getValue(String argName) {
@@ -35,10 +35,10 @@ public class Arguments extends AbstractArgumentCollector {
     }
 
     public Optional<String> fetchValue(String argName) {
-        Argument argument = _values.get(argName);
+        ArgumentImpl argument = _values.get(argName);
         if (argument == null) return Optional.empty();
 
-        Collection<String> values = argument.getValues();
+        Collection<String> values = argument.getValue();
 
         return values.isEmpty()
             ? Optional.empty() // Since collection doesn't have "get(0)".
@@ -60,8 +60,8 @@ public class Arguments extends AbstractArgumentCollector {
     }
 
     public Optional<List<String>> fetchArrayArgument(String name) {
-        Argument argument = _arrays.get(name);
+        ArgumentImpl argument = _arrays.get(name);
 
-        return Optional.ofNullable(argument).map(Argument::getValues);
+        return Optional.ofNullable(argument).map(ArgumentImpl::getValue);
     }
 }

@@ -24,7 +24,33 @@ TODO: Code Guidelines
     - There is a difference between _must have_ and _good style_
 
 For Version 1.1
+ - Low-level Argument API
+ - Convenience-level Parser API
  - Non-alphanumeric characters for arguments if they don't start as prefixes
+ - Custom delimiters, and no delimiters if required
+ - case insensitive mode
+ - Custom return types: Long, Bool, Double, String <- bool interferes with "Option".
+ - Custom constraints? Like "only positive numbers"
+ - better exceptions
+ - 
+
+# Why This Library?
+Existing parsers:
+ - Snaq: https://www.snaq.net/java/JCLAP/  
+   Sample: https://www.snaq.net/java/JCLAP/  
+ - Commons-CLI: http://commons.apache.org/proper/commons-cli/  
+   Sample:  
+ - Args4J: https://github.com/kohsuke/args4j  
+   Sample: https://github.com/kohsuke/args4j/blob/master/args4j/examples/SampleMain.java  
+ - JSAP 2.1: http://www.martiansoftware.com/jsap/  
+   Sample: http://www.martiansoftware.com/jsap/doc/ch03s08.html  
+
+List of all parsers: http://jewelcli.lexicalscope.com/related.html
+
+No annotations, but typesafe, simple, easy to understand and cover a wide range of use-cases.
+Covers simple parsing, as well as more sophisticated usages.
+
+# Other things
 
 With Maps you can have key-value pairs, which means you can make joins of all sorts.
 Joins are a (for the most part?) well understood concept.

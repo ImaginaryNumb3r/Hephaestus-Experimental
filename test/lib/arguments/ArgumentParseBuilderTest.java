@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 
 import static junit.framework.TestCase.*;
 
-public class ArgumentBuilderTest {
+public class ArgumentParseBuilderTest {
 
     // TODO: Some more tests which mix different types
     // Next API Version:
@@ -19,7 +19,7 @@ public class ArgumentBuilderTest {
     //  - pretty print of all arguments
     //  - Get rid of option and have two enums? 1) Mandatory/Optional declaration 2) Mandatory/Optional value
     //  - don't have three different sets
-    //  - Consider fluent API which exposes the Argument API
+    //  - Consider fluent API which exposes the ArgumentImpl API
     //  - Fluent Parser construction for existing API
 
     /**
@@ -31,7 +31,7 @@ public class ArgumentBuilderTest {
 
         for (String invalid : invalids) {
             try {
-                var builder = new ArgumentBuilder();
+                var builder = new ArgumentParseBuilder();
                 builder.addOption(invalid);
 
                 fail("Expected IllegalArgumentException was not thrown for argument: \" " + invalid + "\"");
@@ -46,8 +46,8 @@ public class ArgumentBuilderTest {
     public void testValidNames() {
         List<String> valids = Arrays.asList("123", "alphabetical", "letter123", "uiw7e9rh2", "äöü");
 
-        var builders = List.of(new ArgumentBuilder(), new ArgumentBuilder(), new ArgumentBuilder());
-        var kinds = List.of("Option", "Argument", "Array Argument");
+        var builders = List.of(new ArgumentParseBuilder(), new ArgumentParseBuilder(), new ArgumentParseBuilder());
+        var kinds = List.of("Option", "ArgumentImpl", "Array ArgumentImpl");
 
         List<BiPredicate<Arguments, String>> predicates = List.of(
             Arguments::hasOption,
@@ -85,7 +85,7 @@ public class ArgumentBuilderTest {
         String argDesc = "Description of the arg";
         String arrayArgDesc = "Description of the array";
 
-        var builder = new ArgumentBuilder();
+        var builder = new ArgumentParseBuilder();
         builder.addOption("option");
         builder.addArgument("argument", ArgumentType.OPTIONAL);
         builder.addArrayArgument("arrayArgument", ArgumentType.OPTIONAL);
@@ -94,7 +94,7 @@ public class ArgumentBuilderTest {
         builder.addDescription("argument", argDesc);
         builder.addDescription("arrayArgument", arrayArgDesc);
 
-        // Argument descriptions can be derived from the builder and the argument object.
+        // ArgumentImpl descriptions can be derived from the builder and the argument object.
         assertEquals(optionDesc, builder.getDescription("option"));
         assertEquals(argDesc, builder.getDescription("argument"));
         assertEquals(arrayArgDesc, builder.getDescription("arrayArgument"));
@@ -120,7 +120,7 @@ public class ArgumentBuilderTest {
        for (String argument : arguments) {
            for (int i = 0; i != 3; ++i) {
 
-               var builder = new ArgumentBuilder();
+               var builder = new ArgumentParseBuilder();
                if (i == 0) {
                    arguments.forEach(builder::addOption);
                }
@@ -140,7 +140,7 @@ public class ArgumentBuilderTest {
 
     @Test
     public void testDefaultValues() {
-        var builder = new ArgumentBuilder();
+        var builder = new ArgumentParseBuilder();
         var arrayArguments = Arrays.asList("arg1", "arg2", "arg3");
         var defaultArgument = "defaultArg";
 
@@ -161,7 +161,7 @@ public class ArgumentBuilderTest {
         assertEquals(Arrays.asList("1", "2", "3"), arguments.getArrayArgument("arrayArg"));
 
         // Test with default and overwritten arguments.
-        builder = new ArgumentBuilder();
+        builder = new ArgumentParseBuilder();
         builder.addArrayArgument("arrayArg", ArgumentType.OPTIONAL);
         builder.addArgument("argument", defaultArgument);
 
@@ -172,7 +172,7 @@ public class ArgumentBuilderTest {
 
     @Test
     public void testMandatoryArguments() {
-        var builder = new ArgumentBuilder();
+        var builder = new ArgumentParseBuilder();
         builder.addArgument("mandatory", ArgumentType.MANDATORY);
         builder.addArgument("optional", ArgumentType.OPTIONAL);
         builder.addArgument("default", "default");

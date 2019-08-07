@@ -36,8 +36,6 @@ public class Lists {
         return list;
     }
 
-
-
     public static <T, R extends List<T>> LinearCollector<T, R> receive(R receiver) {
         return new LinearCollector<>() {
             @Override
