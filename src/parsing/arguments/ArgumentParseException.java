@@ -1,4 +1,4 @@
-package lib.arguments;
+package parsing.arguments;
 
 import java.util.ArrayList;
 import java.util.Arrays;

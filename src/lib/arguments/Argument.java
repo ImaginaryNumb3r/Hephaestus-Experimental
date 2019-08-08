@@ -1,6 +1,7 @@
 package lib.arguments;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Patrick Plieschnegger
@@ -8,7 +9,7 @@ import java.util.List;
  */
 public interface Argument<T> {
 
-    List<String> names();
+    Set<String> names();
 
     void setValue(T value);
 

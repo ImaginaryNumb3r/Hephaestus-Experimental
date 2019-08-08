@@ -34,7 +34,7 @@ public class EitherNode<O extends CopyNode<O>, M extends CopyNode<M>> extends Ab
                 _status = Status.MANDATORY;
                 result = mandatory;
             } else {
-                result = ParseResult.invalid(index, "Could not parse either node", result, mandatory);
+                result = ParseResult.invalid(index, "Could not consume either node", result, mandatory);
             }
         }
 

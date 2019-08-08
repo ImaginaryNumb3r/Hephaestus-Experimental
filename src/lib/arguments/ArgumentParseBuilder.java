@@ -139,7 +139,7 @@ public class ArgumentParseBuilder extends ArgumentCollector {
             String name = parts[0];
             isContained = _values.containsKey(name);
 
-            if (parts.length > 2) throw new ArgumentParseException("Cannot parse token: \"" + argumentPair + "\"");
+            if (parts.length > 2) throw new ArgumentParseException("Cannot consume token: \"" + argumentPair + "\"");
 
             if (isContained) {
                 // Ensure that no illegal characters are contained.
@@ -181,7 +181,7 @@ public class ArgumentParseBuilder extends ArgumentCollector {
 
                 arrays.put(name, argument);
             } else {
-                throw new ArgumentParseException("Cannot parse argument token: \"" + argumentPair + "\"");
+                throw new ArgumentParseException("Cannot consume argument token: \"" + argumentPair + "\"");
             }
         }
 
