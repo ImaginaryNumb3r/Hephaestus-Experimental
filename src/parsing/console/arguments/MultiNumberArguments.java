@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-import static lib.IntRange.range;
+import static lib.Range.range;
 
 /**
  * @author Patrick Plieschnegger
@@ -50,7 +50,7 @@ public class MultiNumberArguments<T extends Number> extends MultiArgument<T> {
         @NotNull Argument.Type type,
         @NotNull String... aliases
     ) {
-        var argument = new MultiNumberArguments<Double>(
+        var argument = new MultiNumberArguments<>(
             primaryName, type,
             Double::parseDouble,
             Double.MIN_VALUE,

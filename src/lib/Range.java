@@ -70,7 +70,7 @@ public interface Range<T extends Number> {
      * Convenience implementation intended as {@code toString()} method.
      */
     default String asString() {
-        return Strings.concat('[', getStart(), ", ", getEnd(), ']')
+        return Strings.concat('[', getStart(), ", ", getEnd(), ']');
     }
 
     /**
