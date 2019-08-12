@@ -1,5 +1,6 @@
 package lib;
 
+import essentials.annotations.ToTest;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -8,10 +9,10 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
- * Creator: Patrick
+ * @author Patrick Plieschnegger
  * Created: 18.08.2017
- * Purpose:
  */
+@ToTest
 public final class IntRange implements Range, Iterable<Integer> {
     private final int inclusiveStart;
     private final int inclusiveEnd;
@@ -73,6 +74,9 @@ public final class IntRange implements Range, Iterable<Integer> {
         return new IntRange(int1, int2);
     }
 
+    /**
+     * @return An array containing all values in the bound in the specified order.
+     */
     public int[] toArray(){
         int[] array = new int[size()];
 
@@ -125,8 +129,8 @@ public final class IntRange implements Range, Iterable<Integer> {
      * @return the size of amount of ints in the range. Is greater than zero.
      */
     public int size(){
-        // +1 because there is always at least one element
-        // e.g. the range 10 to 10 is not zero
+        // +1 because there is always at least one element.
+        // e.g. the range 10 to 10 is not zero.
         return Math.abs(inclusiveEnd - inclusiveStart) + 1;
     }
 

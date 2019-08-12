@@ -1,10 +1,16 @@
 package lib;
 
+import essentials.annotations.ToTest;
+
 import java.util.Random;
 
 /**
  * @author Patrick Plieschnegger
+ * Created: 12.08.2019
+ * An abstraction over any kind of range that contains all value from within a bound.
+ * For a more powerful version containing only integers, see {@code lib.IntRange}
  */
+@ToTest
 public interface Range<T extends Number> {
 
     /**
