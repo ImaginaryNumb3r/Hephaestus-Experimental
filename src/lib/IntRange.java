@@ -11,6 +11,8 @@ import java.util.stream.IntStream;
 /**
  * @author Patrick Plieschnegger
  * Created: 18.08.2017
+ *
+ * Implements an immutable range of integers.
  */
 @ToTest
 public final class IntRange implements Range, Iterable<Integer> {
@@ -92,7 +94,7 @@ public final class IntRange implements Range, Iterable<Integer> {
 
     @NotNull
     @Override
-    public Integer getMin() {
+    public Integer getStart() {
         return inclusiveStart;
     }
 
