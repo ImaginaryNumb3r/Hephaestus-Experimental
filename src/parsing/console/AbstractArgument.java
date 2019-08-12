@@ -28,8 +28,9 @@ public abstract class AbstractArgument<T> implements Argument<T> {
     protected String _primaryName;
     protected T _value;
 
-    public AbstractArgument(String primaryName) {
-        this._primaryName = primaryName;
+    public AbstractArgument(@NotNull String primaryName) {
+        _primaryName = primaryName;
+        _names.add(primaryName);
     }
 
     @Override
@@ -57,6 +58,10 @@ public abstract class AbstractArgument<T> implements Argument<T> {
         }
 
         return _value;
+    }
+
+    public void addAliases(String... aliases) {
+        Collections.addAll(_names, aliases);
     }
 
     protected void setValue(@NotNull T value) {

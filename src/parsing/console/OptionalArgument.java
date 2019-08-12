@@ -11,7 +11,7 @@ import java.util.List;
 public class OptionalArgument extends AbstractArgument<Boolean> {
 
     public OptionalArgument(String primaryName) {
-        super(primaryName);
+        super(primaryName, names);
     }
 
     /**

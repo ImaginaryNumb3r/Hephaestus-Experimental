@@ -3,13 +3,14 @@ package parsing.console;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Set;
 import java.util.function.Function;
 
 /**
  * An opinionated implementation of the multi-value argument archetype that is intended for re-use.
  */
 public abstract class MultiArgument<T> extends AbstractArgument<List<T>> {
-    private final Function<String, T> _constructor;
+    protected final Function<String, T> _constructor;
     protected final Type _type;
 
     public MultiArgument(@NotNull String primaryName,

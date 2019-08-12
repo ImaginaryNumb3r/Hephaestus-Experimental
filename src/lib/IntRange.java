@@ -1,5 +1,7 @@
 package lib;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.*;
 import java.util.function.IntConsumer;
 import java.util.stream.Collectors;
@@ -10,44 +12,33 @@ import java.util.stream.IntStream;
  * Created: 18.08.2017
  * Purpose:
  */
-public final class IntRange {
-    public final int start;
-    public final int end;
+public final class IntRange implements Range, Iterable<Integer> {
+    private final int inclusiveStart;
+    private final int inclusiveEnd;
     private final boolean _forward;
 
     /**
-     * Creates a range of ints from a given start and end.
-     * The lower given variable will serve as the start and the other will be the end of the range.
+     * Creates a range of ints from a given inclusiveStart and inclusiveEnd.
+     * The lower given variable will serve as the inclusiveStart and the other will be the inclusiveEnd of the range.
      */
-    private IntRange(int start, int end) {
-        _forward = start < end;
-        this.start = start;
-        this.end = end;
+    private IntRange(int inclusiveStart, int inclusiveEnd) {
+        _forward = inclusiveStart < inclusiveEnd;
+        this.inclusiveStart = inclusiveStart;
+        this.inclusiveEnd = inclusiveEnd;
     }
 
     /**
-     * Creates a range of ints from a given start and end.
-     * The lower given variable will serve as the start and the other will be the end of the range.
+     * Creates a range of ints from a given inclusiveStart and inclusiveEnd.
+     * The lower given variable will serve as the inclusiveStart and the other will be the inclusiveEnd of the range.
      */
     public static IntRange range(int startInclusive, int endInclusive) {
         return new IntRange(startInclusive, endInclusive);
     }
 
-    public void forEach(IntConsumer consumer) {
-        int start = _forward ? this.start : this.end;
-        int end = _forward ? this.end : this.start;
-        int pos = _forward ? start : end;
-
-        while (_forward ? pos != end : pos != start) {
-            consumer.accept(pos);
-            pos = _forward ? ++pos : --end;
-        }
-    }
-
     /**
-     * Creates a range of ints from a given start and end.
-     * The lower given variable will serve as the start and the other will be the end of the range.
-     * Performs a size comparison and takes the lower argument as start.
+     * Creates a range of ints from a given inclusiveStart and inclusiveEnd.
+     * The lower given variable will serve as the inclusiveStart and the other will be the inclusiveEnd of the range.
+     * Performs a size comparison and takes the lower argument as inclusiveStart.
      *
      * @param int1 that does not need to be the lower value
      * @param int2 that does not need to be the greater value
@@ -64,9 +55,9 @@ public final class IntRange {
     }
 
     /**
-     * Creates a range of ints from a given start and end.
-     * The lower given variable will serve as the start and the other will be the end of the range.
-     * Performs a size comparison and takes the lower argument as start.
+     * Creates a range of ints from a given inclusiveStart and inclusiveEnd.
+     * The lower given variable will serve as the inclusiveStart and the other will be the inclusiveEnd of the range.
+     * Performs a size comparison and takes the lower argument as inclusiveStart.
      *
      * @param int1 that does not need to be the greater value
      * @param int2 that does not need to be the lower value
@@ -89,15 +80,45 @@ public final class IntRange {
         int end   = _forward ? size() : 0;
 
         for (int i = start; i != end; i = _forward ? ++i : --i){
-            array[i] = i + this.start;
+            array[i] = i + this.inclusiveStart;
         }
 
         return array;
     }
 
-    public int random() {
-        int exclusiveEnd = end + 1;
-        return new Random().ints(start, exclusiveEnd).findFirst().getAsInt();
+    @NotNull
+    @Override
+    public Integer getMin() {
+        return inclusiveStart;
+    }
+
+    @NotNull
+    @Override
+    public Integer getEnd() {
+        return inclusiveEnd;
+    }
+
+    public void forEach(IntConsumer consumer) {
+        int start = _forward ? this.inclusiveStart : this.inclusiveEnd;
+        int end = _forward ? this.inclusiveEnd : this.inclusiveStart;
+        int pos = _forward ? start : end;
+
+        while (_forward ? pos != end : pos != start) {
+            consumer.accept(pos);
+            pos = _forward ? ++pos : --end;
+        }
+    }
+
+    public int randomInt() {
+        return (int) random();
+    }
+
+    /**
+     * @return an an int within the range, casted to a double.
+     */
+    public double random() {
+        int exclusiveEnd = inclusiveEnd + 1;
+        return new Random().ints(inclusiveStart, exclusiveEnd).findFirst().getAsInt();
     }
 
     /**
@@ -106,13 +127,13 @@ public final class IntRange {
     public int size(){
         // +1 because there is always at least one element
         // e.g. the range 10 to 10 is not zero
-        return Math.abs(end - start) + 1;
+        return Math.abs(inclusiveEnd - inclusiveStart) + 1;
     }
 
     public IntStream stream(){
         return _forward
-            ? IntStream.range(start, end)
-            : IntStream.range(end, start);
+            ? IntStream.range(inclusiveStart, inclusiveEnd)
+            : IntStream.range(inclusiveEnd, inclusiveStart);
     }
 
     /**
@@ -127,14 +148,71 @@ public final class IntRange {
         return integers.listIterator();
     }
 
-    public boolean contains(int value) {
+    /**
+     * Inclusive contains check.
+     *
+     * @param value actual value
+     * @return true if it is contained in the range, including the min and max values.
+     */
+    public boolean contains(double value) {
         return _forward
-            ? value >= start && value <= end
-            : value <= start && value >= end;
+            ? value >= inclusiveStart && value <= inclusiveEnd
+            : value <= inclusiveStart && value >= inclusiveEnd;
+    }
+
+    /**
+     * Exclusive contains check.
+     *
+     * @param value actual value
+     * @return true if it is contained in the range, excluding the min and max values.
+     */
+    public boolean exclusiveContains(double value) {
+        return _forward
+            ? value > inclusiveStart && value < inclusiveEnd
+            : value < inclusiveStart && value > inclusiveEnd;
     }
 
     @Override
     public String toString() {
-        return start + ".." + end;
+        return inclusiveStart + ".." + inclusiveEnd;
+    }
+
+    @NotNull
+    @Override
+    public Iterator<Integer> iterator() {
+        return _forward
+            ? new IntRangeIterator( 1, inclusiveEnd, inclusiveStart)
+            : new IntRangeIterator(-1, inclusiveStart, inclusiveEnd);
+    }
+
+    private class IntRangeIterator implements Iterator<Integer> {
+        private final int _step;
+        private final int _inclusiveEnd;
+        private int _current;
+
+        private IntRangeIterator(int step, int exclusiveEnd, int current) {
+            _step = step;
+            _inclusiveEnd = exclusiveEnd;
+            _current = current;
+        }
+
+        @Override
+        public boolean hasNext() {
+            // Overflow aware comparison.
+            return _current + _step <= _inclusiveEnd;
+        }
+
+        @Override
+        public Integer next() {
+            int next = _current + _step;
+
+            if (!hasNext()) {
+                String range = IntRange.this.toString();
+                throw new NoSuchElementException(next + " is not contained in range " + range);
+            }
+            _current = next;
+
+            return _current;
+        }
     }
 }

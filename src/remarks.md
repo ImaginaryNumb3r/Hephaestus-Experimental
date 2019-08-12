@@ -12,7 +12,7 @@ If there are solutions available, make your software more opinionated to fill a 
 
 TODO: Code Guidelines
     - No type inference on literals (acceptable for sinel instances where all other variables are initialized as `var`)
-    - Comments are sentences. They start with a capital letter and end on a punctuation mark ('.', '!', '?')
+    - Comments are sentences. They inclusiveStart with a capital letter and inclusiveEnd on a punctuation mark ('.', '!', '?')
     - Wording: "get" is always an quick operation with O(1). If that is not the case, use "load" or "make".  
                "Fetch" can be used as an alternative to return Optionals.
                "Put" is an action which does not create duplicate entries in a collection.
@@ -29,7 +29,7 @@ Documentation guideline:
 For Version 1.1
  - Low-level Argument API
  - Convenience-level Parser API
- - Non-alphanumeric characters for arguments if they don't start as prefixes
+ - Non-alphanumeric characters for arguments if they don't inclusiveStart as prefixes
  - Custom delimiters, and no delimiters if required
  - case insensitive mode
  - Custom return types: Long, Bool, Double, String <- bool interferes with "Option".

@@ -13,7 +13,7 @@ public class ValueArgument<T> extends AbstractArgument<T> {
     private final Type _type;
 
     public ValueArgument(@NotNull String primaryName, Type type) {
-        super(primaryName);
+        super(primaryName, names);
         _type = type;
     }
 
