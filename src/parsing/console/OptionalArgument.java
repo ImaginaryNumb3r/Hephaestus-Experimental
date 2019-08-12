@@ -1,4 +1,4 @@
-package parsing.arguments;
+package parsing.console;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ import java.util.List;
  */
 public class OptionalArgument extends AbstractArgument<Boolean> {
 
-    public OptionalArgument() {
-        _value = false;
+    public OptionalArgument(String primaryName) {
+        super(primaryName);
     }
 
     /**
@@ -20,6 +20,7 @@ public class OptionalArgument extends AbstractArgument<Boolean> {
      */
     @Override
     protected boolean consume(List<String> tokens) {
+        assertPreconditions();
         _value = tokens.removeAll(names());
         _status = _value ? Status.PARSED : Status.ERROR;
 
@@ -34,6 +35,9 @@ public class OptionalArgument extends AbstractArgument<Boolean> {
         return super.fetchValue();
     }
 
+    /**
+     * @return OPTIONAL.
+     */
     @Override
     public Type getType() {
         return Type.OPTIONAL;

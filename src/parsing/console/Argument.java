@@ -1,10 +1,10 @@
-package parsing.arguments;
+package parsing.console;
 
 import java.util.Optional;
 import java.util.Set;
 
 /**
- * @param T return type
+ * @param <T> return type
  */
 public interface Argument<T> {
 

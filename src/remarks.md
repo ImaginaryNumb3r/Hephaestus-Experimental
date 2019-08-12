@@ -23,6 +23,9 @@ TODO: Code Guidelines
     - If one parameter is marked with nullability, all parameters should be. For good style, probably all methods in the class should be.
     - There is a difference between _must have_ and _good style_
 
+Documentation guideline:
+    - TODO
+
 For Version 1.1
  - Low-level Argument API
  - Convenience-level Parser API

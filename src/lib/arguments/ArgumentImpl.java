@@ -1,5 +1,6 @@
 package lib.arguments;
 
+import collections.Sets;
 import lib.Strings;
 import org.jetbrains.annotations.NotNull;
 
@@ -46,8 +47,8 @@ import java.util.*;
     }
 
     @Override
-    public List<String> names() {
-        return Collections.singletonList(_name);
+    public Set<String> names() {
+        return Sets.of(_name);
     }
 
     @Override

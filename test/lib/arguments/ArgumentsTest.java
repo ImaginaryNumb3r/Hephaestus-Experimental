@@ -7,6 +7,7 @@ public class ArgumentsTest {
 
     @Test
     public void testOptions() {
+
         String enabled = "-enabled";
         String invalid = "invalid";
 

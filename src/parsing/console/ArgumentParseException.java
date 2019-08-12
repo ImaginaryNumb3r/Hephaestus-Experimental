@@ -1,4 +1,4 @@
-package parsing.arguments;
+package parsing.console;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,6 +22,19 @@ public class ArgumentParseException extends RuntimeException {
 
     public ArgumentParseException(String typeName, String character) {
         super(typeName + " contains illegal character: " + character);
+    }
+
+    public static ArgumentParseException ofMandatory(Collection<String> names) {
+        String message = "Mandatory argument cannot be deferred from the given input, expected: ";
+
+        if (names.size() == 1) {
+            String name = names.iterator().next();
+            message += name;
+        } else {
+            message += Arrays.toString(names.toArray());
+        }
+
+        return new ArgumentParseException(message);
     }
 
     protected List<String> getMissing() {
