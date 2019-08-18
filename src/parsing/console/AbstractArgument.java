@@ -1,6 +1,5 @@
 package parsing.console;
 
-import graphs.abstract_machine.Accumulator;
 import lib.EnumNotPresentException;
 import lib.Result;
 import org.jetbrains.annotations.NotNull;
@@ -24,7 +23,7 @@ import static parsing.console.ArgumentParseException.ofMandatory;
 public abstract class AbstractArgument<T> implements Argument<T> {
     // It is reasonable to assume to have arguments with no or only one alias.
     protected final Set<String> _names = new HashSet<>(1);
-    protected Status _status = Status.UNPARSED;
+    protected ParseStatus _status = ParseStatus.UNPARSED;
     protected String _description;
     protected String _primaryName;
     protected T _value;
@@ -49,12 +48,12 @@ public abstract class AbstractArgument<T> implements Argument<T> {
     }
 
     /**
-     * @return a non-null instance if the Status is PARSED.
-     * @throws IllegalStateException if a null value is returned on an instance with status PARSED:
+     * @return a non-null instance if the ParseStatus is SUCCESS.
+     * @throws IllegalStateException if a null value is returned on an instance with status SUCCESS:
      */
     @Override
     public T fetchValue() {
-        if (_value == null && _status == Status.PARSED) {
+        if (_value == null && _status == ParseStatus.SUCCESS) {
             throw new IllegalStateException("null cannot be returned on a parsed element.");
         }
 
@@ -75,13 +74,13 @@ public abstract class AbstractArgument<T> implements Argument<T> {
      * An implementation of this class can freely choose what kind of constraints the token list must adhere to.
      *
      * If the method succeeds, all tokens required to construct the argument are removed.
-     * Further, the status of the instance returns PARSED and it contains a non-null value.
+     * Further, the status of the instance returns SUCCESS and it contains a non-null value.
      *
-     * If the method does not succeed, its status is changed to ERROR and the token list remains unchanged.
+     * If the method does not succeed, its status is changed to FAIL and the token list remains unchanged.
      * Further, if the instance's type is MANDATORY it throws an ArgumentParseException, otherwise it returns false.
      * In other words, an optional argument never throws ArgumentParseException.
      *
-     * On a failure, the list must not be changed and the instance's status changed to ERROR.
+     * On a failure, the list must not be changed and the instance's status changed to FAIL.
      * If consume was called on an instance which previously succeeded, this method has no defined behavior.
      *
      * The implementation can choose whether multiple matchingIndices counts as success or failure.
@@ -129,7 +128,7 @@ public abstract class AbstractArgument<T> implements Argument<T> {
      * A convenience method that can be called by implemented classes to assert well-defined instance state.
      */
     protected void assertPreconditions() {
-        if (getStatus() == Status.PARSED) {
+        if (getStatus() == ParseStatus.SUCCESS) {
             throw new IllegalStateException("Cannot re-parse an argument instance which was created previously .");
         }
 
@@ -157,7 +156,7 @@ public abstract class AbstractArgument<T> implements Argument<T> {
         return indices;
     }
 
-    public Status getStatus() {
+    public ParseStatus getStatus() {
         return _status;
     }
 }

@@ -12,7 +12,7 @@ import java.util.function.Consumer;
  * The possible result types are:
  *  - OK: The method executed as expected and all imposed constraints were satisfied.
  *  - FAILURE: The method failed in an expected way.
- *  - ERROR: The method failed in an unexpected way or a serious constraint was violated.
+ *  - FAIL: The method failed in an unexpected way or a serious constraint was violated.
  *
  * @apiNote It is up to use-site of this class to define the meaning of each type when each type of result is returned.
  * @implNote The implementation of this class may add further types of Results in the future.
@@ -86,7 +86,7 @@ public class Result<Data> { // TODO: up to 3 different generics, one for each re
     }
 
     /**
-     * Performs an action on the data only if the instance's type is ERROR or FAILURE.
+     * Performs an action on the data only if the instance's type is FAIL or FAILURE.
      * @param consumer will also be called if the data is null.
      */
     public void ifNotOK(@NotNull Consumer<Data> consumer) {
@@ -106,7 +106,7 @@ public class Result<Data> { // TODO: up to 3 different generics, one for each re
     }
 
     /**
-     * Performs an action on the data only if the instance's type is ERROR.
+     * Performs an action on the data only if the instance's type is FAIL.
      * @param consumer will also be called if the data is null.
      */
     public void ifError(@NotNull Consumer<Data> consumer) {
@@ -116,7 +116,7 @@ public class Result<Data> { // TODO: up to 3 different generics, one for each re
     }
 
     /**
-     * Performs an action on the data only if the instance's type is ERROR.
+     * Performs an action on the data only if the instance's type is FAIL.
      * @param consumer will also be called if the data is null.
      */
     public <X extends Exception> void ifError(@NotNull ConsumerEx<Data, X> consumer) throws X {
@@ -166,22 +166,22 @@ public class Result<Data> { // TODO: up to 3 different generics, one for each re
     }
 
     /**
-     * Factory method to create a result of type ERROR. Construction will never fail.
+     * Factory method to create a result of type FAIL. Construction will never fail.
      *
      * @param data is not expected to be value that can be used for the main execution path. <br>
      *             It should carry information about the nature of this error or used to throw an exception.
-     * @return Result instance of type ERROR containing the provided data.
+     * @return Result instance of type FAIL containing the provided data.
      */
     public static <Data> Result<Data> error(Data data) {
         return new Result<>(data, Type.ERROR);
     }
 
     /**
-     * Factory method to create an empty result of type ERROR. Construction will never fail.
+     * Factory method to create an empty result of type FAIL. Construction will never fail.
      * Method {@code getData} will return null.
      * However, it is preferred to return something that informs the caller about the nature of the error.
      *
-     * @return Result instance of type ERROR containing the provided data.
+     * @return Result instance of type FAIL containing the provided data.
      */
     public static <Data> Result<Data> error() {
         return new Result<>(null, Type.ERROR);

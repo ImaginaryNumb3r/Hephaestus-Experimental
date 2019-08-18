@@ -29,6 +29,8 @@ public class ValueArgument<T> extends AbstractArgument<T> {
 
     @Override
     protected boolean consume(List<String> tokens) throws ArgumentParseException {
+        // Set to error and unset if parsing was successful.
+        _status = ParseStatus.FAIL;
         var matches = new ArrayList<String>();
 
         for (String token : tokens) {
@@ -59,8 +61,9 @@ public class ValueArgument<T> extends AbstractArgument<T> {
 
         String[] parts = match.split(_delimiter);
         _name = parts[0];
-        _value = _constructor.apply(parts[1]);
+        _status = ParseStatus.SUCCESS;
 
+        _value = _constructor.apply(parts[1]);
         return true;
     }
 

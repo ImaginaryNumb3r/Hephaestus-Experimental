@@ -24,13 +24,13 @@ public interface Argument<T> {
 
     Type getType();
 
-    Status getStatus();
+    ParseStatus getStatus();
 
     enum Type {
         MANDATORY, OPTIONAL
     }
 
-    enum Status {
-        PARSED, UNPARSED, ERROR
+    enum ParseStatus {
+        SUCCESS, UNPARSED, FAIL
     }
 }

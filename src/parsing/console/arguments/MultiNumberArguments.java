@@ -63,6 +63,8 @@ public class MultiNumberArguments<T extends Number> extends MultiArgument<T> {
 
     @Override
     protected boolean consume(List<String> tokens, String key, int keyIndex) {
+        // Set to error and unset if parsing was successful.
+        _status = ParseStatus.FAIL;
         var iter = tokens.listIterator(keyIndex + 1);
         var values = new ArrayList<T>();
         var invalidValues = new ArrayList<T>();
@@ -93,6 +95,7 @@ public class MultiNumberArguments<T extends Number> extends MultiArgument<T> {
             iter.previous();
         }
 
+        _status = ParseStatus.SUCCESS;
         _value = values;
         return true;
     }

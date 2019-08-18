@@ -45,6 +45,8 @@ public abstract class MultiArgument<T> extends AbstractArgument<List<T>> {
      */
     @Override
     protected final boolean consume(List<String> tokens) throws ArgumentParseException {
+        // Set to error and unset if parsing was successful.
+
         // Preconditions.
         assertPreconditions();
         List<String> matches = tokens.stream()
@@ -62,6 +64,14 @@ public abstract class MultiArgument<T> extends AbstractArgument<List<T>> {
         return consume(tokens, key, keyIndex);
     }
 
+    /**
+     * @implSpec implementor must set the {@code _status} to SUCCESS if successful.
+     *
+     * @param tokens
+     * @param key
+     * @param keyIndex
+     * @return
+     */
     protected abstract boolean consume(List<String> tokens, String key, int keyIndex);
 
     @Override

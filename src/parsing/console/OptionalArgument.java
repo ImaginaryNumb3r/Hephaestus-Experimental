@@ -22,7 +22,7 @@ public class OptionalArgument extends AbstractArgument<Boolean> {
     protected boolean consume(List<String> tokens) {
         assertPreconditions();
         _value = tokens.removeAll(names());
-        _status = _value ? Status.PARSED : Status.ERROR;
+        _status = _value ? ParseStatus.SUCCESS : ParseStatus.FAIL;
 
         return _value;
     }
