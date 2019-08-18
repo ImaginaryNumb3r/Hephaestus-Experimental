@@ -22,6 +22,7 @@ TODO: Code Guidelines
     - Be cautious in comments with wording: In the Java world, words like `final` have a different meaning and should not be used lightly.
     - If one parameter is marked with nullability, all parameters should be. For good style, probably all methods in the class should be.
     - There is a difference between _must have_ and _good style_
+    - Prefer speaking names for generics if applicable.
 
 Documentation guideline:
     - TODO

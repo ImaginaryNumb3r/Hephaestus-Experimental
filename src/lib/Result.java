@@ -1,5 +1,6 @@
 package lib;
 
+import essentials.functional.exception.ConsumerEx;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
@@ -16,7 +17,15 @@ import java.util.function.Consumer;
  * @apiNote It is up to use-site of this class to define the meaning of each type when each type of result is returned.
  * @implNote The implementation of this class may add further types of Results in the future.
  */
-public class Result<Data> {
+public class Result<Data> { // TODO: up to 3 different generics, one for each result type.
+    /*
+     * 3 Different Types:
+     *  - Single: Result
+     *  - OK, Fail: Assertion
+     *  - OK, Error:
+     *  - Fail, Error:
+     *  - OK, Fail, Error: EitherResult
+     */
     private final Data _data;
     private final Type _type;
 
@@ -101,6 +110,16 @@ public class Result<Data> {
      * @param consumer will also be called if the data is null.
      */
     public void ifError(@NotNull Consumer<Data> consumer) {
+        if (_type == Type.ERROR) {
+            consumer.accept(_data);
+        }
+    }
+
+    /**
+     * Performs an action on the data only if the instance's type is ERROR.
+     * @param consumer will also be called if the data is null.
+     */
+    public <X extends Exception> void ifError(@NotNull ConsumerEx<Data, X> consumer) throws X {
         if (_type == Type.ERROR) {
             consumer.accept(_data);
         }

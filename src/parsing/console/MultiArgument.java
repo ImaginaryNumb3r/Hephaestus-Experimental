@@ -3,8 +3,8 @@ package parsing.console;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.Set;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * An opinionated implementation of the multi-value argument archetype that is intended for re-use.
@@ -29,7 +29,7 @@ public abstract class MultiArgument<T> extends AbstractArgument<List<T>> {
     }
 
     /**
-     * By default, multiple matches will throw an exception.
+     * By default, multiple matchingIndices will throw an exception.
      *
      *
      * OLD:
@@ -47,16 +47,16 @@ public abstract class MultiArgument<T> extends AbstractArgument<List<T>> {
     protected final boolean consume(List<String> tokens) throws ArgumentParseException {
         // Preconditions.
         assertPreconditions();
-        String[] matches = tokens.stream()
+        List<String> matches = tokens.stream()
             .filter(_names::contains)
-            .toArray(String[]::new);
+            .collect(Collectors.toList());
 
         var resultType = assertMatchOnce(matches);
         if (resultType.isError()) throw resultType.getData();
         if (resultType.isFailure()) return false;
 
         // Continue with logic.
-        String key = matches[0];
+        String key = matches.get(0);
         int keyIndex = tokens.indexOf(key);
 
         return consume(tokens, key, keyIndex);

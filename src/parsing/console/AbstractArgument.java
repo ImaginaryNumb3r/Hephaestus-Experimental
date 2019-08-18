@@ -1,5 +1,6 @@
 package parsing.console;
 
+import graphs.abstract_machine.Accumulator;
 import lib.EnumNotPresentException;
 import lib.Result;
 import org.jetbrains.annotations.NotNull;
@@ -83,7 +84,7 @@ public abstract class AbstractArgument<T> implements Argument<T> {
      * On a failure, the list must not be changed and the instance's status changed to ERROR.
      * If consume was called on an instance which previously succeeded, this method has no defined behavior.
      *
-     * The implementation can choose whether multiple matches counts as success or failure.
+     * The implementation can choose whether multiple matchingIndices counts as success or failure.
      *
      * @param tokens the separated command line arguments. Leading or trailing whitespaces must be trimmed.
      * @return true if argument could be parsed.
@@ -94,16 +95,16 @@ public abstract class AbstractArgument<T> implements Argument<T> {
      */
     protected abstract boolean consume(List<String> tokens) throws ArgumentParseException;
 
-    protected Result<ArgumentParseException> assertMatchOnce(String[] matches) {
+    protected Result<ArgumentParseException> assertMatchOnce(List<String> matches) {
         Type type = getType();
-        int occurrences = matches.length;
+        int occurrences = matches.size();
 
         // Handle errors first.
         if (occurrences == 0) {
             switch (type) {
                 case MANDATORY:
                     var parseException = ofMandatory(names());
-                    return Result.failure(parseException);
+                    return Result.error(parseException);
                 case OPTIONAL: return Result.failure(null);
                 default: throw new EnumNotPresentException(Type.class, type);
             }
@@ -113,9 +114,9 @@ public abstract class AbstractArgument<T> implements Argument<T> {
                 case MANDATORY:
                     var parseException = new ArgumentParseException(join(" ",
                         "Expected one match for argument ", _primaryName,
-                        "but received " + occurrences, Arrays.toString(matches)
+                        "but received " + occurrences, Arrays.toString(matches.toArray())
                     ));
-                    return Result.failure(parseException);
+                    return Result.error(parseException);
                 case OPTIONAL: return Result.failure(null);
                 default: throw new EnumNotPresentException(Type.class, type);
             }
@@ -138,10 +139,11 @@ public abstract class AbstractArgument<T> implements Argument<T> {
     }
 
     /**
+     * TODO: Problem because this only considers exact matches.
      * @param tokens
-     * @return the list of matches in the token list.
+     * @return the list of matchingIndices in the token list.
      */
-    protected List<Integer> matches(List<String> tokens) {
+    protected List<Integer> matchingIndices(List<String> tokens) {
         var indices = new ArrayList<Integer>();
 
         int index = 0;

@@ -1,6 +1,7 @@
 package lib;
 
 import essentials.annotations.ToTest;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
@@ -33,7 +34,7 @@ public interface Range<T extends Number> {
      * @param number actual value.
      * @return true if it is contained in the range, including the min and max values.
      */
-    default boolean contains(T number) {
+    default boolean contains(@NotNull T number) {
         double doubleValue = number.doubleValue();
 
         return minDouble() >= doubleValue
@@ -46,7 +47,7 @@ public interface Range<T extends Number> {
      * @param number actual value.
      * @return true if it is contained in the range, excluding the min and max values.
      */
-    default boolean exclusiveContains(T number) {
+    default boolean exclusiveContains(@NotNull T number) {
         double doubleValue = number.doubleValue();
 
         return minDouble() > doubleValue
@@ -76,17 +77,20 @@ public interface Range<T extends Number> {
     /**
      * Factory method, intended for calls from a static import.
      */
-    static <T extends Number> Range<T> range(T min, T max) {
-        return of(min, max);
+    static <T extends Number> Range<T> range(@NotNull T start, @NotNull T end) {
+        return of(start, end);
     }
 
-    static <T extends Number> Range<T> of(T min, T max) {
+    /**
+     * Default range factory method.
+     */
+    static <T extends Number> Range<T> of(@NotNull T start, @NotNull T end) {
         return new Range<>() {
             @Override
-            public T getStart() { return min; }
+            public T getStart() { return start; }
 
             @Override
-            public T getEnd() { return max; }
+            public T getEnd() { return end; }
         };
     }
 

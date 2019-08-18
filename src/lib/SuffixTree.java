@@ -30,7 +30,7 @@ public class SuffixTree {
     public void add(CharSequence string) {
         List<Node> currentLevel = _rootNodes;
 
-        for (Character ch : Iterables.of(string)) {
+        for (char ch : Iterables.of(string)) {
             var node = getOrCreateNode(currentLevel, ch);
             currentLevel = node._children;
             currentLevel.add(Node.END_NODE);

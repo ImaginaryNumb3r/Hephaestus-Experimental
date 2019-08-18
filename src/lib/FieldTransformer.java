@@ -10,5 +10,4 @@ public interface FieldTransformer {
 
     Object transform(Class<?> targetType, Object currentValue, Object newValue);
 
-
 }
