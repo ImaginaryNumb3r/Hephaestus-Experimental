@@ -85,7 +85,7 @@ public abstract class AbstractArgument<T> implements Argument<T> {
      *
      * The implementation can choose whether multiple matchingIndices counts as success or failure.
      *
-     * @param tokens the separated command line arguments. Leading or trailing whitespaces must be trimmed.
+     * @param tokens a mutable list which contains the separated command line arguments. Leading or trailing whitespaces must be trimmed.
      * @return true if argument could be parsed.
      *         false if the argument cannot be parsed.
      * @throws ArgumentParseException if this method fails on a MANDATORY argument instance.

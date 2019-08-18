@@ -6,25 +6,32 @@ import parsing.console.ArgumentParseException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 
 
-public class ValueArgument<T> extends AbstractArgument<T> {
+public class ValueArgument extends AbstractArgument<String> {
     private final Type _type;
     private final String _delimiter;
-    private final Function<String, T> _constructor;
     private String _name; // The matching name for the argument.
-    private T _value;
 
+    /**
+     * // TODO: Allow definition of further secondary names.
+     * @param primaryName
+     * @param type
+     * @param delimiter Must not contain whitespaces.
+     */
     public ValueArgument(@NotNull String primaryName,
-                         @NotNull Type type,
                          @NotNull String delimiter,
-                         @NotNull Function<String, T> constructor
+                         @NotNull Type type
     ) {
         super(primaryName);
         _type = type;
         _delimiter = delimiter;
-        _constructor = constructor;
+
+        int whitespaces = primaryName.split("[W]").length;
+        if (whitespaces != 1) throw new IllegalArgumentException("Name in ValueArgument must not contain whitespaces");
+
+        whitespaces = delimiter.split("[W]").length;
+        if (whitespaces != 1) throw new IllegalArgumentException("Delimiter in ValueArgument must not contain whitespaces");
     }
 
     @Override
@@ -43,7 +50,7 @@ public class ValueArgument<T> extends AbstractArgument<T> {
             }
 
             // Assert that only one delimiter exists.
-            int delimiterCount = token.split(_delimiter).length;
+            int delimiterCount = token.split(_delimiter).length - 1;
             if (delimiterCount > 1) {
                 switch (_type) {
                     case MANDATORY:
@@ -52,6 +59,9 @@ public class ValueArgument<T> extends AbstractArgument<T> {
                         // Continue parsing.
                 }
             }
+
+            // Add if no checks failed.
+            matches.add(token);
         }
 
         // Count assertion must come after token invariant check.
@@ -63,7 +73,7 @@ public class ValueArgument<T> extends AbstractArgument<T> {
         _name = parts[0];
         _status = ParseStatus.SUCCESS;
 
-        _value = _constructor.apply(parts[1]);
+        _value = parts[1];
         return true;
     }
 
