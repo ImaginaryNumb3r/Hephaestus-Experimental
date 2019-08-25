@@ -7,7 +7,9 @@ import parsing.console.ArgumentParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Value arguments have exactly one value, which is combined with a delimiter.
+ */
 public class ValueArgument extends AbstractArgument<String> {
     private final Type _type;
     private final String _delimiter;
@@ -35,7 +37,7 @@ public class ValueArgument extends AbstractArgument<String> {
     }
 
     @Override
-    protected boolean consume(List<String> tokens) throws ArgumentParseException {
+    public boolean consume(List<String> tokens) throws ArgumentParseException {
         // Set to error and unset if parsing was successful.
         _status = ParseStatus.FAIL;
         var matches = new ArrayList<String>();

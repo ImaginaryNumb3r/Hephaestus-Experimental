@@ -11,15 +11,14 @@ import java.util.Set;
  *  - Implementation dependent on whether all arguments must be parsed or if an "unrecognized option" exception is thrown.
  *
  */ // TODO: Consider making it a parameterized type.
-public class ArgumentParser {
-    private final Set<Argument<?>> _arguments;
+public interface AbstractArgumentParser {
 
-    public ArgumentParser() {
-        _arguments = new HashSet<>();
-    }
+    /**
+     * Needs to enforce that no duplicates may exist.
+     * @param argument
+     */
+    void addArgument(AbstractArgument<?> argument);
 
-    public void addArgument(Argument<?> argument) {
-        _arguments.add(argument);
-    }
+    void parse(String input);
 
 }

@@ -22,9 +22,17 @@ public interface Argument<T> {
         return getValue().isPresent();
     }
 
+    ParseStatus getStatus();
+
     Type getType();
 
-    ParseStatus getStatus();
+    default boolean isMandatory() {
+        return getType() == Type.MANDATORY;
+    }
+
+    default boolean isOptional() {
+        return getType() == Type.OPTIONAL;
+    }
 
     enum Type {
         MANDATORY, OPTIONAL

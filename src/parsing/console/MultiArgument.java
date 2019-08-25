@@ -44,7 +44,7 @@ public abstract class MultiArgument<T> extends AbstractArgument<List<T>> {
      * @throws ArgumentParseException if the method fails on an instance of type MANDATORY.
      */
     @Override
-    protected final boolean consume(List<String> tokens) throws ArgumentParseException {
+    public final boolean consume(List<String> tokens) throws ArgumentParseException {
         // Set to error and unset if parsing was successful.
 
         // Preconditions.

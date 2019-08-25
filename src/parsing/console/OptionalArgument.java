@@ -19,7 +19,7 @@ public class OptionalArgument extends AbstractArgument<Boolean> {
      * @return true if the instance could be parsed, otherwise false.
      */
     @Override
-    protected boolean consume(List<String> tokens) {
+    public boolean consume(List<String> tokens) {
         assertPreconditions();
         _value = tokens.removeAll(names());
         _status = _value ? ParseStatus.SUCCESS : ParseStatus.FAIL;

@@ -85,43 +85,49 @@ public abstract class AbstractArgument<T> implements Argument<T> {
      *
      * The implementation can choose whether multiple matchingIndices counts as success or failure.
      *
-     * @param tokens a mutable list which contains the separated command line arguments. Leading or trailing whitespaces must be trimmed.
+     * It is the parser's job to only call consume on Arguments which are contained in the token list.
+     *
+     * @param tokens a mutable list, containing the separated command line arguments.
+     *               The tokens must not contain whitespaces of any kind.
      * @return true if argument could be parsed.
-     *         false if the argument cannot be parsed.
+     *         false if the OPTIONAL argument cannot be parsed.
      * @throws ArgumentParseException if this method fails on a MANDATORY argument instance.
+     * @throws IllegalArgumentException
      * @throws IllegalStateException if the Argument cannot be constructed in a expected way.
      *                               E.g. when the method names() returns an empty set.
      */
-    protected abstract boolean consume(List<String> tokens) throws ArgumentParseException;
+    public abstract boolean consume(List<String> tokens) throws ArgumentParseException;
 
     protected Result<ArgumentParseException> assertMatchOnce(List<String> matches) {
-        Type type = getType();
+        // Type type = getType();
         int occurrences = matches.size();
 
         // Handle errors first.
-        if (occurrences == 0) {
+        if (occurrences == 0) { /*
             switch (type) {
-                case MANDATORY:
-                    var parseException = ofMandatory(names());
-                    return Result.error(parseException);
+                case MANDATORY: */
+                throw ArgumentParseException.ofMandatory(names()); /*
                 case OPTIONAL: return Result.failure(null);
                 default: throw new EnumNotPresentException(Type.class, type);
-            }
+            } */
         }
-        if (occurrences > 1) {
+        if (occurrences > 1) { /*
             switch (type) {
-                case MANDATORY:
-                    var parseException = new ArgumentParseException(join(" ",
-                        "Expected one match for argument ", _primaryName,
-                        "but received " + occurrences, Arrays.toString(matches.toArray())
-                    ));
-                    return Result.error(parseException);
+                case MANDATORY: */
+                throw new ArgumentParseException(join(" ",
+                    "Expected one match for argument ", _primaryName,
+                    "but received " + occurrences, Arrays.toString(matches.toArray())
+                )); /*
                 case OPTIONAL: return Result.failure(null);
                 default: throw new EnumNotPresentException(Type.class, type);
-            }
+            } */
         }
 
         return Result.ok(null);
+    }
+
+    public String primaryName() {
+        return _primaryName;
     }
 
     /**
