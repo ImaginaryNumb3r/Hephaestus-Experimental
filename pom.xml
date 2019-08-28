@@ -34,8 +34,8 @@
 		</dependency>
         <dependency>
 			<groupId>com.github.ImaginaryNumb3r</groupId>
-			<artifactId>Hephaestus-graphs</artifactId>
-			<version>0.1</version>
+			<artifactId>Hephaestus-Essentials</artifactId>
+			<version>1.0.3</version>
         </dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>

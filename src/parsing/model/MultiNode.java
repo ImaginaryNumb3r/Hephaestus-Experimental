@@ -1,6 +1,6 @@
 package parsing.model;
 
-import lib.ListIterable;
+import essentials.collections.IterableList;
 import lib.Strings;
 import org.jetbrains.annotations.NotNull;
 
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * Created: 20.03.2019
  * This node never returns invalid.
  */
-public class MultiNode<T extends CopyNode<T>> extends AbstractParseNode implements ListIterable<T> {
+public class MultiNode<T extends CopyNode<T>> extends AbstractParseNode implements IterableList<T> {
     protected final List<T> _elements;
     private final Supplier<T> _tokenConstructor;
 
@@ -76,8 +76,8 @@ public class MultiNode<T extends CopyNode<T>> extends AbstractParseNode implemen
 
     @NotNull
     @Override
-    public ListIterator<T> listIterator(int index) {
-        return _elements.listIterator(index);
+    public ListIterator<T> listIterator() {
+        return _elements.listIterator(0);
     }
 
     @Override

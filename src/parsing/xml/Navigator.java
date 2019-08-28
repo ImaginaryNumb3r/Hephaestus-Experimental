@@ -1,7 +1,5 @@
 package parsing.xml;
 
-import collections.iterator.Iterators;
-
 import java.util.Iterator;
 import java.util.Optional;
 
@@ -12,13 +10,14 @@ import java.util.Optional;
  */
 public class Navigator {
 
+    /*
     public static Optional<XMLTag> getTag(XMLDocument root, String... path) {
         return getTag(root, Iterators.of(path));
     }
 
     public static Optional<XMLTag> getTag(XMLTag start, String... path) {
         return getTag(start, Iterators.of(path));
-    }
+    } */
 
     public static Optional<XMLTag> getTag(XMLDocument root, Iterable<String> path) {
         return getTag(root, path.iterator());

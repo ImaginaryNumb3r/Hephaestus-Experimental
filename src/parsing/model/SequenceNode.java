@@ -1,6 +1,6 @@
 package parsing.model;
 
-import lib.ListIterable;
+import essentials.collections.IterableList;
 import lib.Strings;
 import org.jetbrains.annotations.NotNull;
 
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
  * Created: 20.03.2019
  * Purpose:
  */
-public class SequenceNode extends AbstractParseNode implements ListIterable<ParseNode> {
+public class SequenceNode extends AbstractParseNode implements IterableList<ParseNode> {
     protected final List<ParseNode> _sequence;
 
     public SequenceNode(ParseNode... nodes) {
@@ -68,11 +68,6 @@ public class SequenceNode extends AbstractParseNode implements ListIterable<Pars
     }
 
     @Override
-    public @NotNull ListIterator<ParseNode> listIterator(int index) {
-        return _sequence.listIterator(index);
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof SequenceNode)) return false;
@@ -83,5 +78,10 @@ public class SequenceNode extends AbstractParseNode implements ListIterable<Pars
     @Override
     public int hashCode() {
         return Objects.hash(_sequence);
+    }
+
+    @Override
+    public @NotNull ListIterator<ParseNode> listIterator() {
+        return _sequence.listIterator(0);
     }
 }
