@@ -1,6 +1,6 @@
 package parsing.console.arguments;
 
-import parsing.console.ArgumentParseException;
+import parsing.console.common.ArgumentParseException;
 
 /**
  * @author Patrick Plieschnegger

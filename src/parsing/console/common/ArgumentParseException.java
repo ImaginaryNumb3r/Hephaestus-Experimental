@@ -1,4 +1,4 @@
-package parsing.console;
+package parsing.console.common;
 
 import java.util.ArrayList;
 import java.util.Arrays;

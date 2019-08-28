@@ -1,13 +1,12 @@
-package parsing.console;
+package parsing.console.common;
 
-import lib.EnumNotPresentException;
 import lib.Result;
 import org.jetbrains.annotations.NotNull;
+import parsing.console.Argument;
 
 import java.util.*;
 
 import static java.lang.String.join;
-import static parsing.console.ArgumentParseException.ofMandatory;
 
 /**
  * An argument is only responsible for its own state and must assume that the list of tokens is a valid configuration.

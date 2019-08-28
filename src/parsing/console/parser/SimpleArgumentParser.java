@@ -1,9 +1,9 @@
 package parsing.console.parser;
 
 import org.jetbrains.annotations.NotNull;
-import parsing.console.AbstractArgument;
+import parsing.console.common.AbstractArgument;
 import parsing.console.Argument;
-import parsing.console.AbstractArgumentParser;
+import parsing.console.common.AbstractArgumentParser;
 import parsing.console.arguments.ParseConstraintViolation;
 
 import java.util.*;
@@ -13,7 +13,7 @@ import static java.util.function.Predicate.not;
 /**
  * @author Patrick Plieschnegger
  */
-public class SimpleParser implements AbstractArgumentParser {
+public class SimpleArgumentParser implements AbstractArgumentParser {
     private final Set<AbstractArgument<?>> _arguments = new HashSet<>();
     private final HashMap<String, AbstractArgument<?>> _names = new HashMap<>();
 

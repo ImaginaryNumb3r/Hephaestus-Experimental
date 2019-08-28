@@ -1,5 +1,7 @@
 package parsing.console;
 
+import parsing.console.common.AbstractArgument;
+
 import java.util.List;
 
 /**

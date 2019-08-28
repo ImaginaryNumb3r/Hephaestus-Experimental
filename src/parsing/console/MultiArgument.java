@@ -1,6 +1,8 @@
 package parsing.console;
 
 import org.jetbrains.annotations.NotNull;
+import parsing.console.common.AbstractArgument;
+import parsing.console.common.ArgumentParseException;
 
 import java.util.List;
 import java.util.function.Function;

@@ -1,7 +1,4 @@
-package parsing.console;
-
-import java.util.HashSet;
-import java.util.Set;
+package parsing.console.common;
 
 /**
  * @author Patrick Plieschnegger
