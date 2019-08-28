@@ -1,6 +1,7 @@
 package lib.io;
 
 import essentials.functional.exception.FunctionEx;
+import essentials.functional.exception.FunctionalMappingException;
 import parsing.xml.XMLDocument;
 
 import java.io.IOException;
@@ -26,21 +27,16 @@ public class ForkJoinXML extends RecursiveTask<Map<Path, XMLDocument>> {
 
     @Override
     protected Map<Path, XMLDocument> compute() {
-        try {
-            return computeEx();
-        } catch (Throwable ex) {
-            throw ex;
-        }
-    }
-
-    protected Map<Path, XMLDocument> computeEx() {
-        if (!Files.isDirectory(_path)) return Collections.emptyMap();
-
         var childDirectories = new ArrayList<ForkJoinXML>();
         var xmls = new ArrayList<ForkJoinXML>();
         var xmlMap = new HashMap<Path, XMLDocument>();
 
         try {
+            if (isXML(_path)) {
+                var xml = _constructor.tryApply(_path);
+                return Collections.singletonMap(_path, xml);
+            }
+
             for (Path path : Files.newDirectoryStream(_path)) {
 
                 if (isXML(path)) {
@@ -58,14 +54,14 @@ public class ForkJoinXML extends RecursiveTask<Map<Path, XMLDocument>> {
                 }
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (FunctionalMappingException | IOException e) {
+            System.out.println("Could not parse:" + _path);
         }
 
         // Collective join on xml files.
         for (ForkJoinXML childTask : xmls) {
             var result = childTask.join();
-            System.out.println("Done with: " + childTask._path);
+            // System.out.println("Done with: " + childTask._path);
             xmlMap.putAll(result);
         }
 
@@ -84,5 +80,10 @@ public class ForkJoinXML extends RecursiveTask<Map<Path, XMLDocument>> {
         return path.toString()
                     .toLowerCase(Locale.ENGLISH)
                     .endsWith(".xml");
+    }
+
+    @Override
+    public String toString() {
+        return "Path: " + _path;
     }
 }
