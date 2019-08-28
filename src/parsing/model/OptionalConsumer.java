@@ -19,17 +19,21 @@ public class OptionalConsumer extends AbstractParseNode implements CharSequence 
     }
 
     @Override
-    protected ParseResult parseImpl(String chars, int index) {
+    protected ParseResult parseImpl(String chars, final int start) {
+        int offset = 0;
 
-        char ch = chars.charAt(index);
+        char ch = chars.charAt(start);
         while (_acceptCondition.test(ch)) {
 
             // TODO: Add range of characters after loop.
-            _buffer.append(ch);
-            ch = chars.charAt(++index);
+            ++offset;
+            ch = chars.charAt(start + offset);
         }
 
-        return ParseResult.at(index);
+        String slice = chars.substring(start, start + offset);
+        _buffer.append(slice);
+
+        return ParseResult.at(start + offset);
     }
 
     @Override

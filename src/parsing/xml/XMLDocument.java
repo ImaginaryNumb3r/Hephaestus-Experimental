@@ -63,7 +63,10 @@ public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocume
     }
 
     @Override
-    protected ParseResult parseImpl(String chars, final int index) {
+    protected ParseResult parseImpl(String chars, int index) {
+        // Replace BOM
+        chars = chars.replace("\uFEFF", "");
+
         ParseResult prolog = _prolog.parse(chars, index);
         int nextIndex = prolog.isValid() ? prolog.index() : index;
 
