@@ -9,6 +9,7 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.ForkJoinPool;
+import java.util.stream.Collectors;
 
 import static java.util.Collections.singletonList;
 
@@ -102,12 +103,24 @@ public class CommandLineConquer {
         }
 
         System.out.println();
-        Object[] xmlFiles = program._xmlDirectory.keySet().stream()
+        var list = program._xmlDirectory.keySet().stream()
             .sorted()
-            .toArray();
+            .collect(Collectors.toList()); /*
 
-        for (Object xmlFile : xmlFiles) {
+        for (Object xmlFile : list) {
             System.out.println(xmlFile);
-        }
+        } */
+
+        // Test for Predator
+        var predator = list.stream().filter(xml -> xml.toString().contains("GDIPredator.xml")).findAny();
+        Path predatorPath = predator.orElse(Path.of(""));
+        XMLDocument predatorXML = XMLDocument.ofFile(predatorPath);
+
+        var xPath = Arrays.asList("AssetDeclaration", "GameObject", "Body", "ActiveBody");
+        Optional<XMLTag> health = Navigator.getTag(predatorXML, xPath);
+
+        health.ifPresent(tag -> System.out.println("Predator HP: " + tag.getAttribute("MaxHealth").getValue()));
+
+
     }
 }
