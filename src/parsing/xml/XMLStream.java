@@ -1,14 +1,32 @@
 package parsing.xml;
 
-import java.util.Optional;
+import java.util.function.IntFunction;
+import java.util.function.Predicate;
+import java.util.stream.Collector;
 
 /**
  * @author Patrick Plieschnegger
  */
-public interface XMLStream<T, S extends XMLStream<T, S>> {
+public interface XMLStream<T, Stream extends XMLStream<T, Stream>> {
 
-    Optional<T> findFirst();
+    Stream filter(String name);
 
-    public Optional<S> first();
+    Stream filter(Predicate<T> predicate);
 
+    /**
+     * @return a java.lang.Optional of the aggregated type.
+     */
+    OptionalXML<T> findFirst();
+
+    Stream limit(int count);
+
+    <R, A> R collect(Collector<? super T, A, R> collector);
+
+    Object[] toArray();
+
+    T[] toArray(IntFunction<T[]> arrayConstructor);
+
+    static TagStream of(XMLTag tag) {
+        return tag.stream();
+    }
 }

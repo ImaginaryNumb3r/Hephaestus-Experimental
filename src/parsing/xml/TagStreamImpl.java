@@ -4,6 +4,7 @@ import essentials.functional.Predicates;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -26,7 +27,7 @@ import java.util.stream.Stream;
     public TagStream filter(Predicate<XMLTag> predicate) {
         var filtered = new ArrayList<XMLTag>();
 
-        for (XMLTag xmlTag : _tags) {
+        for (XMLTag xmlTag : _values) {
             if (predicate.test(xmlTag)) {
                 filtered.add(xmlTag);
             }
@@ -49,7 +50,7 @@ import java.util.stream.Stream;
     public AttributesStreamImpl findAttributes(Predicate<AttributeToken> predicate) {
         var attributes = new ArrayList<AttributeToken>();
 
-        for (XMLTag tag : _tags) {
+        for (XMLTag tag : _values) {
             for (AttributeToken attribute : tag.attributes()) {
                 if (predicate.test(attribute)) {
                     attributes.add(attribute);
@@ -61,17 +62,26 @@ import java.util.stream.Stream;
     }
 
     @Override
+    public OptionalTag findFirst() {
+        Optional<XMLTag> xmlTag = _values.isEmpty()
+            ? Optional.empty()
+            : Optional.of(_values.get(0));
+
+        return new OptionalTag(xmlTag);
+    }
+
+    @Override
     public <T> Stream<T> map(Function<XMLTag, T> mapper) {
-        return _tags.stream().map(mapper);
+        return _values.stream().map(mapper);
     }
 
     @Override
     public <T> Stream<T> flatMap(Function<XMLTag, Stream<T>> mapper) {
-        return _tags.stream().flatMap(mapper);
+        return _values.stream().flatMap(mapper);
     }
 
     @Override
     public Stream<XMLTag> stream() {
-        return _tags.stream();
+        return _values.stream();
     }
 }

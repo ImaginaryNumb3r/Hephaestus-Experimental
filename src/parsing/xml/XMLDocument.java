@@ -6,15 +6,19 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
+import static java.util.Collections.singletonList;
 
 /**
  * Creator: Patrick
  * Created: 25.03.2019
  * Purpose:
  */
-public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocument> {
+public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocument>, XMLStreamable {
     private final XMLProlog _prologue;
     private WhitespaceToken _prologueWhitespace;
     private final XMLComments _comments;
@@ -147,4 +151,8 @@ public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocume
         return Objects.hash(_prologue, _root, _prologueWhitespace);
     }
 
+    @Override
+    public TagStream stream() {
+        return new TagStreamImpl(singletonList(_root));
+    }
 }

@@ -148,7 +148,7 @@ public class XMLTag extends AbstractParseNode implements CopyNode<XMLTag>, XMLSt
 
     @Override
     public TagStream stream() {
-        return null;
+        return new TagStreamImpl(children());
     }
 
     @Override

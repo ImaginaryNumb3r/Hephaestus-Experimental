@@ -10,19 +10,13 @@ import java.util.stream.Stream;
  */
 public interface TagStream extends XMLStream<XMLTag, TagStream>{
 
-    TagStream filter(String tagName);
-
-    TagStream filter(Predicate<XMLTag> predicate);
-
     AttributeStream findAttributes();
 
     AttributeStream findAttributes(String attributeName);
 
     AttributeStream findAttributes(Predicate<AttributeToken> predicate);
 
-    Optional<XMLTag> findFirst();
-
-    Optional<TagStream> first();
+    OptionalTag findFirst();
 
     <T> Stream<T> map(Function<XMLTag, T> mapper);
 
