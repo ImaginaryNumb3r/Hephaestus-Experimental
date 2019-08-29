@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  * Grammar: TagHeader XMLTail
  *          <Name Attributes Whitespace ( ( > InnerNodes </Name> ) | /> )
  */
-public class XMLTag extends AbstractParseNode implements CopyNode<XMLTag> {
+public class XMLTag extends AbstractParseNode implements CopyNode<XMLTag>, XMLStreamable {
     private final TagHeader _head;
     private final XMLTail _tail;
 
@@ -144,6 +144,11 @@ public class XMLTag extends AbstractParseNode implements CopyNode<XMLTag> {
         String tailName = _tail.getName();
 
         return _tail.isClosedTag() || name.equals(tailName);
+    }
+
+    @Override
+    public TagStream stream() {
+        return null;
     }
 
     @Override

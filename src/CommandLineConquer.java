@@ -111,13 +111,14 @@ public class CommandLineConquer {
             System.out.println(xmlFile);
         } */
 
+        System.out.println(list.get(0));
+
         // Test for Predator
         var predator = list.stream().filter(xml -> xml.toString().contains("GDIPredator.xml")).findAny();
         Path predatorPath = predator.orElse(Path.of(""));
         XMLDocument predatorXML = XMLDocument.ofFile(predatorPath);
 
-        var xPath = Arrays.asList("AssetDeclaration", "GameObject", "Body", "ActiveBody");
-        Optional<XMLTag> health = Navigator.getTag(predatorXML, xPath);
+        Optional<XMLTag> health = Navigator.getTag(predatorXML, "AssetDeclaration", "GameObject", "Body", "ActiveBody");
 
         health.ifPresent(tag -> System.out.println("Predator HP: " + tag.getAttribute("MaxHealth").getValue()));
 

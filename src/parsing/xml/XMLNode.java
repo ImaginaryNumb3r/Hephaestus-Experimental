@@ -11,7 +11,7 @@ import java.util.Optional;
  * Created: 21.03.2019
  * Grammar: Whitespace [ CommentTag | XMLTag ]
  *          Whitespace [ CommentTag | <Name Attributes Whitespace ( ( > InnerNodes </Name> ) | /> ) ]
- * May be a getTag or a comment.
+ * May be a Tag or a comment.
  */
 public class XMLNode extends EitherNode<XMLTag, CommentToken> implements CopyNode<XMLNode> {
     private final WhitespaceToken _leadingWhitespace;

@@ -1,9 +1,9 @@
 package parsing.xml;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.nio.file.Path;
+import java.util.*;
+
+import static java.util.Arrays.asList;
 
 /**
  * Creator: Patrick
@@ -12,14 +12,30 @@ import java.util.Optional;
  */
 public class Navigator {
 
-    /*
-    public static Optional<XMLTag> getTag(XMLDocument root, String... path) {
-        return getTag(root, Iterators.of(path));
+    public static Optional<XMLTag> getTag(XMLDocument root, Path path) {
+        return getTag(root.getRoot(), path);
     }
 
-    public static Optional<XMLTag> getTag(XMLTag start, String... path) {
-        return getTag(start, Iterators.of(path));
-    } */
+    public static Optional<XMLTag> getTag(XMLTag root, Path path) {
+        var list = new ArrayList<String>();
+        Iterator<Path> iter = path.iterator();
+
+        while (iter.hasNext()) {
+            iter.next();
+            // list.add(path);
+        }
+
+        return getTag(root, list);
+    }
+
+    public static Optional<XMLTag> getTag(XMLDocument root, String... path) {
+        return getTag(root.getRoot(), asList(path), 0);
+    }
+
+    public static Optional<XMLTag> getTag(XMLTag root, String... path) {
+        return getTag(root, asList(path), 0);
+    }
+
 
     public static Optional<XMLTag> getTag(XMLDocument root, Iterable<String> path) {
         return getTag(root, path.iterator());
@@ -32,6 +48,7 @@ public class Navigator {
         return getTag(root, list, 0);
     }
 
+
     private static Optional<XMLTag> getTag(XMLDocument root, Iterator<String> path) {
         var list = new ArrayList<String>();
         path.forEachRemaining(list::add);
@@ -39,7 +56,6 @@ public class Navigator {
         return getTag(root.getRoot(), list, 0);
     }
 
-    // Problem: Iterator is updated, even when his value is not accepted. -> needs to peek
     private static Optional<XMLTag> getTag(XMLTag start, List<String> path, int index) {
         // End recursion.
         if (index == path.size()) return Optional.of(start);
@@ -55,6 +71,7 @@ public class Navigator {
             }
         }
 
+        // Has found the requested tag.
         if (index == path.size() - 1) return Optional.of(start);
 
         return Optional.empty();

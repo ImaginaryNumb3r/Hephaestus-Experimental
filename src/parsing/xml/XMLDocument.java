@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -145,4 +146,5 @@ public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocume
     public int hashCode() {
         return Objects.hash(_prologue, _root, _prologueWhitespace);
     }
+
 }
