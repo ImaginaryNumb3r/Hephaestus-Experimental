@@ -10,7 +10,6 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.ForkJoinPool;
 
-import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 
 /**
@@ -64,6 +63,7 @@ public class CommandLineConquer {
 
                             // Add to queue.
                             includeFiles.add(xmlDocument);
+                            _xmlDirectory.put(xmlPath, xmlDocument);
                         } catch (NoSuchFileException ex) {
                             System.out.println("No such file: " + xmlPath);
                         }
@@ -87,19 +87,12 @@ public class CommandLineConquer {
     public static void main(String[] args) throws IOException {
         var path = Path.of("/Users/p.plieschnegger/private/One-Vision/Data");
         long start = System.currentTimeMillis();
-        var program = new CommandLineConquer(path); /*
-        program.parseDirectory("GlobalData");
-        program.parseDirectory("RRF");
-        program.parseDirectory("ZOCOM");
-        program.parseDirectory("SteelTalons");
-        program.parseDirectory("Messenger");
-        program.parseDirectory("Traveler");
-        program.parseDirectory("Reaper");
-        program.parseDirectory("Renegades");
-        program.parseDirectory("MoK");
-        program.parseDirectory("BlackHand"); */
+        var program = new CommandLineConquer(path);
 
         long end = System.currentTimeMillis();
+
+        System.out.println("Seconds: " + (end - start) / 1000d);
+        System.out.println("Done Parsing!");
 
         for (var entry : program._xmlDirectory.entrySet()) {
             XMLDocument value = entry.getValue();
@@ -108,7 +101,13 @@ public class CommandLineConquer {
             }
         }
 
-        System.out.println("Seconds: " + (end - start) / 1000d);
-        System.out.println("Done!");
+        System.out.println();
+        Object[] xmlFiles = program._xmlDirectory.keySet().stream()
+            .sorted()
+            .toArray();
+
+        for (Object xmlFile : xmlFiles) {
+            System.out.println(xmlFile);
+        }
     }
 }
