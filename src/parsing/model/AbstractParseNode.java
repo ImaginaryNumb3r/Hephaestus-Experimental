@@ -21,15 +21,15 @@ public abstract class AbstractParseNode implements ParseNode {
 
     protected abstract ParseResult parseImpl(String chars, int index);
 
-    /**
-     * @return String representation of the token if parsing is finished. Otherwise null.
-     */
-    public abstract String toString();
-
     @Override
     public String asString() {
         return toString();
     }
+
+    /**
+     * @return String representation of the token if parsing is finished. Otherwise null.
+     */
+    public abstract String toString();
 
     @Override
     public abstract boolean equals(Object obj);

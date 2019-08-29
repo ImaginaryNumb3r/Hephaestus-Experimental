@@ -9,7 +9,7 @@ import java.util.Objects;
 /**
  * Creator: Patrick
  * Created: 21.03.2019
- * Purpose:
+ * Grammar: '<!--' content '-->'
  */
 public class CommentToken extends ContentToken implements CopyNode<CommentToken> {
     public static String COMMENT_START = "<!--";

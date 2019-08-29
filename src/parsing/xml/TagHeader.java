@@ -11,17 +11,17 @@ import java.util.stream.Collectors;
 /**
  * Creator: Patrick
  * Created: 20.03.2019
- * Grammar: <Name Attributes Whitespace
+ * Grammar: '<' Name Attributes Whitespace
  */
 public class TagHeader extends SequenceNode implements CopyNode<TagHeader> {
     private final TextToken _name;
-    private final AttributesNode _attributes;
+    private final XMLAttributes _attributes;
     private final WhitespaceToken _whitespace;
 
     public TagHeader() {
         super(new ArrayList<>());
         _name = new TextToken();
-        _attributes = new AttributesNode();
+        _attributes = new XMLAttributes();
 
         _whitespace= new WhitespaceToken();
         _sequence.addAll(Arrays.asList(
