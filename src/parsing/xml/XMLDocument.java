@@ -1,9 +1,6 @@
 package parsing.xml;
 
-import parsing.model.AbstractParseNode;
-import parsing.model.CopyNode;
-import parsing.model.ParseResult;
-import parsing.model.WhitespaceToken;
+import parsing.model.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,14 +14,16 @@ import java.util.Objects;
  * Purpose:
  */
 public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocument> {
-    private final XMLProlog _prolog;
+    private final XMLProlog _prologue;
+    private WhitespaceToken _prologueWhitespace;
+    private final XMLComments _comments;
     private final XMLTag _root;
-    private WhitespaceToken _whitespace;
 
     public XMLDocument() {
-        _prolog = new XMLProlog();
+        _prologue = new XMLProlog();
+        _prologueWhitespace = new WhitespaceToken();
+        _comments = new XMLComments();
         _root = new XMLTag();
-        _whitespace = new WhitespaceToken();
     }
 
     public static XMLDocument ofFile(Path path) throws IOException {
@@ -63,40 +62,45 @@ public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocume
     }
 
     @Override
+    @SuppressWarnings("Duplicates")
     protected ParseResult parseImpl(String chars, int index) {
         // Replace BOM
         chars = chars.replace("\uFEFF", "");
 
-        ParseResult prolog = _prolog.parse(chars, index);
+        ParseResult prolog = _prologue.parse(chars, index);
         int nextIndex = prolog.isValid() ? prolog.index() : index;
 
-        ParseResult whitespace = _whitespace.parse(chars, nextIndex);
+        ParseResult whitespace = _prologueWhitespace.parse(chars, nextIndex);
         if (whitespace.isInvalid()) return whitespace;
-
         nextIndex = whitespace.index();
+
+        // There could be comments between prologue and xml body.
+        ParseResult comments = _comments.parse(chars, nextIndex);
+        nextIndex = comments.isValid() ? comments.index() : nextIndex;
+
         return _root.parse(chars, nextIndex);
     }
 
     @Override
     public String toString() {
-        return _prolog.toString() + _whitespace.toString() + _root.toString();
+        return _prologue.toString() + _prologueWhitespace.toString() + _root.toString();
     }
 
     @Override
     public XMLDocument deepCopy() {
         XMLDocument copy = new XMLDocument();
         XMLTag rootCopy = _root.deepCopy();
-        XMLProlog prologCopy = _prolog.deepCopy();
+        XMLProlog prologCopy = _prologue.deepCopy();
 
         copy._root.setData(rootCopy);
-        copy._prolog.setData(prologCopy);
-        copy._whitespace.setData(_whitespace);
+        copy._prologue.setData(prologCopy);
+        copy._prologueWhitespace.setData(_prologueWhitespace);
 
         return copy;
     }
 
     public XMLProlog getProlog() {
-        return _prolog;
+        return _prologue;
     }
 
     public XMLTag getRoot() {
@@ -104,26 +108,26 @@ public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocume
     }
 
     public String getWhitespace() {
-        return _whitespace.toString();
+        return _prologueWhitespace.toString();
     }
 
     public void setWhitespace(CharSequence whitespace) {
-        _whitespace.setWhitespace(whitespace);
+        _prologueWhitespace.setWhitespace(whitespace);
     }
 
     @Override
     public void setData(XMLDocument other) {
         XMLTag rootCopy = other._root.deepCopy();
-        XMLProlog prologCopy = other._prolog.deepCopy();
+        XMLProlog prologCopy = other._prologue.deepCopy();
 
         _root.setData(rootCopy);
-        _prolog.setData(prologCopy);
-        _whitespace.setData(_whitespace);
+        _prologue.setData(prologCopy);
+        _prologueWhitespace.setData(_prologueWhitespace);
     }
 
     @Override
     public void reset() {
-        _prolog.reset();
+        _prologue.reset();
         _root.reset();
     }
 
@@ -132,13 +136,13 @@ public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocume
         if (this == o) return true;
         if (!(o instanceof XMLDocument)) return false;
         XMLDocument that = (XMLDocument) o;
-        return Objects.equals(_prolog, that._prolog) &&
+        return Objects.equals(_prologue, that._prologue) &&
                 Objects.equals(_root, that._root) &&
-                Objects.equals(_whitespace, that._whitespace);
+                Objects.equals(_prologueWhitespace, that._prologueWhitespace);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(_prolog, _root, _whitespace);
+        return Objects.hash(_prologue, _root, _prologueWhitespace);
     }
 }

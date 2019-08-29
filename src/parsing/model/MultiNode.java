@@ -3,6 +3,7 @@ package parsing.model;
 import essentials.collections.IterableList;
 import lib.Strings;
 import org.jetbrains.annotations.NotNull;
+import parsing.xml.XMLComments;
 
 import java.util.*;
 import java.util.function.Supplier;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
  */
 public class MultiNode<T extends CopyNode<T>> extends AbstractParseNode implements IterableList<T> {
     protected final List<T> _elements;
-    private final Supplier<T> _tokenConstructor;
+    protected final Supplier<T> _tokenConstructor;
 
     public MultiNode(Supplier<T> tokenConstructor) {
         _elements = new ArrayList<>();

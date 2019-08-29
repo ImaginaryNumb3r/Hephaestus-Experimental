@@ -5,6 +5,7 @@ import parsing.xml.XMLDocument;
 import parsing.xml.XMLTag;
 
 import java.io.IOException;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.ForkJoinPool;
@@ -52,15 +53,20 @@ public class CommandLineConquer {
                     // Ignore art xmls and other special case xmls.
                     if (type.equalsIgnoreCase("all") && !relLocation.startsWith("ART:")) {
                         var xmlPath = projectPath.resolve(relLocation);
-                        var xmlDocument = XMLDocument.ofFile(xmlPath);
 
-                        if (xmlDocument == null) {
-                            System.out.println("Cannot parse: " + xmlPath);
-                            xmlDocument = XMLDocument.ofFile(xmlPath);
+                        try {
+                            var xmlDocument = XMLDocument.ofFile(xmlPath);
+
+                            if (xmlDocument == null) {
+                                System.out.println("Cannot parse: " + xmlPath);
+                                xmlDocument = XMLDocument.ofFile(xmlPath);
+                            }
+
+                            // Add to queue.
+                            includeFiles.add(xmlDocument);
+                        } catch (NoSuchFileException ex) {
+                            System.out.println("No such file: " + xmlPath);
                         }
-
-                        // Add to queue.
-                        includeFiles.add(xmlDocument);
                         // System.out.println("Added: " + xmlPath);
                     }
                 }
@@ -103,5 +109,6 @@ public class CommandLineConquer {
         }
 
         System.out.println("Seconds: " + (end - start) / 1000d);
+        System.out.println("Done!");
     }
 }
