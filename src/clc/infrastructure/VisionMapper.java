@@ -1,11 +1,11 @@
-package clc;
+package clc.infrastructure;
 
 import com.mongodb.*;
 
 import java.net.UnknownHostException;
 import java.util.*;
 
-import static clc.GameTagEntry.ID_KEY;
+import static clc.infrastructure.GameTagEntry.ID_KEY;
 
 /**
  * @author Patrick Plieschnegger

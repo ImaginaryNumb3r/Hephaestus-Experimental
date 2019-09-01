@@ -1,4 +1,4 @@
-package clc;
+package clc.infrastructure;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;

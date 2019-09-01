@@ -1,4 +1,4 @@
-package clc;
+package clc.domain;
 
 import parsing.xml.AttributeToken;
 import parsing.xml.Navigator;

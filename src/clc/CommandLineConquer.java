@@ -1,5 +1,8 @@
 package clc;
 
+import clc.domain.Project;
+import clc.infrastructure.GameTagEntry;
+import clc.infrastructure.VisionMapper;
 import parsing.xml.Navigator;
 import parsing.xml.XMLDocument;
 import parsing.xml.XMLTag;
