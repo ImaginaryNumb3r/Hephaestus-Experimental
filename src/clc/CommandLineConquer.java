@@ -33,6 +33,7 @@ public class CommandLineConquer {
     public static void main(String[] args) throws IOException {
         long start = System.currentTimeMillis();
         var program = new Project(PROJECT_PATH);
+        program.load();
         long end = System.currentTimeMillis();
 
         System.out.println("Seconds: " + (end - start) / 1000d);
@@ -43,8 +44,6 @@ public class CommandLineConquer {
             .sorted()
             .collect(Collectors.toList());
 
-        System.out.println(list.get(0));
-
         // Test for Predator
         var predator = list.stream().filter(xml -> xml.toString().contains("ZOCOMPredator.xml")).findAny();
         Path predatorPath = predator.orElse(Path.of(""));
@@ -53,10 +52,12 @@ public class CommandLineConquer {
         Optional<XMLTag> health = Navigator.getTag(predatorXML, "AssetDeclaration", "GameObject", "Body", "ActiveBody");
         health.ifPresent(tag -> System.out.println("Predator HP: " + tag.getAttribute("MaxHealth").getValue()));
 
-        forceRead(program.getXmlDirectory());
+        forceUpdate(program.getXmlDirectory());
+        end = System.currentTimeMillis();
+        System.out.println("Total time: " + (end - start) / 1000d);
     }
 
-    private static void forceRead(Map<Path, XMLDocument> xmlDirectory) throws IOException {
+    private static void forceUpdate(Map<Path, XMLDocument> xmlDirectory) throws IOException {
         VisionMapper mapper = VisionMapper.instance();
         mapper.resetCollections();
 
@@ -82,14 +83,8 @@ public class CommandLineConquer {
 
                     GameTagEntry object = new GameTagEntry(id, date, tag, relPath, tagName);
                     list.add(object);
-                }); /*
-
-            if (list.size() > batchThreshold) {
-                System.out.println("Persisting " + count + " out of " + xmls + " files");
-                mapper.persist(list);
-                list.clear();
-            }
-            ++count; */
+                }
+            );
         }
 
         // flush

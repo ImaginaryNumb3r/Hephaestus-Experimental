@@ -12,7 +12,7 @@ import static clc.GameTagEntry.ID_KEY;
  */
 public class VisionMapper {
     private static final String DB_NAME = "vision-db";
-    private static final String COLLECTION_NAME = "game-objects";
+    private static final String INDEX_NAME = "index";
     private static VisionMapper _instance;
     private final List<GameTagEntry> _entries = new ArrayList<>();
     private final DB _visionDB;
@@ -25,7 +25,6 @@ public class VisionMapper {
         try {
             var mongo = new MongoClient();
             DB db = mongo.getDB(DB_NAME);
-            db.getCollection(COLLECTION_NAME);
 
             _instance = new VisionMapper(db);
         } catch (UnknownHostException e) {
@@ -48,14 +47,19 @@ public class VisionMapper {
 
     public void persist() {
         Map<String, List<DBObject>> collectionMap = new HashMap<>();
+        ArrayList<DBObject> indicies = new ArrayList<>();
+        collectionMap.put(INDEX_NAME, indicies);
 
         for (var entry : _entries) {
-            int hash = entry.getHash();
             var collection = entry.getCollectionName();
-            var id = entry.getId();
 
             collectionMap.computeIfAbsent(collection, ignore -> new ArrayList<>());
-            collectionMap.computeIfPresent(collection, (key, list) -> { list.add(entry.toEntry()); return list; });
+            collectionMap.computeIfPresent(collection, (key, list) -> {
+                list.add(entry.toEntry());
+                indicies.add(entry.toPath());
+
+                return list;
+            });
         }
 
         // Flush.
@@ -73,6 +77,8 @@ public class VisionMapper {
 
             dbCollection.insert(collectionList);
         }
+
+        _entries.clear();
     }
 
     public void resetCollections() {

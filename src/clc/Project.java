@@ -20,18 +20,22 @@ import static java.util.Collections.singletonList;
  */
 public class Project {
     private final Map<Path, XMLDocument> _xmlDirectory = new HashMap<>();
+    private final Path _projectPath;
 
     public Project(Path projectPath) throws IOException {
-        Path staticPath = projectPath.resolve("Static.xml");
+        _projectPath = projectPath;
+    }
+
+    public void load() throws IOException {
+        Path staticPath = _projectPath.resolve("Static.xml");
 
         var staticXML = XMLDocument.ofFile(staticPath);
-        var includeFiles = new ArrayDeque<XMLDocument>();
-        includeFiles.add(staticXML);
+        var xmlQueue = new ArrayDeque<XMLDocument>();
+        xmlQueue.add(staticXML);
 
         // TODO: You could also say this is the "check config" step.
-        // Remove from queue.
-        while (!includeFiles.isEmpty()) {
-            XMLDocument xml = includeFiles.pop();
+        while (!xmlQueue.isEmpty()) {
+            XMLDocument xml = xmlQueue.pop();
 
             var includePath = singletonList("AssetDeclaration");
             Optional<XMLTag> includeTag = Navigator.getTag(xml, includePath);
@@ -42,8 +46,6 @@ public class Project {
                 for (XMLTag include : includes.children()) {
                     if (!include.hasAttributes("source")) break;
 
-                    // TODO: Ignore xmls which are named like the containing directory.
-
                     AttributeToken source = include.getAttribute("source");
                     AttributeToken typeAttr = include.getAttribute("type");
 
@@ -52,7 +54,7 @@ public class Project {
 
                     // Ignore art xmls and other special case xmls.
                     if (type.equalsIgnoreCase("all") && !relLocation.startsWith("ART:")) {
-                        var xmlPath = projectPath.resolve(relLocation);
+                        var xmlPath = _projectPath.resolve(relLocation);
 
                         try {
                             var xmlDocument = XMLDocument.ofFile(xmlPath);
@@ -63,12 +65,11 @@ public class Project {
                             }
 
                             // Add to queue.
-                            includeFiles.add(xmlDocument);
+                            xmlQueue.add(xmlDocument);
                             _xmlDirectory.put(xmlPath, xmlDocument);
                         } catch (NoSuchFileException ex) {
                             System.out.println("No such file: " + xmlPath);
                         }
-                        // System.out.println("Added: " + xmlPath);
                     }
                 }
             }

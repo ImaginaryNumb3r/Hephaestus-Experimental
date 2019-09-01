@@ -2,7 +2,6 @@ package clc;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
-import parsing.xml.XMLDocument;
 import parsing.xml.XMLTag;
 
 import java.nio.file.Path;
@@ -62,15 +61,21 @@ public class GameTagEntry  {
         return _collectionName;
     }
 
-    public DBObject toEntry() {
+    public DBObject toPath() {
         Map<String, Object> map = new HashMap<>();
         map.put(ID_KEY, _id);
         map.put(MODIFY_DATE_KEY, _modifyDate);
         map.put(HASH_KEY, _hash);
-        map.put(DATA_KEY, _data);
         map.put(PATH_KEY, _path);
 
         return new BasicDBObject(map);
+    }
+
+    public DBObject toEntry() {
+        DBObject dbObject = toPath();
+        dbObject.put(DATA_KEY, _data);
+
+        return dbObject;
     }
 
     @Override
