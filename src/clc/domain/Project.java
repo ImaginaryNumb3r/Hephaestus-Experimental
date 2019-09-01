@@ -19,6 +19,7 @@ import static java.util.Collections.singletonList;
  * @author Patrick Plieschnegger
  */
 public class Project {
+    public static final Path PROJECT_PATH = Path.of("/Users/p.plieschnegger/private/One-Vision/Data");
     private final Map<Path, XMLDocument> _xmlDirectory = new HashMap<>();
     private final Path _projectPath;
 
@@ -26,7 +27,7 @@ public class Project {
         _projectPath = projectPath;
     }
 
-    public void load() throws IOException {
+    public void initialize() throws IOException {
         Path staticPath = _projectPath.resolve("Static.xml");
 
         var staticXML = XMLDocument.ofFile(staticPath);
