@@ -37,7 +37,7 @@ public class NavigatorTest {
             XMLDocument document = XMLDocument.ofFile(documentPath);
             // Optional<XMLTag> tag = Navigator.getTag(document, "AssetDeclaration", "GameObject", expectedTag);
 
-            // assertEquals(expectedTag, tag.get().getName());
+            // assertEquals(expectedTag, tag.instance().getName());
         } catch (IOException e) {
             e.printStackTrace();
         }

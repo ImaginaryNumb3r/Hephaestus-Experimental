@@ -45,7 +45,7 @@ public class ParseResult {
 
     public String getMessage() {
         if (_isValid) {
-            throw new IllegalStateException("Cannot get message because cursor is at a valid position.");
+            throw new IllegalStateException("Cannot instance message because cursor is at a valid position.");
         }
 
         return _message;
@@ -53,7 +53,7 @@ public class ParseResult {
 
     public int index() {
         if (!_isValid) {
-            throw new IllegalStateException("Cannot get position of an invalid cursor.");
+            throw new IllegalStateException("Cannot instance position of an invalid cursor.");
         }
 
         return _cursorPosition;

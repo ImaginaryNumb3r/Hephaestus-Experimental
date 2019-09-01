@@ -1,6 +1,7 @@
 package parsing.xml;
 
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.Predicate;
@@ -12,11 +13,16 @@ import java.util.stream.Collectors;
  */
 public abstract class XMLStreamImpl<T, Stream extends XMLStream<T, Stream>> implements XMLStream<T, Stream> {
     protected final List<T> _values;
-    private final Function<List<T>, Stream> _constructor;
+    protected final XMLStreamImpl<T, Stream> _parent;
+    private final BiFunction<List<T>, XMLStreamImpl<T, Stream>, Stream> _constructor;
 
-    protected XMLStreamImpl(List<T> tags, Function<List<T>, Stream> constructor) {
+    protected XMLStreamImpl(List<T> tags,
+                            BiFunction<List<T>, XMLStreamImpl<T, Stream>, Stream> constructor,
+                            XMLStreamImpl<T, Stream> parent
+    ) {
         _values = tags;
         _constructor = constructor;
+        _parent = parent;
     }
 
     @Override
@@ -25,7 +31,7 @@ public abstract class XMLStreamImpl<T, Stream extends XMLStream<T, Stream>> impl
             .limit(count)
             .collect(Collectors.toList());
 
-        return _constructor.apply(limited);
+        return _constructor.apply(limited, this);
     }
 
     @Override

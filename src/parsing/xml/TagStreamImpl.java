@@ -1,6 +1,9 @@
 package parsing.xml;
 
+import essentials.contract.NoImplementationException;
 import essentials.functional.Predicates;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +17,14 @@ import java.util.stream.Stream;
  */
 /*package*/ class TagStreamImpl extends XMLStreamImpl<XMLTag, TagStream> implements TagStream {
 
-    /*package*/ TagStreamImpl(List<XMLTag> tags) {
-        super(tags, TagStreamImpl::new);
+    /*package*/ TagStreamImpl(@NotNull  List<XMLTag> tags,
+                              @Nullable XMLStreamImpl<XMLTag, TagStream> parent
+    ) {
+        super(tags, TagStreamImpl::new, parent);
+    }
+
+    /*package*/ TagStreamImpl(@NotNull  List<XMLTag> tags) {
+        this(tags, null);
     }
 
     @Override
@@ -25,6 +34,12 @@ import java.util.stream.Stream;
 
     @Override
     public TagStream filter(Predicate<XMLTag> predicate) {
+        // TODO: Make it that filter only sets the name for the tag that is searched.
+        // The actual execution of the path is done in a separate method and executed on the terminal operations.
+        // _parent.filter()
+        throw new NoImplementationException();
+
+        /*
         var filtered = new ArrayList<XMLTag>();
 
         for (XMLTag xmlTag : _values) {
@@ -33,7 +48,7 @@ import java.util.stream.Stream;
             }
         }
 
-        return new TagStreamImpl(filtered);
+        return new TagStreamImpl(filtered); */
     }
 
     @Override

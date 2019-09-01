@@ -11,8 +11,12 @@ import java.util.function.Predicate;
 public class AttributesStreamImpl extends XMLStreamImpl<AttributeToken, AttributeStream>
         implements AttributeStream {
 
-    public AttributesStreamImpl(List<AttributeToken> attributes) {
-        super(attributes, AttributesStreamImpl::new);
+    /*package*/ AttributesStreamImpl(List<AttributeToken> attributes, XMLStreamImpl<AttributeToken, AttributeStream> parent) {
+        super(attributes, AttributesStreamImpl::new, parent);
+    }
+
+    /*package*/ AttributesStreamImpl(List<AttributeToken> attributes) {
+        this(attributes, null);
     }
 
     @Override

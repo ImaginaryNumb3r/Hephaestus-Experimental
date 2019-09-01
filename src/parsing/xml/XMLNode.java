@@ -3,6 +3,7 @@ package parsing.xml;
 import essentials.annotations.Package;
 import parsing.model.*;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -13,7 +14,7 @@ import java.util.Optional;
  *          Whitespace [ CommentTag | <Name Attributes Whitespace ( ( > InnerNodes </Name> ) | /> ) ]
  * May be a Tag or a comment.
  */
-public class XMLNode extends EitherNode<XMLTag, CommentToken> implements CopyNode<XMLNode> {
+public class XMLNode extends EitherNode<XMLTag, CommentToken> implements CopyNode<XMLNode>, Serializable {
     private final WhitespaceToken _leadingWhitespace;
 
     public XMLNode() {
