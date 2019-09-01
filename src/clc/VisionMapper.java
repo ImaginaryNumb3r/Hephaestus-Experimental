@@ -92,4 +92,9 @@ public class VisionMapper {
         commit(list);
         persist();
     }
+
+    public void drop(String name) {
+        DBCollection collection = _visionDB.getCollection(name);
+        collection.drop();
+    }
 }

@@ -42,6 +42,4 @@ public class XMLAttributes extends MultiNode<AttributeToken> implements CopyNode
     public void reset() {
         super.reset();
     }
-
-
 }
