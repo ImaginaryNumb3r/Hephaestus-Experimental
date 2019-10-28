@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * @author Patrick Plieschnegger
  */
-public class StringTerminal extends AbstractParseNode implements CopyNode<StringTerminal> {
+public final class StringTerminal extends AbstractParseNode implements CopyNode<StringTerminal> {
     private final String _terminal;
 
     public StringTerminal(String terminal) {_terminal = terminal;}

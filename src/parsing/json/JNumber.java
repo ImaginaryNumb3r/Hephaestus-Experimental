@@ -5,12 +5,11 @@ import parsing.model.CopyNode;
 import parsing.model.ParseResult;
 
 import java.util.Objects;
-import java.util.stream.Collector;
 
 /**
  * Creator: Patrick
  * Created: 28.10.2019
- * ('-') (0 | 1..9) (0..9)* ( '.' (0..9)+ ) ( 'e' | 'E' ) ( '+' | '-' )? (0..9)*
+ * Grammar: ('-') (0 | 1..9) (0..9)* ( '.' (0..9)+ ) ( 'e' | 'E' ) ( '+' | '-' )? (0..9)*
  */
 public class JNumber extends AbstractParseNode implements CopyNode<JNumber> {
     private Type _type;
@@ -23,6 +22,7 @@ public class JNumber extends AbstractParseNode implements CopyNode<JNumber> {
         _value = value;
     }
 
+    // TODO: Doesn't work yet.
     @Override
     protected ParseResult parseImpl(String chars, final int index) {
         var buffer = new StringBuilder();

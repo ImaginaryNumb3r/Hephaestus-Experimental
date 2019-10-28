@@ -19,8 +19,9 @@ public class JDocumentTest {
     @Test
     public void testParse() throws IOException {
         Path filePath = TEST_FILE_DIR.resolve("sample1.json");
-        JDocument xmlDocument = JDocument.ofFile(filePath);
+        JDocument jsonDocument = JDocument.ofFile(filePath);
 
-        assertNotNull("Document could not be parsed!", xmlDocument);
+        assertNotNull("Document could not be parsed!", jsonDocument);
+        System.out.println(jsonDocument);
     }
 }

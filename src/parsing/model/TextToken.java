@@ -7,7 +7,7 @@ import java.util.Set;
  * Created: 20.03.2019
  * Non-empty string token.
  */
-public class TextToken extends ConsumerNode implements CopyNode<TextToken> {
+public final class TextToken extends ConsumerNode implements CopyNode<TextToken> {
     private static final Set<Character> ALLOWED_CHARS = Set.of('_', '.', ':', '-');
 
     public TextToken() { // TODO: Change to "not whitespace" -> character '!' could be making problems

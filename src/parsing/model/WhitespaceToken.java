@@ -6,7 +6,7 @@ package parsing.model;
  * Series of zero to arbitrary whitespace characters.
  * TODO: Optimize by making the CharPredicate a static field for this class
  */
-public class WhitespaceToken extends OptionalConsumer implements CopyNode<WhitespaceToken> {
+public final class WhitespaceToken extends OptionalConsumer implements CopyNode<WhitespaceToken> {
 
     public WhitespaceToken() {
         super(Character::isWhitespace);
