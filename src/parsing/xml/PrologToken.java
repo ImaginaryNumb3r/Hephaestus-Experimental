@@ -1,6 +1,6 @@
 package parsing.xml;
 
-import parsing.model.ContentToken;
+import parsing.model.ContentNode;
 import parsing.model.CopyNode;
 
 /**
@@ -8,7 +8,7 @@ import parsing.model.CopyNode;
  * Created: 20.03.2019
  * TODO: Also parse Attributes (similar to ClosedTag)
  */
-public class PrologToken extends ContentToken implements CopyNode<PrologToken> {
+public class PrologToken extends ContentNode implements CopyNode<PrologToken> {
 
     public PrologToken() {
         super("<?", "?>");

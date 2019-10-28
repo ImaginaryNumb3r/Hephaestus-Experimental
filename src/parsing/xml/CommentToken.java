@@ -1,6 +1,6 @@
 package parsing.xml;
 
-import parsing.model.ContentToken;
+import parsing.model.ContentNode;
 import parsing.model.CopyNode;
 
 /**
@@ -8,7 +8,7 @@ import parsing.model.CopyNode;
  * Created: 21.03.2019
  * Purpose:
  */
-public class CommentToken extends ContentToken implements CopyNode<CommentToken> {
+public class CommentToken extends ContentNode implements CopyNode<CommentToken> {
     public static String COMMENT_START = "<!--";
     public static String COMMENT_END = "-->";
 

@@ -35,7 +35,7 @@ public class XMLNode extends EitherNode<XMLTag, CommentToken> implements CopyNod
     }
 
     public Optional<String> getCommentContent() {
-        return second().map(ContentToken::getContent);
+        return second().map(ContentNode::getContent);
     }
 
     public String getLeadingWhitespace() {

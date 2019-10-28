@@ -1,7 +1,5 @@
 package parsing.model;
 
-import essentials.annotations.Package;
-
 import java.util.Objects;
 
 /**
@@ -10,10 +8,10 @@ import java.util.Objects;
  * Accepts all input as long as the condition evaluates to true.
  */
 public class OptionalConsumer extends AbstractParseNode implements CharSequence {
-    @Package final StringBuilder _buffer;
-    @Package final CharPredicate _acceptCondition;
+    /*package*/ final StringBuilder _buffer;
+    /*package*/ final CharPredicate _acceptCondition;
 
-    @Package OptionalConsumer(CharPredicate acceptCondition) {
+    /*package*/ OptionalConsumer(CharPredicate acceptCondition) {
         _buffer = new StringBuilder();
         _acceptCondition = acceptCondition;
     }

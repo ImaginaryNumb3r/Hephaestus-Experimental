@@ -1,11 +1,10 @@
 package parsing.xml;
 
 import essentials.annotations.Package;
-import parsing.model.ContentToken;
+import parsing.model.ContentNode;
 import parsing.model.CopyNode;
 import parsing.model.ParseResult;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -13,7 +12,7 @@ import java.util.Objects;
  * Created: 22.03.2019
  * The text that can be between nodes
  */
-public class XMLText extends ContentToken implements CopyNode<XMLText> {
+public class XMLText extends ContentNode implements CopyNode<XMLText> {
     private static final String POSTFIX = "<";
 
     public XMLText() {

@@ -2,7 +2,6 @@ package parsing.xml;
 
 import parsing.model.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -14,13 +13,11 @@ import java.util.stream.Collectors;
  */
 public class AttributeToken extends SequenceNode implements CopyNode<AttributeToken> {
     private final TextToken _name;
-    private final ContentToken _value;
+    private final ContentNode _value;
 
     public AttributeToken() {
-        super(new ArrayList<>());
-
         _name = new TextToken();
-        _value = new ContentToken("\"");
+        _value = new ContentNode("\"");
 
         _sequence.addAll(
             Arrays.asList(

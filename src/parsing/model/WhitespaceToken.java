@@ -4,6 +4,7 @@ package parsing.model;
  * Creator: Patrick
  * Created: 20.03.2019
  * Series of zero to arbitrary whitespace characters.
+ * TODO: Optimize by making the CharPredicate a static field for this class
  */
 public class WhitespaceToken extends OptionalConsumer implements CopyNode<WhitespaceToken> {
 

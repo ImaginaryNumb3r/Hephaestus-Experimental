@@ -7,10 +7,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Creator: Patrick
  * Created: 20.03.2019
+ * This is a node which represents multiple subsequent nodes of the same kind.
  * This node never returns invalid.
  */
 public class MultiNode<T extends CopyNode<T>> extends AbstractParseNode implements ListIterable<T> {
@@ -78,6 +80,10 @@ public class MultiNode<T extends CopyNode<T>> extends AbstractParseNode implemen
     @Override
     public ListIterator<T> listIterator(int index) {
         return _elements.listIterator(index);
+    }
+
+    public Stream<T> stream() {
+        return _elements.stream();
     }
 
     @Override

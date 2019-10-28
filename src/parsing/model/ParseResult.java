@@ -35,6 +35,10 @@ public class ParseResult {
         return _innerErrors;
     }
 
+    public void ifValid(Runnable runnable) {
+        if (isValid()) runnable.run();
+    }
+
     public boolean isValid() {
         return _isValid;
     }
