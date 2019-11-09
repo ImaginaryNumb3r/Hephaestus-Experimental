@@ -1,7 +1,6 @@
 package parsing.json;
 
 import org.junit.Test;
-import parsing.xml.XMLDocument;
 
 import java.io.IOException;
 import java.nio.file.Path;

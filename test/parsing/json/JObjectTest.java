@@ -27,7 +27,7 @@ public class JObjectTest {
         JObject object = new JObject();
         ParseResult result = object.parse(objStr, 0);
 
-        assertTrue(result.getMessage(), result.isValid());
+        assertTrue(result.isValid());
         assertEquals(object.toString(), objStr);
         System.out.println(object);
     }

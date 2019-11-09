@@ -48,11 +48,7 @@ public class JNumber extends AbstractParseNode implements CopyNode<JNumber> {
     }
 
     @Override
-    protected ParseResult parseImpl(String chars, int index) {
-        if (chars.charAt(index) == '2') {
-            System.out.println();
-        }
-
+    protected ParseResult parseImpl(String chars, final int index) {
         char ch = chars.charAt(index);
         if (!canParse(ch)) {
             return ParseResult.invalid(index, "Cannot parse as value at index: " + index);
@@ -79,7 +75,7 @@ public class JNumber extends AbstractParseNode implements CopyNode<JNumber> {
             return ParseResult.invalid(index, "cannot parse as number: " + numberStr);
         }
 
-        return ParseResult.at(index);
+        return ParseResult.at(nextIndex);
     }
 
     private boolean canParse(char ch) {

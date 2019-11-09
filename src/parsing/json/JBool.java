@@ -28,6 +28,7 @@ public class JBool extends AbstractParseNode implements CopyNode<JBool> {
         int nextIndex = tryParse(chars, FALSE, index);
         if (nextIndex == INVALID) {
             nextIndex = tryParse(chars, TRUE, index);
+            _value = true;
 
             if (nextIndex == INVALID) return ParseResult.invalid(index, "Cannot parse bool value");
         }
@@ -38,11 +39,9 @@ public class JBool extends AbstractParseNode implements CopyNode<JBool> {
 
     private int tryParse(String text, String pattern, int index) {
         int tokenEnd = index + pattern.length();
-        String token = text.substring(index, tokenEnd);
-        if (token.equalsIgnoreCase(TRUE)) {
-            System.out.println();
-        }
+        if (tokenEnd > text.length()) return INVALID;
 
+        String token = text.substring(index, tokenEnd);
         return token.equalsIgnoreCase(pattern)
                 ? tokenEnd
                 : INVALID;
