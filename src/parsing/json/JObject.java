@@ -1,9 +1,6 @@
 package parsing.json;
 
-import parsing.model.CharTerminal;
-import parsing.model.CopyNode;
-import parsing.model.SequenceNode;
-import parsing.model.WhitespaceToken;
+import parsing.model.*;
 
 import java.util.Arrays;
 
@@ -19,13 +16,12 @@ public class JObject extends SequenceNode implements CopyNode<JObject> {
     public JObject() {
         _values = new JAttributes();
 
-        _sequence.addAll(
-                Arrays.asList(
-                        new WhitespaceToken(), new CharTerminal('{'),
-                        new WhitespaceToken(), _values,
-                        new WhitespaceToken(), new CharTerminal('}')
-                )
+        var tokens = Arrays.asList(
+                new WhitespaceToken(), new CharTerminal('{'),
+                new WhitespaceToken(), _values,
+                new WhitespaceToken(), new CharTerminal('}')
         );
+        _sequence.addAll(tokens);
     }
 
     @Override

@@ -11,10 +11,6 @@ public abstract class AbstractParseNode implements ParseNode {
     public ParseResult parse(String chars, int index) {
         // TODO: Reset function that sets everything to the initial state. This is important for consecutive calls.
 
-        if (index == 3553) {
-            System.out.println();
-        }
-
         if (index >= chars.length() || index < 0) {
             if (index >= chars.length()) return ParseResult.invalid(index, "Index is larger than document length.");
             if (index < 0) throw new IndexOutOfBoundsException(index);
