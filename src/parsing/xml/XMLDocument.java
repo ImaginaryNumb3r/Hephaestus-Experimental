@@ -14,7 +14,7 @@ import java.util.Objects;
 /**
  * Creator: Patrick
  * Created: 25.03.2019
- * Purpose:
+ * Purpose: Prolog? XMLTag Whitespace
  */
 public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocument> {
     private final XMLProlog _prolog;

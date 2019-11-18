@@ -18,7 +18,7 @@ public interface ParseNode {
      *
      * @param chars
      * @param index
-     * @return the new index after a successful parse. Or -1 if parsing failed.
+     * @return the new index after a successful consume. Or -1 if parsing failed.
      */
     ParseResult parse(String chars, int index);
 

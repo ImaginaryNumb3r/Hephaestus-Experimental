@@ -3,7 +3,7 @@ package parsing.model;
 /**
  * Creator: Patrick
  * Created: 28.10.2019
- * A final value-based version of ContentNode. Implementy CopyNode
+ * A class-final value-based version of ContentNode which implements CopyNode.
  */
 public final class ContentToken extends ContentNode implements CopyNode<ContentToken> {
 

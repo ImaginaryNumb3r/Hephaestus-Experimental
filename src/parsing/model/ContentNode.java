@@ -1,11 +1,18 @@
 package parsing.model;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Objects;
 
 /**
  * Creator: Patrick
  * Created: 20.03.2019
- * Content node meant for re-use.
+ * Grammar: Prefix String Postfix
+ * Where Prefix and Postfix are user defined terminals.
+ *
+ * @apiNote  This class is not meant to be used directly but to be inherited for a specific purpose like {@link ContentToken}.
+ * @implNote Ideally, this class would be abstract.<br>
+ *           However, to create a copy we need to access the constructor of this class.
  */
 public class ContentNode extends AbstractParseNode {
     protected final StringBuilder _buffer;
@@ -16,13 +23,17 @@ public class ContentNode extends AbstractParseNode {
         this(suffix, suffix);
     }
 
-    public ContentNode(String prefix, String postfix) {
+    /**
+     * @param prefix optional prefix which serves as accepting condition.
+     * @param postfix that must not be empty and finishes the parsing for this node.
+     */
+    public ContentNode(@NotNull String prefix, @NotNull String postfix) {
         _buffer = new StringBuilder();
         _prefix = prefix;
         _postfix = postfix;
 
         if (postfix.isEmpty()) {
-            throw new IllegalStateException("Content postfix must not be empty. TODO: Turn this into a logging error");
+            throw new IllegalStateException("Content postfix must not be empty.");
         }
     }
 

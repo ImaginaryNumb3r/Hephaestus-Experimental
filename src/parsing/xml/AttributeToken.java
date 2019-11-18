@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 /**
  * Creator: Patrick
  * Created: 20.03.2019
- * Space Text Whitespace '=' Whitespace "Text"
+ * Grammar: Space Text Whitespace '=' Whitespace "Text"
  */
 public class AttributeToken extends SequenceNode implements CopyNode<AttributeToken> {
     private final TextToken _name;

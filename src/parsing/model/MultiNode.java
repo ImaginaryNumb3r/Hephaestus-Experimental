@@ -14,6 +14,7 @@ import java.util.stream.Stream;
  * Created: 20.03.2019
  * This is a node which represents multiple subsequent nodes of the same kind.
  * This node never returns invalid.
+ * Grammar: T*
  */
 public class MultiNode<T extends CopyNode<T>> extends AbstractParseNode implements ListIterable<T> {
     protected final List<T> _elements;
@@ -68,8 +69,8 @@ public class MultiNode<T extends CopyNode<T>> extends AbstractParseNode implemen
     @Override
     public MultiNode<T> deepCopy() {
         List<T> elements = _elements.stream()
-            .map(CopyNode::deepCopy)
-            .collect(Collectors.toList());
+                .map(CopyNode::deepCopy)
+                .collect(Collectors.toList());
 
         MultiNode<T> copy = new MultiNode<>(_tokenConstructor);
         copy._elements.addAll(elements);

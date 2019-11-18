@@ -14,8 +14,9 @@ import static java.util.Arrays.asList;
 /**
  * Creator: Patrick
  * Created: 27.10.2019
+ * Grammar: (',' JValues)*
  */
-/*package*/ class JValues extends SequenceNode implements CopyNode<JValues> {
+/*package*/ final class JValues extends SequenceNode implements CopyNode<JValues> {
     private final JValue _first;
     private final MultiNode<MultiValue<JValue>> _values;
 

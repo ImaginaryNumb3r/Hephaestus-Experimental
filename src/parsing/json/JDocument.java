@@ -4,9 +4,7 @@ import parsing.model.CopyNode;
 import parsing.model.ParseResult;
 import parsing.model.SequenceNode;
 import parsing.model.WhitespaceToken;
-import parsing.xml.XMLDocument;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,7 +16,7 @@ import static java.util.Arrays.asList;
  * Created: 27.10.2019
  * Purpose:
  */
-public class JDocument extends SequenceNode implements CopyNode<JDocument> {
+public final class JDocument extends SequenceNode implements CopyNode<JDocument> {
     private final JObject _root;
 
     public JDocument() {

@@ -48,7 +48,7 @@ public class XMLText extends ContentNode implements CopyNode<XMLText> {
         }
 
 
-        // TODO: Remove and turn into a general rule for content token at parse-time.
+        // TODO: Remove and turn into a general rule for content token at consume-time.
 
         // if (nextIndex != result.index()) throw new IllegalStateException("TODO");
 

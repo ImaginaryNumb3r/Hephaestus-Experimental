@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Creator: Patrick
  * Created: 20.03.2019
- * Accepts all input as long as the condition evaluates to true.
+ * Accepts all input as long as the condition evaluates to true (even the empty string).
  */
 public class OptionalConsumer extends AbstractParseNode implements CharSequence {
     /*package*/ final StringBuilder _buffer;

@@ -3,11 +3,12 @@ package parsing.model;
 /**
  * Creator: Patrick
  * Created: 20.03.2019
- * Accepts all input as long as the condition evaluates to true. However, the empty string is not a valid state.
+ * Accepts all input as long as the condition evaluates to true. However, the <b>empty string is not a valid state</b>.
  *
  * In other words, this node will build a buffer of all characters which are accepted in the predicate.
  * Characters are added to the buffer as long as the predicate is satisfied.
- * The only way for invalid parsing is if the first character fails the predicate.
+ * Parsing will finish as soon as a character does not satisfy the predicate.
+ * The only way for invalid parsing is if the first character is not accepted by the predicate.
  */
 public class ConsumerNode extends OptionalConsumer {
 

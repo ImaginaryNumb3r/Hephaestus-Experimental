@@ -7,9 +7,10 @@ import parsing.model.ParseResult;
 /**
  * Creator: Patrick
  * Created: 28.10.2019
- * Purpose:
+ * Grammar: ( 'True' | 'TRUE' | 'true' | ... ) |
+ *          ( 'False' | 'FALSE' | 'false' | ... )
  */
-public class JBool extends AbstractParseNode implements CopyNode<JBool> {
+public final class JBool extends AbstractParseNode implements CopyNode<JBool> {
     private static final int INVALID = -1;
     private boolean _value;
     private boolean _parsed = false;

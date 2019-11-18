@@ -9,9 +9,9 @@ import java.util.Optional;
 /**
  * Creator: Patrick
  * Created: 21.03.2019
- * Grammar: Whitespace [ CommentTag | XMLTag ]
- *          Whitespace [ CommentTag | <Name Attributes Whitespace ( ( > InnerNodes </Name> ) | /> ) ]
  * May be a getTag or a comment.
+ * Grammar: Whitespace [ CommentTag | XMLTag ]
+ *          Whitespace [ CommentTag | '<' "Name" Attributes Whitespace ( ( '>' InnerNodes '</' "Name" '>' ) | '/>' ) ]
  */
 public class XMLNode extends EitherNode<XMLTag, CommentToken> implements CopyNode<XMLNode> {
     private final WhitespaceToken _leadingWhitespace;

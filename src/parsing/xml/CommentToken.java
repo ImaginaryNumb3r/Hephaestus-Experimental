@@ -6,7 +6,7 @@ import parsing.model.CopyNode;
 /**
  * Creator: Patrick
  * Created: 21.03.2019
- * Purpose:
+ * '<!--' "Text" '--/>'
  */
 public class CommentToken extends ContentNode implements CopyNode<CommentToken> {
     public static String COMMENT_START = "<!--";

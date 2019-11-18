@@ -8,28 +8,27 @@ import java.util.stream.Collectors;
 /**
  * Creator: Patrick
  * Created: 20.03.2019
- * ZODO: Rename to XML Attributes?
  */
-public class AttributesNode extends MultiNode<AttributeToken> implements CopyNode<AttributesNode> {
+public class XMLAttributes extends MultiNode<AttributeToken> implements CopyNode<XMLAttributes> {
 
-    protected AttributesNode() {
+    protected XMLAttributes() {
         super(AttributeToken::new);
     }
 
     @Override
-    public AttributesNode deepCopy() {
+    public XMLAttributes deepCopy() {
         var elements = _elements.stream()
                 .map(CopyNode::deepCopy)
                 .collect(Collectors.toList());
 
-        AttributesNode copy = new AttributesNode();
+        XMLAttributes copy = new XMLAttributes();
         copy._elements.addAll(elements);
 
         return copy;
     }
 
     @Override
-    public void setData(AttributesNode other) {
+    public void setData(XMLAttributes other) {
         _elements.clear();
 
         var elementsCopy = other._elements.stream()

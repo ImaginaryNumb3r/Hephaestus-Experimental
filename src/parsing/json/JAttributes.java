@@ -14,9 +14,9 @@ import static java.util.Arrays.asList;
 /**
  * Creator: Patrick
  * Created: 27.10.2019
- * Purpose:
+ * Grammar: Whitespace JAttribute ( Whitespace ',' JAttribute )*
  */
-/*package*/ class JAttributes extends SequenceNode implements CopyNode<JAttributes> {
+/*package*/ final class JAttributes extends SequenceNode implements CopyNode<JAttributes> {
     private final JAttribute _first;
     private final MultiNode<MultiValue<JAttribute>> _values;
 

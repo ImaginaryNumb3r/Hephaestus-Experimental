@@ -7,9 +7,9 @@ import java.util.Arrays;
 /**
  * Creator: Patrick
  * Created: 27.10.2019
- * Purpose:
+ * Grammar: Whitespace "Key" Whitespace ":" JValue
  */
-public class JAttribute extends SequenceNode implements CopyNode<JAttribute> {
+public final class JAttribute extends SequenceNode implements CopyNode<JAttribute> {
     private ContentNode _key;
     private JValue _value;
 

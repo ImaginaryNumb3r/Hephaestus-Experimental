@@ -9,8 +9,9 @@ import java.util.function.Supplier;
  * Creator: Patrick
  * Created: 27.10.2019
  * A value that is preceded by a comma and according whitespaces. It is to be used in objects and arrays.
+ * Grammar: ',' T
  */
-/*package*/ class MultiValue<T extends CopyNode<T>> extends SequenceNode implements CopyNode<MultiValue<T>>  {
+/*package*/ final class MultiValue<T extends CopyNode<T>> extends SequenceNode implements CopyNode<MultiValue<T>>  {
     private final Supplier<T> _valueConstructor;
     private final T _value;
 

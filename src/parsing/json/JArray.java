@@ -11,8 +11,10 @@ import java.util.Arrays;
  * Creator: Patrick
  * Created: 27.10.2019
  * An array consists of a list of list of values separated by commas.
+ * Grammar: ( '[' Whitespace ']' ) |
+ *          ( '[' JValue ( ',' JValue)* ']' )
  */
-public class JArray extends SequenceNode implements CopyNode<JArray> {
+public final class JArray extends SequenceNode implements CopyNode<JArray> {
     private final JValues _values;
 
     public JArray() {

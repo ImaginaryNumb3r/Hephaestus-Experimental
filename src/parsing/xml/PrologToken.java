@@ -6,7 +6,7 @@ import parsing.model.CopyNode;
 /**
  * Creator: Patrick
  * Created: 20.03.2019
- * TODO: Also parse Attributes (similar to ClosedTag)
+ * TODO: Also consume Attributes (similar to ClosedTag)
  */
 public class PrologToken extends ContentNode implements CopyNode<PrologToken> {
 

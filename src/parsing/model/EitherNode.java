@@ -8,7 +8,8 @@ import java.util.Optional;
 /**
  * Creator: Patrick
  * Created: 20.03.2019
- * Purpose:
+ * Grammar: O | M
+ * @apiNote must always parse either O or M to have valid state.
  */
 public class EitherNode<O extends CopyNode<O>, M extends CopyNode<M>> extends AbstractParseNode {
     private final O _optional;

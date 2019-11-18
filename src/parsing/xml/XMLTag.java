@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * Creator: Patrick
  * Created: 20.03.2019
  * Grammar: TagHeader XMLTail
- *          <Name Attributes Whitespace ( ( > InnerNodes </Name> ) | /> )
+ *          '<' "Name" Attributes Whitespace ( ( '>' InnerNodes '</' "Name" '>' ) | '/>' )
  */
 public class XMLTag extends AbstractParseNode implements CopyNode<XMLTag> {
     private final TagHeader _head;

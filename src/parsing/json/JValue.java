@@ -9,7 +9,7 @@ import java.util.Objects;
 /**
  * Creator: Patrick
  * Created: 27.10.2019
- * Purpose:
+ * Grammar: JObject | JArray | ( '"' "Text '"' ) | JNumber | JBool | null
  */
 public class JValue extends AbstractParseNode implements CopyNode<JValue> {
     private JValueType _type;

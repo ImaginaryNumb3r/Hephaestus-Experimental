@@ -1,7 +1,6 @@
 package parsing.json;
 
 import parsing.model.AbstractParseNode;
-import parsing.model.CharPredicate;
 import parsing.model.CopyNode;
 import parsing.model.ParseResult;
 
@@ -14,9 +13,10 @@ import static java.util.Arrays.asList;
 /**
  * Creator: Patrick
  * Created: 28.10.2019
- * Grammar: ('-') (0 | 1..9) (0..9)* ( '.' (0..9)+ ) ( 'e' | 'E' ) ( '+' | '-' )? (0..9)*
+ * Integer Grammar:     '-'? (0..9)*
+ * Real Number Grammar: '-'? '0'? '.' (0..9)+ ( ( 'e' | 'E' ) ( '+' | '-' )? (0..9)+ )?
  */
-public class JNumber extends AbstractParseNode implements CopyNode<JNumber> {
+public final class JNumber extends AbstractParseNode implements CopyNode<JNumber> {
     private boolean _isRealNumber;
     private String _string;
     private double _value = Double.NaN;

@@ -1,6 +1,7 @@
 package parsing.xml;
 
 import collections.iterator.Iterators;
+import essentials.annotations.Unfinished;
 
 import java.util.Iterator;
 import java.util.Optional;
@@ -8,8 +9,9 @@ import java.util.Optional;
 /**
  * Creator: Patrick
  * Created: 05.04.2019
- * Purpose:
+ * TODO: Either finish or remove.
  */
+@Unfinished
 public class Navigator {
 
     public static Optional<XMLTag> getTag(XMLDocument root, String... path) {
