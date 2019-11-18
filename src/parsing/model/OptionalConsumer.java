@@ -1,6 +1,7 @@
 package parsing.model;
 
 import essentials.annotations.Package;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -9,8 +10,11 @@ import java.util.Objects;
  * Created: 20.03.2019
  * Accepts all input as long as the condition evaluates to true.
  * Also terminates if the end of the input was reached.
+ *
+ * @implNote does not extend AbstractParseNode since its built-in range check would violate the empty string policy of this Consumer.
+ *           Since an empty string at the end of the document is possible and likely.
  */
-public class OptionalConsumer extends AbstractParseNode implements CharSequence {
+public class OptionalConsumer implements ParseNode, CharSequence {
     @Package final StringBuilder _buffer;
     @Package final CharPredicate _acceptCondition;
 
@@ -20,7 +24,12 @@ public class OptionalConsumer extends AbstractParseNode implements CharSequence 
     }
 
     @Override
-    protected ParseResult parseImpl(String chars, final int start) {
+    public ParseResult parse(String chars, final int start) {
+        // To parse an empty string at the end of the document. The consumer state then defaults to empty-string.
+        if (chars.length() == start) {
+            return ParseResult.at(start);
+        }
+
         int end = start;
 
         char ch = chars.charAt(start);
@@ -32,6 +41,11 @@ public class OptionalConsumer extends AbstractParseNode implements CharSequence 
         _buffer.append(slice);
 
         return ParseResult.at(end);
+    }
+
+    @Override
+    public String asString() {
+        return toString();
     }
 
     @Override
@@ -49,6 +63,7 @@ public class OptionalConsumer extends AbstractParseNode implements CharSequence 
         return _buffer.subSequence(start, end);
     }
 
+    @NotNull
     @Override
     public String toString() {
         return _buffer.toString();

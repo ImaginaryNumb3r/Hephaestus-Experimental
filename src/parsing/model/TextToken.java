@@ -7,7 +7,8 @@ import java.util.Set;
 /**
  * Creator: Patrick
  * Created: 20.03.2019
- * Non-empty string token.
+ * Non-empty string token that is used for identifying names of tags.
+ * May not contain whitespace.
  *
  * Minor design flaw: Can be set to empty.
  */
