@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 /**
  * Creator: Patrick
  * Created: 20.03.2019
- * ZODO: Rename to XML Attributes?
+ * ZODO: Rename to Attribute Attributes?
  */
 public class XMLAttributes extends MultiNode<AttributeToken> implements CopyNode<XMLAttributes> {
 

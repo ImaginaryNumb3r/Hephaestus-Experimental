@@ -3,13 +3,6 @@ package parsing.model;
 /**
  * Creator: Patrick
  * Created: 20.03.2019
- * TODO: Deal with the problem that some tokens have state.
- *
- * Wording:
- *  - Token
- *  - Node
- *  - Tag
- *  - Terminal -> Elemental string for direct parsing
  */
 public interface ParseNode {
     int INVALID = -1;
@@ -32,6 +25,9 @@ public interface ParseNode {
      */
     String toString();
 
+    /**
+     * @return a copy of the current node and all of its containing children.
+     */
     ParseNode deepCopy();
 
 }

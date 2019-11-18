@@ -1,11 +1,15 @@
 package parsing.model;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Set;
 
 /**
  * Creator: Patrick
  * Created: 20.03.2019
  * Non-empty string token.
+ *
+ * Minor design flaw: Can be set to empty.
  */
 public class TextToken extends ConsumerNode implements CopyNode<TextToken> {
     private static final Set<Character> ALLOWED_CHARS = Set.of('_', '.', ':', '-');
@@ -14,10 +18,10 @@ public class TextToken extends ConsumerNode implements CopyNode<TextToken> {
         super(ch -> Character.isAlphabetic(ch) || Character.isDigit(ch) || ALLOWED_CHARS.contains(ch));
     }
 
-    public void setText(CharSequence text) {
-        /* if (text.isBlank()) {
+    public void setText(CharSequence text) { /*
+        if (text.length() == 0) {
             throw new IllegalArgumentException("Cannot set value of Text to blank strings.");
-        }*/
+        }  */
 
         _buffer.setLength(0);
         _buffer.append(text);
@@ -44,6 +48,7 @@ public class TextToken extends ConsumerNode implements CopyNode<TextToken> {
     /**
      * @return the parsed text as string.
      */
+    @NotNull
     @Override
     public String toString() {
         return super.toString();

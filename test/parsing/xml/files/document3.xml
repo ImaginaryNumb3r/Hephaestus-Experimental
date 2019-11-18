@@ -56,14 +56,14 @@
 						WeaponSlotType="SECONDARY_WEAPON"
 						BoneName="LEFTHAND" />
 				</ModelConditionState>
-				
+
 				<ModelConditionState
 					ParseCondStateType="PARSE_NORMAL"
 					ConditionsYes="FORMATION_PREVIEW">
 					<Model
 						Name="W3DContainer:FXINFANTRY_FP" />
 				</ModelConditionState>
-				
+
 				<ModelConditionState
 					ParseCondStateType="PARSE_NORMAL"
 					ConditionsYes="INSIDE_GARRISON">
@@ -74,7 +74,7 @@
 					<WeaponLaunchBone
 						BoneName="B_WEAPONA_FX" />
 				</ModelConditionState>
-				
+
 				<ModelConditionState
 					ParseCondStateType="PARSE_NORMAL"
 					ConditionsYes="USER_1">
@@ -84,7 +84,7 @@
 						Original="NUCnfsrCabal"
 						New="BHUHighCnfsr" />
 				</ModelConditionState>
-				
+
 				<AnimationState
 					ParseCondStateType="PARSE_NORMAL"
 					ConditionsYes="FORMATION_PREVIEW" />
@@ -354,7 +354,7 @@
 						AnimationName="NU_BLKHND_ATRA"
 						AnimationMode="LOOP" />
 				</AnimationState> -->
-				
+
 				<AnimationState
 					ParseCondStateType="PARSE_NORMAL"
 					ConditionsYes="USING_WEAPON_A"
@@ -363,7 +363,7 @@
 						AnimationName="NUCNFSRUPGRD_ATKC"
 						AnimationMode="LOOP" />
 				</AnimationState>
-				
+
 				<AnimationState
 					ParseCondStateType="PARSE_NORMAL"
 					ConditionsYes="USING_WEAPON_A"
@@ -451,7 +451,7 @@
 						AnimationSpeedFactorMax="1.1" />
 				</AnimationState>
 			</ScriptedModelDraw>
-			
+
 			<LaserDraw
 				id="0x9FE06199"
 				Texture1_VTile="0.5"
@@ -574,7 +574,7 @@
 				<ObjectStatusValidation
 					RequiredStatus="WEAPON_UPGRADED_01" />
 			</LaserDraw>
-			
+
 			<ScriptedModelDraw
 				id="ModuleTag_DefaultDecal"
 				MaxRecoilDistance="3"
@@ -584,7 +584,7 @@
 					ParseCondStateType="PARSE_DEFAULT">
 					<Model />
 				</ModelConditionState>
-				
+
 				<ModelConditionState
 					ParseCondStateType="PARSE_NORMAL"
 					ConditionsYes="USER_6">
@@ -602,7 +602,7 @@
 						UseHouseColor="True"
 						LocalPlayerOnly="True" />
 				</ModelConditionState>
-				
+
 				<ModelConditionState
 					ParseCondStateType="PARSE_NORMAL"
 					ConditionsYes="USER_1">
@@ -621,7 +621,7 @@
 						LocalPlayerOnly="True" />
 				</ModelConditionState>
 			</ScriptedModelDraw>
-			
+
 			<ScriptedModelDraw
 				id="0x3A238BAD"
 				MaxRecoilDistance="3"
@@ -631,7 +631,7 @@
 					ParseCondStateType="PARSE_DEFAULT">
 					<Model />
 				</ModelConditionState>
-				
+
 				<ModelConditionState
 					ParseCondStateType="PARSE_NORMAL"
 					ConditionsYes="SELECTED USER_6">
@@ -649,7 +649,7 @@
 						UseHouseColor="True"
 						LocalPlayerOnly="True" />
 				</ModelConditionState>
-				
+
 				<ModelConditionState
 					ParseCondStateType="PARSE_NORMAL"
 					ConditionsYes="SELECTED">
@@ -676,7 +676,7 @@
 				AddConditionFlags="USER_6">
 				<TriggeredBy>Upgrade_NodKanesWill</TriggeredBy>
 			</ModelConditionUpgrade>
-			
+
 			<AutoHealBehavior
 				id="ModuleTag_CommandoHealing"
 				HealingAmount="5"
@@ -709,9 +709,9 @@
 			<RandomModelCondition
 				id="ModuleTag_Reskin"
 				Conditions="USER_1" />
-			
-			
-			
+
+
+
 			<AttributeModifierAuraUpdate
 				id="ModuleTag_KanesWillAttributeModifier"
 				AttributeModifierName="KanesWill_Commando_AttributeModifier"
@@ -742,7 +742,7 @@
 				</ObjectFilter>
 				<TriggeredBy>Upgrade_CallSupportUpgrade</TriggeredBy>
 			</AttributeModifierAuraUpdate>
-			
+
 			<AttributeModifierAuraUpdate
 				id="ModuleTag_KanesWillAttributeModifier"
 				AttributeModifierName="BlackHand_KanesWill_AttributeModifier"
@@ -773,7 +773,7 @@
 				</ObjectFilter>
 				<TriggeredBy>Upgrade_CallSupportUpgrade</TriggeredBy>
 			</AttributeModifierAuraUpdate>
-			
+
 			<GrantUpgradeCreate
 				id="0x77FA1297"
 				UpgradeToGrant="Upgrade_CallSupportUpgrade" />
@@ -782,27 +782,27 @@
 				<TriggeredBy>Upgrade_NodKanesWill</TriggeredBy>
 				<UpgradeToRemove>Upgrade_CallSupportUpgrade</UpgradeToRemove>
 			</RemoveUpgradeUpgrade>
-			
-			
-			
+
+
+
 			<!--
 			<AttributeModifierAuraUpdate
 				id="0x2F4453FB"
 				AttributeModifierName="Confessor_Commando_AttributeModifier"
 				RefreshDelay="1s"
-				Range="225"
+				TimeRange="225"
 				InitiallyActive="True">
 				<ObjectFilter
 					Rule="ANY"
 					Relationship="ALLIES"
 					Include="INFANTRY" />
 			</AttributeModifierAuraUpdate>
-			
+
 			<AttributeModifierAuraUpdate
 				id="0x5F88AA91"
 				AttributeModifierName="Confessor_Militant_AttributeModifier"
 				RefreshDelay="1s"
-				Range="200"
+				TimeRange="200"
 				InitiallyActive="True">
 				<ObjectFilter
 					Rule="ANY"

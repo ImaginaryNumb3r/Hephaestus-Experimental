@@ -23,12 +23,14 @@ public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocume
     private WhitespaceToken _prologueWhitespace;
     private final XMLComments _comments;
     private final XMLTag _root;
+    private final WhitespaceToken _trailingWhitespace;
 
     public XMLDocument() {
         _prologue = new XMLProlog();
         _prologueWhitespace = new WhitespaceToken();
         _comments = new XMLComments();
         _root = new XMLTag();
+        _trailingWhitespace = new WhitespaceToken();
     }
 
     public static XMLDocument ofFile(Path path) throws IOException {
@@ -83,12 +85,16 @@ public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocume
         ParseResult comments = _comments.parse(chars, nextIndex);
         nextIndex = comments.isValid() ? comments.index() : nextIndex;
 
-        return _root.parse(chars, nextIndex);
+        ParseResult body = _root.parse(chars, nextIndex);
+        if (body.isInvalid()) return body;
+
+        nextIndex = body.index();
+        return _trailingWhitespace.parse(chars, nextIndex);
     }
 
     @Override
     public String toString() {
-        return _prologue.toString() + _prologueWhitespace.toString() + _root.toString();
+        return _prologue.toString() + _prologueWhitespace.toString() + _root.toString() + _trailingWhitespace.toString();
     }
 
     @Override
@@ -100,6 +106,7 @@ public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocume
         copy._root.setData(rootCopy);
         copy._prologue.setData(prologCopy);
         copy._prologueWhitespace.setData(_prologueWhitespace);
+        copy._trailingWhitespace.setData(_trailingWhitespace);
 
         return copy;
     }

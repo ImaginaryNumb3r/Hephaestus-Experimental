@@ -21,6 +21,7 @@ import static clc.domain.Project.PROJECT_PATH;
  */
 public class Communicator {
 
+    // TODO: Update so only new entries in the index are overwritten.
     public static void forceUpdate(Map<Path, XMLDocument> xmlDirectory) throws IOException {
         VisionMapper mapper = VisionMapper.instance();
         mapper.resetCollections();

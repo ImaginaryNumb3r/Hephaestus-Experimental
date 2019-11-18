@@ -2,10 +2,10 @@
 
 Text aoiweu!"30912 <!-- --></
 
-<carname type= "formula one">Ferrari 101</carname	>
-<carname type = 	"sports">Ferrari 202</		carname
+<carname _type= "formula one">Ferrari 101</carname	>
+<carname _type = 	"sports">Ferrari 202</		carname
 >
-<carname type =
+<carname _type =
 	"@Integer_Type">
 @Integer_Value
 </carname >

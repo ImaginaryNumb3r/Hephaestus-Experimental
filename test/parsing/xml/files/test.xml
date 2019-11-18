@@ -1,9 +1,9 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 <cars>
     <supercars company = "@Company_Name">
-        <carname type = "formula one">Ferrari 101</carname>
-        <carname type = "sports">Ferrari 202</carname>
-        <carname type = "@Integer_Type">@Integer_Value<!-- --></carname>
+        <carname _type = "formula one">Ferrari 101</carname>
+        <carname _type = "sports">Ferrari 202</carname>
+        <carname _type = "@Integer_Type">@Integer_Value<!-- --></carname>
     </supercars>
     <!-- Comment -->
     <attributes
@@ -14,9 +14,9 @@
 
 <cars>
 <supercars company = "@Company_Name">
-    <carname type = "formula one">Ferrari 101</carname>
-    <carname type = "sports">Ferrari 202</carname>
-    <carname type = "@Integer_Type">@Integer_Value</carname>
+    <carname _type = "formula one">Ferrari 101</carname>
+    <carname _type = "sports">Ferrari 202</carname>
+    <carname _type = "@Integer_Type">@Integer_Value</carname>
 </supercars>
 <attributes
     first = "true"

@@ -8,6 +8,7 @@ import java.util.Objects;
  * Creator: Patrick
  * Created: 20.03.2019
  * Accepts all input as long as the condition evaluates to true.
+ * Also terminates if the end of the input was reached.
  */
 public class OptionalConsumer extends AbstractParseNode implements CharSequence {
     @Package final StringBuilder _buffer;
@@ -20,20 +21,17 @@ public class OptionalConsumer extends AbstractParseNode implements CharSequence 
 
     @Override
     protected ParseResult parseImpl(String chars, final int start) {
-        int offset = 0;
+        int end = start;
 
         char ch = chars.charAt(start);
-        while (_acceptCondition.test(ch)) {
-
-            // TODO: Add range of characters after loop.
-            ++offset;
-            ch = chars.charAt(start + offset);
+        while (_acceptCondition.test(ch) && ++end < chars.length()) {
+            ch = chars.charAt(end);
         }
 
-        String slice = chars.substring(start, start + offset);
+        String slice = chars.substring(start, end);
         _buffer.append(slice);
 
-        return ParseResult.at(start + offset);
+        return ParseResult.at(end);
     }
 
     @Override

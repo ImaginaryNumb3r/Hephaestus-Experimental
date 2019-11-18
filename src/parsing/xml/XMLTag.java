@@ -1,5 +1,6 @@
 package parsing.xml;
 
+import lib.OptionalHelper;
 import parsing.model.AbstractParseNode;
 import parsing.model.CopyNode;
 import parsing.model.ParseResult;
@@ -33,10 +34,18 @@ public class XMLTag extends AbstractParseNode implements CopyNode<XMLTag>, XMLSt
     }
 
     //<editor-fold desc="Child Tags">
-    public Optional<XMLTag> fetchTag(String name) {
+    public Optional<XMLTag> getTag(String name) {
         return _tail.childTags().stream()
                 .filter(node -> node.getName().equals(name))
                 .findFirst();
+    }
+
+    public XMLTag fetchTag(String tagName) {
+        return getTag(tagName).orElse(null);
+    }
+
+    public boolean hasTag(String tagName) {
+        return getTag(tagName).isPresent();
     }
 
     public List<XMLTag> getTags(String tagName) {
@@ -62,10 +71,7 @@ public class XMLTag extends AbstractParseNode implements CopyNode<XMLTag>, XMLSt
     }
 
     public AttributeToken getAttribute(String attributeName) {
-        return attributes().stream()
-                .filter(attribute -> attribute.getName().equals(attributeName))
-                .findAny()
-                .orElse(null);
+        return fetchAttribute(attributeName).orElse(null);
     }
 
     public boolean hasAttributes(String attributeName) {
@@ -126,7 +132,7 @@ public class XMLTag extends AbstractParseNode implements CopyNode<XMLTag>, XMLSt
         if (tailResult.isInvalid()) return headResult;
 
         if (!isCorrect()) {
-            return ParseResult.invalid(index, "Rejected parsing XML Tag because of inconsistent tag names", headResult, tailResult);
+            return ParseResult.invalid(index, "Rejected parsing Attribute Tag because of inconsistent tag names", headResult, tailResult);
         }
 
         return tailResult;
@@ -134,7 +140,7 @@ public class XMLTag extends AbstractParseNode implements CopyNode<XMLTag>, XMLSt
 
     /**
      * Validates the integrity of the whole tag.
-     * @return true if XML specification is adhered.
+     * @return true if Attribute specification is adhered.
      */
     private boolean isCorrect() {
         // Don't compare tail with head name if there is no tail name.

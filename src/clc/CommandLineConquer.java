@@ -44,22 +44,22 @@ public class CommandLineConquer {
 
         System.out.println("Seconds: " + (end - start) / 1000d);
         System.out.println("Done Parsing!");
-
         System.out.println();
+
+        forceUpdate(program.getXmlDirectory());
+        end = System.currentTimeMillis();
+        System.out.println("Total time: " + (end - start) / 1000d);
+    }
+
+        /*
         var list = program.getXmlDirectory().keySet().stream()
             .sorted()
             .collect(Collectors.toList());
 
-        /*
         var predator = list.stream().filter(xml -> xml.toString().contains("ZOCOMPredator.xml")).findAny();
         Path predatorPath = predator.orElse(Path.of(""));
         XMLDocument predatorXML = XMLDocument.ofFile(predatorPath);
 
         Optional<XMLTag> health = Navigator.getTag(predatorXML, "AssetDeclaration", "GameObject", "Body", "ActiveBody");
         health.ifPresent(tag -> System.out.println("Predator HP: " + tag.getAttribute("MaxHealth").getValue())); */
-
-        forceUpdate(program.getXmlDirectory());
-        end = System.currentTimeMillis();
-        System.out.println("Total time: " + (end - start) / 1000d);
-    }
 }

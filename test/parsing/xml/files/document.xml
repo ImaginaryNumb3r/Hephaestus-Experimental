@@ -53,7 +53,7 @@
 						Name="W3DContainer:SQUADMARKNUROC" />
 				</ModelConditionState>
 			</ScriptedModelDraw>
-			
+
 			<ScriptedModelDraw
 				id="ModuleTag_DefaultDecal"
 				MaxRecoilDistance="3"
@@ -63,7 +63,7 @@
 					ParseCondStateType="PARSE_DEFAULT">
 					<Model />
 				</ModelConditionState>
-				
+
 				<ModelConditionState
 					ParseCondStateType="PARSE_NORMAL"
 					ConditionsYes="USER_6">
@@ -81,7 +81,7 @@
 						UseHouseColor="True"
 						LocalPlayerOnly="True" />
 				</ModelConditionState>
-				
+
 				<ModelConditionState
 					ParseCondStateType="PARSE_NORMAL"
 					ConditionsYes="USER_1">
@@ -100,7 +100,7 @@
 						LocalPlayerOnly="True" />
 				</ModelConditionState>
 			</ScriptedModelDraw>
-			
+
 			<ScriptedModelDraw
 				id="0x3A238BAD"
 				MaxRecoilDistance="3"
@@ -110,7 +110,7 @@
 					ParseCondStateType="PARSE_DEFAULT">
 					<Model />
 				</ModelConditionState>
-				
+
 				<ModelConditionState
 					ParseCondStateType="PARSE_NORMAL"
 					ConditionsYes="SELECTED USER_6">
@@ -128,7 +128,7 @@
 						UseHouseColor="True"
 						LocalPlayerOnly="True" />
 				</ModelConditionState>
-				
+
 				<ModelConditionState
 					ParseCondStateType="PARSE_NORMAL"
 					ConditionsYes="SELECTED">
@@ -207,7 +207,7 @@
 				AddConditionFlags="USER_6">
 				<TriggeredBy>Upgrade_NodKanesWill</TriggeredBy>
 			</ModelConditionUpgrade>
-			
+
 			<StealthDetectorUpdate
 				id="0x70ED959C"
 				DetectionRange="100" />
@@ -337,7 +337,7 @@
 				</RankInfo>
 				<RankToReleaseWhenAttacking>1</RankToReleaseWhenAttacking>
 				<RankToReleaseWhenAttacking>2</RankToReleaseWhenAttacking>
-				
+
 				<BannerCarrierPosition>
 					<UnitType>BlackHandBlackDisciple</UnitType>
 					<Pos
@@ -382,7 +382,7 @@
 				UnpackTime="2s"
 				Options="DO_CAPTURE_FX"
 				FaceTarget="True" />
-			
+
 			<AttributeModifierAuraUpdate
 				id="ModuleTag_KanesWillAttributeModifier"
 				AttributeModifierName="BlackHand_KanesWill_AttributeModifier"
@@ -421,13 +421,13 @@
 				<TriggeredBy>Upgrade_NodKanesWill</TriggeredBy>
 				<UpgradeToRemove>Upgrade_CallSupportUpgrade</UpgradeToRemove>
 			</RemoveUpgradeUpgrade>
-			
+
 			<!--
 			<AttributeModifierAuraUpdate
 				id="0x2F4453FB"
 				AttributeModifierName="Confessor_Militant_AttributeModifier"
 				RefreshDelay="1s"
-				Range="150"
+				TimeRange="150"
 				InitiallyActive="True">
 				<ObjectFilter
 					Rule="ANY"
@@ -469,7 +469,7 @@
 				MinCowerTime="3s"
 				MaxCowerTime="5s"
 				CanAttackWhileContained="True">
-				
+
 				<UnitAITargetChooserData
 					SympathyRange="100"
 					TargetingCompareList="DefaultTargetingCompareList" />
