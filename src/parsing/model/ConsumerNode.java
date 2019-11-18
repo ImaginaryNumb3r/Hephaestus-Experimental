@@ -24,6 +24,6 @@ public class ConsumerNode extends OptionalConsumer {
             return ParseResult.invalid(index, "Violated accept condition with char: " + chars.charAt(index));
         }
 
-        return parseImpl(chars, index);
+        return super.parse(chars, index);
     }
 }

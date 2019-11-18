@@ -18,13 +18,15 @@ import java.util.Objects;
  */
 public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocument> {
     private final XMLProlog _prolog;
+    private WhitespaceToken _prologWhitespace;
     private final XMLTag _root;
-    private WhitespaceToken _whitespace;
+    private WhitespaceToken _trailingWhitespace;
 
     public XMLDocument() {
         _prolog = new XMLProlog();
+        _prologWhitespace = new WhitespaceToken();
         _root = new XMLTag();
-        _whitespace = new WhitespaceToken();
+        _trailingWhitespace = new WhitespaceToken();
     }
 
     public static XMLDocument ofFile(Path path) throws IOException {
@@ -67,16 +69,21 @@ public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocume
         ParseResult prolog = _prolog.parse(chars, index);
         int nextIndex = prolog.isValid() ? prolog.index() : index;
 
-        ParseResult whitespace = _whitespace.parse(chars, nextIndex);
+        ParseResult whitespace = _prologWhitespace.parse(chars, nextIndex);
         if (whitespace.isInvalid()) return whitespace;
 
         nextIndex = whitespace.index();
-        return _root.parse(chars, nextIndex);
+        ParseResult body = _root.parse(chars, nextIndex);
+
+        if (body.isInvalid()) return body;
+        nextIndex = body.index();
+
+        return _trailingWhitespace.parse(chars, nextIndex);
     }
 
     @Override
     public String toString() {
-        return _prolog.toString() + _whitespace.toString() + _root.toString();
+        return _prolog.toString() + _prologWhitespace + _root.toString() + _trailingWhitespace;
     }
 
     @Override
@@ -87,7 +94,8 @@ public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocume
 
         copy._root.setData(rootCopy);
         copy._prolog.setData(prologCopy);
-        copy._whitespace.setData(_whitespace);
+        copy._prologWhitespace.setData(_prologWhitespace);
+        copy._trailingWhitespace.setData(_trailingWhitespace);
 
         return copy;
     }
@@ -100,12 +108,20 @@ public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocume
         return _root;
     }
 
-    public String getWhitespace() {
-        return _whitespace.toString();
+    public String getPrologWhitespace() {
+        return _prologWhitespace.toString();
     }
 
-    public void setWhitespace(CharSequence whitespace) {
-        _whitespace.setWhitespace(whitespace);
+    public void setPrologWhitespace(CharSequence prologWhitespace) {
+        _prologWhitespace.setWhitespace(prologWhitespace);
+    }
+
+    public String getTrailingWhitespace() {
+        return _trailingWhitespace.toString();
+    }
+
+    public void setTrailingWhitespace(CharSequence trailingWhitespace) {
+        _trailingWhitespace.setWhitespace(trailingWhitespace);
     }
 
     @Override
@@ -115,13 +131,16 @@ public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocume
 
         _root.setData(rootCopy);
         _prolog.setData(prologCopy);
-        _whitespace.setData(_whitespace);
+        _prologWhitespace.setData(other._prologWhitespace);
+        _trailingWhitespace.setData(other._trailingWhitespace);
     }
 
     @Override
     public void reset() {
+        _prologWhitespace.reset();
         _prolog.reset();
         _root.reset();
+        _trailingWhitespace.reset();
     }
 
     @Override
@@ -131,11 +150,12 @@ public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocume
         XMLDocument that = (XMLDocument) o;
         return Objects.equals(_prolog, that._prolog) &&
                 Objects.equals(_root, that._root) &&
-                Objects.equals(_whitespace, that._whitespace);
+                Objects.equals(_prologWhitespace, that._prologWhitespace) &&
+                Objects.equals(_trailingWhitespace, that._trailingWhitespace);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(_prolog, _root, _whitespace);
+        return Objects.hash(_prolog, _prologWhitespace, _root, _trailingWhitespace);
     }
 }

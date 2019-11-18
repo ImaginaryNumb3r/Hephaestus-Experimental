@@ -7,7 +7,7 @@ import java.util.Objects;
  * Created: 20.03.2019
  * Accepts all input as long as the condition evaluates to true (even the empty string).
  */
-public class OptionalConsumer extends AbstractParseNode implements CharSequence {
+public class OptionalConsumer implements ParseNode, CharSequence {
     /*package*/ final StringBuilder _buffer;
     /*package*/ final CharPredicate _acceptCondition;
 
@@ -16,18 +16,25 @@ public class OptionalConsumer extends AbstractParseNode implements CharSequence 
         _acceptCondition = acceptCondition;
     }
 
-    @Override
-    protected ParseResult parseImpl(String chars, int index) {
+    public ParseResult parse(String chars, int index) {
+        if (chars.length() == index) return ParseResult.at(index);
 
         char ch = chars.charAt(index);
         while (_acceptCondition.test(ch)) {
 
             // TODO: Add range of characters after loop.
             _buffer.append(ch);
-            ch = chars.charAt(++index);
+            if (chars.length() == ++index) return ParseResult.at(index);
+
+            ch = chars.charAt(index);
         }
 
         return ParseResult.at(index);
+    }
+
+    @Override
+    public String asString() {
+        return toString();
     }
 
     @Override
@@ -50,7 +57,6 @@ public class OptionalConsumer extends AbstractParseNode implements CharSequence 
         return _buffer.toString();
     }
 
-    @Override
     public OptionalConsumer deepCopy() {
         var copy = new OptionalConsumer(_acceptCondition);
         copy._buffer.append(_buffer);
