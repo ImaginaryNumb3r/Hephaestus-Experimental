@@ -56,14 +56,16 @@ public final class JNumber extends AbstractParseNode implements CopyNode<JNumber
 
         var buffer = new StringBuilder();
         int nextIndex = index;
+        boolean endReached = false;
 
-        while (canParse(ch)) {
+        while (canParse(ch) && !endReached) {
             buffer.append(ch);
             ++nextIndex;
-            if (chars.length() == nextIndex)
-                ParseResult.invalid(index, "Index is larger than document length.");
 
-            ch = chars.charAt(nextIndex);
+            endReached = nextIndex == chars.length();
+            if (!endReached) {
+                ch = chars.charAt(nextIndex);
+            }
         }
 
         String numberStr = buffer.toString();
