@@ -16,8 +16,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<junit.version>4.12</junit.version>
 		<main.class>src.Main</main.class>
-		<maven.compiler.target>12</maven.compiler.target>
-		<maven.compiler.source>12</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
+		<maven.compiler.source>11</maven.compiler.source>
 	</properties>
 
 	<dependencies>
@@ -36,6 +36,11 @@
 			<groupId>com.github.ImaginaryNumb3r</groupId>
 			<artifactId>Hephaestus-graphs</artifactId>
 			<version>0.1</version>
+        </dependency>
+        <dependency>
+			<groupId>com.github.ImaginaryNumb3r</groupId>
+			<artifactId>Hephaestus-Collections</artifactId>
+			<version>1.0.3</version>
         </dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>

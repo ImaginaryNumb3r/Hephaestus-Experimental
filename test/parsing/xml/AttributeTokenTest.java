@@ -7,6 +7,6 @@ package parsing.xml;
  */
 public class AttributeTokenTest {
 
-    // TODO: Add tests for copy, equals, parse and tostring.
+    // TODO: Add tests for copy, equals, consume and tostring.
 
 }

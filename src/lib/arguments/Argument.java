@@ -1,55 +1,22 @@
 package lib.arguments;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Set;
 
 /**
- * Creator: Patrick
- * Created: 17.05.2019
- * Purpose:
+ * @author Patrick Plieschnegger
+ * @param T return type
  */
-public class Argument { // TODO: Polymorphism. Split into different argument types via inheritance: Array, Value, None, Optional (value inherits optional).
-    private final String _name;
-    // private List<String> _value;
-    private String _value;
-    private final ArgumentOption _option;
+public interface Argument<T> {
 
-    protected Argument(String name, String value, ArgumentOption option) {
-        _value = value;
-        _option = option;
-        _name = name;
-    }
+    Set<String> names();
 
-    protected void setValue(String value) {
-        if (_option == ArgumentOption.NONE)
+    void setValue(T value);
 
-        _value = value;
-    }
+    T getValue();
 
-    public String getName() {
-        return _name;
-    }
+    String getDescription();
 
-    public ArgumentOption getOption() {
-        return _option;
-    }
+    void setDescription(String description);
 
-    public String getValue() {
-        return _value;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Argument argument = (Argument) o;
-        return Objects.equals(_name, argument._name) &&
-                _option == argument._option;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(_name, _option);
-    }
 }
