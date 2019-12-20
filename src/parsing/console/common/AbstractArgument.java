@@ -1,6 +1,6 @@
 package parsing.console.common;
 
-import lib.Result;
+import essentials.contract.Result;
 import org.jetbrains.annotations.NotNull;
 import parsing.console.Argument;
 

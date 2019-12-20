@@ -7,6 +7,7 @@ import java.util.function.BinaryOperator;
 /**
  * @author Patrick Plieschnegger
  */
+@Deprecated // Use Maps from hephaestus collections instead
 public final class Maps {
 
     public static <K, V> Map<K, V> leftRecursiveJoin(Map<K, V>... primary) {

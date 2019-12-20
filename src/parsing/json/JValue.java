@@ -45,6 +45,35 @@ public class JValue extends AbstractParseNode implements CopyNode<JValue> {
         return ParseResult.invalid(index, "Cannot parse value");
     }
 
+    public JValueType getType() {
+        return _type;
+    }
+
+    public boolean isBoolean() {
+        return _type == JValueType.BOOL;
+    }
+
+    public boolean isObject() {
+        return _type == JValueType.OBJECT;
+    }
+
+    public boolean isArray() {
+        return _type == JValueType.ARRAY;
+    }
+
+    public boolean isString() {
+        return _type == JValueType.STRING;
+    }
+
+    public boolean isNumber() {
+        return _type == JValueType.NUMBER;
+    }
+
+    public boolean isNull() {
+        return _type == JValueType.NULL;
+    }
+
+
     private ParseResult tryParse(ParseNode node, String chars, int index) {
         return node.parse(chars, index);
     }

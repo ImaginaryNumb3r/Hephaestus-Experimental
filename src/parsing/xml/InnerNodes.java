@@ -1,6 +1,6 @@
 package parsing.xml;
 
-import lib.Nulls;
+import essentials.util.Nulls;
 import parsing.model.CopyNode;
 import parsing.model.MultiNode;
 import parsing.model.ParseResult;

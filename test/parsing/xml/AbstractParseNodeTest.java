@@ -69,7 +69,7 @@ public class AbstractParseNodeTest {
         var result = token.parse(data, 0);
         long after = System.currentTimeMillis();
 
-        System.out.println("Time to consume: " + (after - before));
+        // System.out.println("Time to consume: " + (after - before));
 
         String message = "Asserting that the token could be parsed fails for: " + data;
         assertTrue(message, result.isValid());

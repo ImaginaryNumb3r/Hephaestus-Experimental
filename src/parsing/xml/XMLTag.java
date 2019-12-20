@@ -61,6 +61,10 @@ public class XMLTag extends AbstractParseNode implements CopyNode<XMLTag> {
                 .findAny();
     }
 
+    /**
+     * The comparison is case-sensitive.
+     * @return the attribute token if one with the given name exists, else null.
+     */
     public AttributeToken getAttribute(String attributeName) {
         return attributes().stream()
                 .filter(attribute -> attribute.getName().equals(attributeName))
@@ -68,7 +72,11 @@ public class XMLTag extends AbstractParseNode implements CopyNode<XMLTag> {
                 .orElse(null);
     }
 
-    public boolean hasAttributes(String attributeName) {
+    /**
+     * The comparison is case-sensitive.
+     * @return true if one attribute matches with the parameter string.
+     */
+    public boolean hasAttribute(String attributeName) {
         return attributes().stream()
                 .anyMatch(attribute -> attribute.getName().equals(attributeName));
     }
@@ -102,10 +110,6 @@ public class XMLTag extends AbstractParseNode implements CopyNode<XMLTag> {
     public void setData(XMLTag other) {
         _head.setData(other._head);
         _tail.setData(other._tail);
-
-        if (!equals(other)) {
-            throw new IllegalStateException();
-        }
     }
 
     @Override

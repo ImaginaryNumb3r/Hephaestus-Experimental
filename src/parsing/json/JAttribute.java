@@ -26,6 +26,42 @@ public final class JAttribute extends SequenceNode implements CopyNode<JAttribut
         );
     }
 
+    public String getKey() {
+        return _key.toString();
+    }
+
+    public JValue getValue() {
+        return _value;
+    }
+
+    public JValueType getType() {
+        return _value.getType();
+    }
+
+    public boolean isBoolean() {
+        return _value.isBoolean();
+    }
+
+    public boolean isObject() {
+        return _value.isObject();
+    }
+
+    public boolean isArray() {
+        return _value.isArray();
+    }
+
+    public boolean isString() {
+        return _value.isString();
+    }
+
+    public boolean isNumber() {
+        return _value.isNumber();
+    }
+
+    public boolean isNull() {
+        return _value.isNull();
+    }
+
     @Override
     public void setData(JAttribute other) {
         super.setData(other);

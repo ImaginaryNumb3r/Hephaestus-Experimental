@@ -9,6 +9,7 @@ import java.util.ListIterator;
  * @author Patrick Plieschnegger
  */
 @FunctionalInterface
+@Deprecated // Use from essentials collection instead.
 public interface ListIterable<T> extends Iterable<T> {
 
     @NotNull

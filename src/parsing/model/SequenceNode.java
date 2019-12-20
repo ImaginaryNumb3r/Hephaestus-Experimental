@@ -1,7 +1,7 @@
 package parsing.model;
 
+import essentials.util.Strings;
 import lib.ListIterable;
-import lib.Strings;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;

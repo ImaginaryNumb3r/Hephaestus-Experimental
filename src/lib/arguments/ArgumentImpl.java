@@ -1,7 +1,7 @@
 package lib.arguments;
 
 import collections.Sets;
-import lib.Strings;
+import essentials.util.Strings;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;

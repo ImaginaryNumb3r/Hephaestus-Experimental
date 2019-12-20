@@ -32,6 +32,16 @@
 			<artifactId>org.eclipse.jgit</artifactId>
 			<version>5.2.1.201812262042-r</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.ImaginaryNumb3r</groupId>
+			<artifactId>Hephaestus-graphs</artifactId>
+			<version>0.1</version>
+		</dependency>
+        <dependency>
+			<groupId>com.github.ImaginaryNumb3r</groupId>
+			<artifactId>Hephaestus-essentials</artifactId>
+			<version>1.1.1</version>
+        </dependency>
         <dependency>
 			<groupId>com.github.ImaginaryNumb3r</groupId>
 			<artifactId>Hephaestus-graphs</artifactId>
@@ -40,7 +50,7 @@
         <dependency>
 			<groupId>com.github.ImaginaryNumb3r</groupId>
 			<artifactId>Hephaestus-Collections</artifactId>
-			<version>1.0.3</version>
+			<version>1.0.2</version>
         </dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>

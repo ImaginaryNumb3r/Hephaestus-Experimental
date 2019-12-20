@@ -1,6 +1,6 @@
 package parsing.model;
 
-import lib.Nulls;
+import essentials.util.Nulls;
 
 import java.util.Objects;
 import java.util.Optional;

@@ -1,8 +1,8 @@
 package parsing.console.arguments;
 
 import essentials.annotations.Positive;
-import lib.EnumNotPresentException;
-import lib.Range;
+import essentials.contract.EnumNotPresentException;
+import essentials.util.Range;
 import org.jetbrains.annotations.NotNull;
 import parsing.console.Argument;
 import parsing.console.MultiArgument;
@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-import static lib.Range.range;
+import static essentials.util.Range.range;
+
 
 /**
  * @author Patrick Plieschnegger
