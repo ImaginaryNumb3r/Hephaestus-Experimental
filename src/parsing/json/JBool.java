@@ -4,6 +4,9 @@ import parsing.model.AbstractParseNode;
 import parsing.model.CopyNode;
 import parsing.model.ParseResult;
 
+import java.util.Objects;
+import java.util.Optional;
+
 /**
  * Creator: Patrick
  * Created: 28.10.2019
@@ -11,11 +14,11 @@ import parsing.model.ParseResult;
  *          ( 'False' | 'FALSE' | 'false' | ... )
  */
 public final class JBool extends AbstractParseNode implements CopyNode<JBool> {
+    private static final String FALSE = "false";
+    private static final String TRUE = "true";
     private static final int INVALID = -1;
     private boolean _value;
     private boolean _parsed = false;
-    private static final String FALSE = "false";
-    private static final String TRUE = "true";
 
     public JBool() { }
 
@@ -48,6 +51,14 @@ public final class JBool extends AbstractParseNode implements CopyNode<JBool> {
                 : INVALID;
     }
 
+    public Boolean getBool() {
+        return _parsed ? _value : null;
+    }
+
+    public Optional<Boolean> fetchBool() {
+        return _parsed ? Optional.of(_value) : Optional.empty();
+    }
+
     @Override
     public String toString() {
         return _parsed ? Boolean.toString(_value) : "unparsed bool";
@@ -60,21 +71,26 @@ public final class JBool extends AbstractParseNode implements CopyNode<JBool> {
 
     @Override
     public int hashCode() {
-        return 0;
+        return Objects.hash(_value);
     }
 
     @Override
     public JBool deepCopy() {
-        return null;
+        JBool copy = new JBool();
+        copy.setData(this);
+
+        return copy;
     }
 
     @Override
     public void setData(JBool other) {
-
+        _value = other._value;
+        _parsed = other._parsed;
     }
 
     @Override
     public void reset() {
-
+        _value = false;
+        _parsed = false;
     }
 }

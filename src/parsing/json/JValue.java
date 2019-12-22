@@ -5,6 +5,7 @@ import parsing.model.*;
 
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Creator: Patrick
@@ -71,6 +72,28 @@ public class JValue extends AbstractParseNode implements CopyNode<JValue> {
 
     public boolean isNull() {
         return _type == JValueType.NULL;
+    }
+
+    public Optional<Boolean> fetchBoolean() {
+        return isBoolean() ? ((JBool) _value).fetchBool() : Optional.empty();
+    }
+
+    public Boolean getBoolean() {
+        return ((JBool) _value).getBool();
+    }
+
+    public JObject getObject() {
+        return isObject() ? ((JObject) _value) : null;
+    }
+
+    public Optional<JArray> fetchArray() {
+        throw new NoImplementationException();
+        // TODO: return isBoolean() ? ((JArray) _value).fetchBool() : Optional.empty();
+    }
+
+    public JArray getArray() {
+        throw new NoImplementationException();
+        // TODO: return ((JArray) _value).getBool();
     }
 
 

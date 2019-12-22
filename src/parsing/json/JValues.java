@@ -14,7 +14,8 @@ import static java.util.Arrays.asList;
 /**
  * Creator: Patrick
  * Created: 27.10.2019
- * Grammar: (',' JValues)*
+ * Grammar: JValue (',' JValue)*
+ * // TODO: Consider moving this to the normal model package.
  */
 /*package*/ final class JValues extends SequenceNode implements CopyNode<JValues> {
     private final JValue _first;
@@ -45,8 +46,8 @@ import static java.util.Arrays.asList;
         return other;
     }
 
-    public List<JValue> getValues() {
-        List<JValue> values = new ArrayList<>();
+    public ArrayList<JValue> getValues() {
+        ArrayList<JValue> values = new ArrayList<>();
         values.add(_first);
 
         _values.stream()

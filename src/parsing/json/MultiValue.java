@@ -16,8 +16,12 @@ import java.util.function.Supplier;
     private final T _value;
 
     public MultiValue(Supplier<T> valueConstructor) {
+        this(valueConstructor, valueConstructor.get());
+    }
+
+    public MultiValue(Supplier<T> valueConstructor, T defaultValue) {
         _valueConstructor = valueConstructor;
-        _value = valueConstructor.get();
+        _value = defaultValue;
 
         _sequence.addAll(
                 Arrays.asList(
