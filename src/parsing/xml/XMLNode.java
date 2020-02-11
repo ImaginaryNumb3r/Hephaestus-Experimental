@@ -12,6 +12,7 @@ import java.util.Optional;
  * May be a getTag or a comment.
  * Grammar: Whitespace [ CommentTag | XMLTag ]
  *          Whitespace [ CommentTag | '<' "Name" Attributes Whitespace ( ( '>' InnerNodes '</' "Name" '>' ) | '/>' ) ]
+ * TODO: Turn Comment into separate Node
  */
 public class XMLNode extends EitherNode<XMLTag, CommentToken> implements CopyNode<XMLNode> {
     private final WhitespaceToken _leadingWhitespace;

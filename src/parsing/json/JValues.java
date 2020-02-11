@@ -16,6 +16,7 @@ import static java.util.Arrays.asList;
  * Created: 27.10.2019
  * Grammar: JValue (',' JValue)*
  * // TODO: Consider moving this to the normal model package.
+ * // TODO: Change implementation from a MultiValue node to a MultiNode with intermediate values that are saved in a separate list.
  */
 /*package*/ final class JValues extends SequenceNode implements CopyNode<JValues> {
     private final JValue _first;
