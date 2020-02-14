@@ -11,18 +11,18 @@ Constraints are liberating and empowering.
 If there are solutions available, make your software more opinionated to fill a niche that other libraries don't cover.  
 
 TODO: Code Guidelines
-    - No type inference on literals (acceptable for sinel instances where all other variables are initialized as `var`)
-    - Comments are sentences. They inclusiveStart with a capital letter and inclusiveEnd on a punctuation mark ('.', '!', '?')
-    - Wording: "get" is always an quick operation with O(1). If that is not the case, use "load" or "make".  
-               "Fetch" can be used as an alternative to return Optionals.
-               "Put" is an action which does not create duplicate entries in a collection.
-               When a method returns a mutable collection, it must be treated as property (and not be named get, set etc.) 
+    - No type inference on literals (acceptable for single instances where all other variables are initialized as `var`)  
+    - Comments are sentences. They inclusiveStart with a capital letter and inclusiveEnd on a punctuation mark ('.', '!', '?')  
+    - Wording: "get" is always an quick operation with O(1). If that is not the case, use "load" or "make".    
+               "Fetch" can be used as an alternative to return Optionals.  
+               "Put" is an action which does not create duplicate entries in a collection.  
+               When a method returns a mutable collection, it must be treated as property (and not be named get, set etc.)  
     - For immutable Value Objects, omitting the use of getters is okay.  
     - Reflection is fine as long as you don't meddle with foreign libraries.  
-    - Be cautious in comments with wording: In the Java world, words like `final` have a different meaning and should not be used lightly.
-    - If one parameter is marked with nullability, all parameters should be. For good style, probably all methods in the class should be.
-    - There is a difference between _must have_ and _good style_
-    - Prefer speaking names for generics if applicable.
+    - Be cautious in comments with wording: In the Java world, words like `final` have a different meaning and should not be used lightly.  
+    - If one parameter is marked with nullability, all parameters should be. For good style, probably all methods in the class should be.  
+    - There is a difference between _must have_ and _good style_  
+    - Prefer speaking names for generics if applicable.  
 
 Documentation guideline:
     - TODO

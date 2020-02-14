@@ -3,7 +3,7 @@ package parsing.model;
 /**
  * Creator: Patrick
  * Created: 20.03.2019
- * A token that parses all characters while the condition is met.
+ * A token that keeps parsing all characters until a condition is met.
  */
 public final class StringToken extends OptionalConsumer implements CopyNode<StringToken> {
 

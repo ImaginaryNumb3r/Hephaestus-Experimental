@@ -15,10 +15,6 @@ public final class TextToken extends ConsumerNode implements CopyNode<TextToken>
     }
 
     public void setText(CharSequence text) {
-        /* if (text.isBlank()) {
-            throw new IllegalArgumentException("Cannot set value of Text to blank strings.");
-        }*/
-
         _buffer.setLength(0);
         _buffer.append(text);
     }
