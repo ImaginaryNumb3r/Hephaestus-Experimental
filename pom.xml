@@ -7,7 +7,7 @@
 
 	<groupId>net.imaginary</groupId>
 	<artifactId>hephaestus-experimental</artifactId>
-	<version>0.2</version>
+	<version>0.1</version>
 	<packaging>jar</packaging>
 
 	<name>hephaestus-experimental</name>
@@ -32,20 +32,15 @@
 			<artifactId>org.eclipse.jgit</artifactId>
 			<version>5.2.1.201812262042-r</version>
 		</dependency>
-		<dependency>
-			<groupId>com.github.ImaginaryNumb3r</groupId>
-			<artifactId>Hephaestus-graphs</artifactId>
-			<version>0.1</version>
-		</dependency>
         <dependency>
 			<groupId>com.github.ImaginaryNumb3r</groupId>
-			<artifactId>Hephaestus-essentials</artifactId>
-			<version>1.1.1</version>
+			<artifactId>Hephaestus-Essentials</artifactId>
+			<version>1.1.2</version>
         </dependency>
         <dependency>
 			<groupId>com.github.ImaginaryNumb3r</groupId>
-			<artifactId>Hephaestus-graphs</artifactId>
-			<version>0.1</version>
+			<artifactId>Hephaestus-Graphs</artifactId>
+			<version>0.2</version>
         </dependency>
         <dependency>
 			<groupId>com.github.ImaginaryNumb3r</groupId>
