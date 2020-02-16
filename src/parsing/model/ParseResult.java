@@ -10,7 +10,7 @@ import java.util.*;
  * Created: 26.03.2019
  * Purpose:
  */
-public class ParseResult {
+public final class ParseResult {
     private final int _cursorPosition;
     private final String _message;
     private final boolean _isValid;
@@ -33,6 +33,10 @@ public class ParseResult {
 
     public List<ParseResult> innerErrors() {
         return _innerErrors;
+    }
+
+    public void ifValid(Runnable runnable) {
+        if (isValid()) runnable.run();
     }
 
     public boolean isValid() {

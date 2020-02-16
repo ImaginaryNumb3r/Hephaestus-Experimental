@@ -2,23 +2,22 @@ package parsing.model;
 
 import essentials.annotations.Package;
 import org.jetbrains.annotations.NotNull;
-
 import java.util.Objects;
 
 /**
  * Creator: Patrick
  * Created: 20.03.2019
- * Accepts all input as long as the condition evaluates to true.
+ * Accepts all input as long as the condition evaluates to true (even the empty string).
  * Also terminates if the end of the input was reached.
  *
  * @implNote does not extend AbstractParseNode since its built-in range check would violate the empty string policy of this Consumer.
  *           Since an empty string at the end of the document is possible and likely.
  */
 public class OptionalConsumer implements ParseNode, CharSequence {
-    @Package final StringBuilder _buffer;
-    @Package final CharPredicate _acceptCondition;
+    /*package*/ final StringBuilder _buffer;
+    /*package*/ final CharPredicate _acceptCondition;
 
-    @Package OptionalConsumer(CharPredicate acceptCondition) {
+    /*package*/ OptionalConsumer(CharPredicate acceptCondition) {
         _buffer = new StringBuilder();
         _acceptCondition = acceptCondition;
     }
@@ -69,7 +68,6 @@ public class OptionalConsumer implements ParseNode, CharSequence {
         return _buffer.toString();
     }
 
-    @Override
     public OptionalConsumer deepCopy() {
         var copy = new OptionalConsumer(_acceptCondition);
         copy._buffer.append(_buffer);

@@ -7,7 +7,7 @@ import java.util.Objects;
  * Created: 20.03.2019
  * Purpose:
  */
-public class CharTerminal extends AbstractParseNode implements CopyNode<CharTerminal> {
+public final class CharTerminal extends AbstractParseNode implements CopyNode<CharTerminal> {
     private final char _character;
 
     public CharTerminal(char character) {

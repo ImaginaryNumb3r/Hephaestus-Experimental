@@ -16,7 +16,7 @@ import static java.util.Collections.singletonList;
 /**
  * Creator: Patrick
  * Created: 25.03.2019
- * Purpose:
+ * Purpose: Prolog? XMLTag Whitespace
  */
 public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocument>, XMLStreamable {
     private final XMLProlog _prologue;
@@ -141,6 +141,7 @@ public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocume
     public void reset() {
         _prologue.reset();
         _root.reset();
+        _trailingWhitespace.reset();
     }
 
     @Override
@@ -150,7 +151,8 @@ public class XMLDocument extends AbstractParseNode implements CopyNode<XMLDocume
         XMLDocument that = (XMLDocument) o;
         return Objects.equals(_prologue, that._prologue) &&
                 Objects.equals(_root, that._root) &&
-                Objects.equals(_prologueWhitespace, that._prologueWhitespace);
+                Objects.equals(_prologueWhitespace, that._prologueWhitespace) &&
+                Objects.equals(_trailingWhitespace, that._trailingWhitespace);
     }
 
     @Override

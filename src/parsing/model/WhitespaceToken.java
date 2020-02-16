@@ -3,9 +3,9 @@ package parsing.model;
 /**
  * Creator: Patrick
  * Created: 20.03.2019
- * Series of zero to arbitrary whitespace characters.
+ * Series of no or arbitrary whitespace characters.
  */
-public class WhitespaceToken extends OptionalConsumer implements CopyNode<WhitespaceToken> {
+public final class WhitespaceToken extends OptionalConsumer implements CopyNode<WhitespaceToken> {
 
     public WhitespaceToken() {
         super(Character::isWhitespace);

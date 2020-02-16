@@ -149,10 +149,10 @@
 						Prev = CurDrawablePrevAnimationState()
 						if Prev == "STATE_stunned_flailing" then
 						CurDrawableSetTransitionAnimState("STATE_stunned_landing")
-						end
+						inclusiveEnd
 						if Prev == "STATE_Selected" then
 						CurDrawableSetTransitionAnimState("TRANS_SelectedToIdle")
-						end
+						inclusiveEnd
 					</Script>
 				</AnimationState>
 				<AnimationState
@@ -261,7 +261,7 @@
 						Prev = CurDrawablePrevAnimationState()
 						if Prev ~= "STATE_Suppressed" and Prev ~= "TRANS_toSuppressed" then
 						CurDrawableSetTransitionAnimState("TRANS_toSuppressed")
-						end
+						inclusiveEnd
 					</Script>
 				</AnimationState>
 				<AnimationState
@@ -419,7 +419,7 @@
 						Prev = CurDrawablePrevAnimationState()
 						if Prev == "STATE_Idle" then
 						CurDrawableSetTransitionAnimState("TRANS_IdleToSelected")
-						end
+						inclusiveEnd
 					</Script>
 				</AnimationState>
 				<AnimationState

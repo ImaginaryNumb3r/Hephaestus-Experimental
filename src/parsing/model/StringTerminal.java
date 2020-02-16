@@ -3,12 +3,23 @@ package parsing.model;
 import java.util.Objects;
 
 /**
- * @author Patrick Plieschnegger
+ * A terminal with length 1 or more. An empty literal is not permitted.
+ * Terminals are immutable and an attempt to change the state will throw an exception.
  */
-public class StringTerminal extends AbstractParseNode implements CopyNode<StringTerminal> {
+public final class StringTerminal extends AbstractParseNode implements CopyNode<StringTerminal> {
     private final String _terminal;
 
-    public StringTerminal(String terminal) {_terminal = terminal;}
+    /**
+     * @param terminal value of the terminal that may not be empty.
+     * @throws IllegalArgumentException if the provided string is empty.
+     */
+    public StringTerminal(String terminal) {
+        if (terminal.isEmpty()) {
+            throw new IllegalArgumentException("Cannot create terminal from an empty string.");
+        }
+
+        _terminal = terminal;
+    }
 
     @Override
     protected ParseResult parseImpl(String chars, int index) {
@@ -33,8 +44,10 @@ public class StringTerminal extends AbstractParseNode implements CopyNode<String
     }
 
     @Override
-    public void setData(StringTerminal violation) {
-        throw new UnsupportedOperationException("Cannot mutate terminal tokens.");
+    public void setData(StringTerminal other) {
+        if (!this.equals(other) ) {
+            throw new UnsupportedOperationException("Cannot mutate terminal tokens.");
+        }
     }
 
     @Override

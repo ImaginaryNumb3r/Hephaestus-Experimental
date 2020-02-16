@@ -69,7 +69,5 @@ public class XMLDocumentTest extends AbstractParseNodeTest {
 
         assertEquals(idAttribute.getName(), "id");
         assertEquals(idAttribute.getValue(), "BlackHandConfessorSquad");
-
-        System.out.println();
     }
 }

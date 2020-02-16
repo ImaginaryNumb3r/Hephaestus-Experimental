@@ -1,7 +1,8 @@
 package parsing.model;
 
 import essentials.collections.IterableList;
-import lib.Strings;
+import essentials.util.Strings;
+import lib.ListIterable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -10,7 +11,8 @@ import java.util.stream.Collectors;
 /**
  * Creator: Patrick
  * Created: 20.03.2019
- * Purpose:
+ * This node represents a fixed sequence of nodes of different types.
+ * The purpose of this node is to be used for code re-use via inheritance.
  */
 public class SequenceNode extends AbstractParseNode implements IterableList<ParseNode> {
     protected final List<ParseNode> _sequence;
@@ -23,6 +25,10 @@ public class SequenceNode extends AbstractParseNode implements IterableList<Pars
         _sequence = new ArrayList<>(sequence);
     }
 
+    public SequenceNode() {
+        _sequence = new ArrayList<>();
+    }
+
     @Override
     protected ParseResult parseImpl(String chars, final int index) {
 
@@ -31,7 +37,7 @@ public class SequenceNode extends AbstractParseNode implements IterableList<Pars
         for (ParseNode element : _sequence) {
             result = element.parse(chars, nextIndex);
 
-            if (!result.isValid()) {
+            if (result.isInvalid()) {
                 return result;
             }
             nextIndex = result.index();

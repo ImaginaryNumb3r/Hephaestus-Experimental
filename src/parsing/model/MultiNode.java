@@ -1,18 +1,20 @@
 package parsing.model;
 
 import essentials.collections.IterableList;
-import lib.Strings;
+import essentials.util.Strings;
 import org.jetbrains.annotations.NotNull;
-import parsing.xml.XMLComments;
 
 import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Creator: Patrick
  * Created: 20.03.2019
+ * This is a node which represents multiple subsequent nodes of the same kind.
  * This node never returns invalid.
+ * Grammar: T*
  */
 public class MultiNode<T extends CopyNode<T>> extends AbstractParseNode implements IterableList<T> {
     protected final List<T> _elements;
@@ -27,17 +29,18 @@ public class MultiNode<T extends CopyNode<T>> extends AbstractParseNode implemen
      * @return Never returns INVALID. If nothing could be parsed, the return value is the same as the index parameter.
      */
     @Override
-    protected ParseResult parseImpl(String chars, int index) {
+    protected ParseResult parseImpl(String chars, final int index) {
         T token = _tokenConstructor.get();
 
         ParseResult result = ParseResult.at(index);
+        int nextIndex = index;
         boolean isParsing = true;
         while (isParsing) {
-            var next = token.parse(chars, index);
+            var next = token.parse(chars, nextIndex);
             isParsing = next.isValid();
 
             if (isParsing) {
-                index = next.index();
+                nextIndex = next.index();
                 result = next;
                 _elements.add(token);
                 token = _tokenConstructor.get();
@@ -66,8 +69,8 @@ public class MultiNode<T extends CopyNode<T>> extends AbstractParseNode implemen
     @Override
     public MultiNode<T> deepCopy() {
         List<T> elements = _elements.stream()
-            .map(CopyNode::deepCopy)
-            .collect(Collectors.toList());
+                .map(CopyNode::deepCopy)
+                .collect(Collectors.toList());
 
         MultiNode<T> copy = new MultiNode<>(_tokenConstructor);
         copy._elements.addAll(elements);
@@ -80,6 +83,11 @@ public class MultiNode<T extends CopyNode<T>> extends AbstractParseNode implemen
     public ListIterator<T> listIterator() {
         return _elements.listIterator(0);
     }
+
+    public Stream<T> stream() {
+        return _elements.stream();
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -109,4 +117,5 @@ public class MultiNode<T extends CopyNode<T>> extends AbstractParseNode implemen
     public int hashCode() {
         return Objects.hash(_elements);
     }
+
 }

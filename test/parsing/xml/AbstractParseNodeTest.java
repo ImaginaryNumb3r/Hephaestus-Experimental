@@ -69,18 +69,16 @@ public class AbstractParseNodeTest {
         var result = token.parse(data, 0);
         long after = System.currentTimeMillis();
 
-        System.out.println("Time to parse: " + (after - before));
-
         String message = "Asserting that the token could be parsed fails for: " + data;
         assertTrue(message, result.isValid());
 
-        message = "Asserting that the parse index is correct fails for: " + data;
+        message = "Asserting that the consume index is correct fails for: " + data;
         assertEquals(message, expectedParseLength, result.index());
 
-        message = "Comparison between parse output and expected output fails";
+        message = "Comparison between consume output and expected output fails";
         assertEquals(message, expected, dataSupplier.get());
 
-        message = "Raw comparison between parse input and output fails";
+        message = "Raw comparison between consume input and output fails";
         assertEquals(message, data, toString.get());
 
         message = "Asserting that a copy is equal failed for: " + token.getClass().getName();

@@ -10,9 +10,11 @@ import java.util.Optional;
 /**
  * Creator: Patrick
  * Created: 21.03.2019
- * Grammar: Whitespace [ CommentTag | XMLTag ]
- *          Whitespace [ CommentTag | <Name Attributes Whitespace ( ( > InnerNodes </Name> ) | /> ) ]
  * May be a Tag or a comment.
+ * May be a getTag or a comment.
+ * Grammar: Whitespace [ CommentTag | XMLTag ]
+ *          Whitespace [ CommentTag | '<' "Name" Attributes Whitespace ( ( '>' InnerNodes '</' "Name" '>' ) | '/>' ) ]
+ * TODO: Turn Comment into separate Node
  */
 public class XMLNode extends EitherNode<XMLTag, CommentToken> implements CopyNode<XMLNode>, Serializable {
     private final WhitespaceToken _leadingWhitespace;
@@ -36,7 +38,7 @@ public class XMLNode extends EitherNode<XMLTag, CommentToken> implements CopyNod
     }
 
     public Optional<String> getCommentContent() {
-        return second().map(ContentToken::getContent);
+        return second().map(ContentNode::getContent);
     }
 
     public String getLeadingWhitespace() {

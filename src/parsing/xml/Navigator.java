@@ -2,14 +2,17 @@ package parsing.xml;
 
 import java.nio.file.Path;
 import java.util.*;
+import collections.iterator.Iterators;
+import essentials.annotations.Unfinished;
 
 import static java.util.Arrays.asList;
 
 /**
  * Creator: Patrick
  * Created: 05.04.2019
- * Purpose:
+ * TODO: Either finish or remove.
  */
+@Unfinished
 public class Navigator {
 
     public static Optional<XMLTag> getTag(XMLDocument root, Path path) {

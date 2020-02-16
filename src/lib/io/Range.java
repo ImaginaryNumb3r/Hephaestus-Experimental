@@ -1,7 +1,7 @@
 package lib.io;
 
 import essentials.annotations.ToTest;
-import lib.Strings;
+import essentials.util.Strings;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;

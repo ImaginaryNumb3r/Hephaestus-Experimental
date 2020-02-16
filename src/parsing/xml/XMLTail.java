@@ -10,7 +10,7 @@ import static java.util.Collections.emptyList;
 /**
  * Creator: Patrick
  * Created: 21.03.2019
- * Grammar: ( > InnerNodes </Name> ) | />
+ * Grammar: ( '>' InnerNodes '</' "Name" '>' ) | '/>'
  */
 public class XMLTail extends SequenceNode implements CopyNode<XMLTail> {
     private static final StringTerminal FALLBACK = new StringTerminal("/>");

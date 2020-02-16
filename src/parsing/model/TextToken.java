@@ -12,18 +12,14 @@ import java.util.Set;
  *
  * Minor design flaw: Can be set to empty.
  */
-public class TextToken extends ConsumerNode implements CopyNode<TextToken> {
+public final class TextToken extends ConsumerNode implements CopyNode<TextToken> {
     private static final Set<Character> ALLOWED_CHARS = Set.of('_', '.', ':', '-');
 
     public TextToken() { // TODO: Change to "not whitespace" -> character '!' could be making problems
         super(ch -> Character.isAlphabetic(ch) || Character.isDigit(ch) || ALLOWED_CHARS.contains(ch));
     }
 
-    public void setText(CharSequence text) { /*
-        if (text.length() == 0) {
-            throw new IllegalArgumentException("Cannot set value of Text to blank strings.");
-        }  */
-
+    public void setText(CharSequence text) {
         _buffer.setLength(0);
         _buffer.append(text);
     }

@@ -5,7 +5,7 @@ package parsing.model;
  * Created: 20.03.2019
  * Series of whitespaces that is at least of size 1.
  */
-public class SpaceToken extends OptionalConsumer implements CopyNode<SpaceToken> {
+public final class SpaceToken extends OptionalConsumer implements CopyNode<SpaceToken> {
 
     public SpaceToken() {
         super(Character::isWhitespace);
