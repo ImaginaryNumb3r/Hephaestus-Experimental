@@ -45,7 +45,7 @@
         <dependency>
 			<groupId>com.github.ImaginaryNumb3r</groupId>
 			<artifactId>Hephaestus-Collections</artifactId>
-			<version>1.0.2</version>
+			<version>1.0</version>
         </dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
