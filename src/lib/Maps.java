@@ -6,6 +6,7 @@ import java.util.function.BinaryOperator;
 
 /**
  * @author Patrick Plieschnegger
+ * TODO: Move to collections
  */
 @Deprecated // Use Maps from hephaestus collections instead
 public final class Maps {

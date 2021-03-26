@@ -2,7 +2,6 @@ package parsing.model;
 
 import essentials.collections.IterableList;
 import essentials.util.Strings;
-import lib.ListIterable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
