@@ -1,8 +1,0 @@
-<?xml version = "1.0" encoding = "UTF-8"?>
-<cars>
-    <supercars company = "The amazing company!">
-        <carname _type = "formula one">Ferrari 101</carname>
-        <carname _type = "sports">Ferrari 202</carname>
-        <carname _type = "int">4711</carname>
-    </supercars>
-</cars>
